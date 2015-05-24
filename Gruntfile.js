@@ -16,6 +16,11 @@ module.exports = function(grunt) {
 
         watch: {
 
+            sass: {
+              files: ['<%= yeoman.app %>/sass/**/*.{scss,sass}','<%= yeoman.app %>/sass/_partials/**/*.{scss,sass}'],
+              tasks: ['sass:app']
+            },
+
             bower: {
                 files: ['bower.json'],
                 tasks: ['injector']
@@ -53,6 +58,26 @@ module.exports = function(grunt) {
                     '<%= yeoman.app %>/img/**/*.{png,jpg,jpeg,gif,webp,svg}'
                 ]
             }
+        },
+
+        sass: {
+          options: {
+            sourceMap: false,
+            // outputStyle: 'compressed' // gets rid of white spaces
+            outputStyle: 'expanded' // allows for readability
+          },
+          app: {
+            // files: {
+              // '<%= yeoman.app %>/css/styles.css': '<%= yeoman.app %>/sass/styles.scss'
+            // }
+            files: [{
+              expand: true,
+              cwd: '<%= yeoman.app %>/sass',
+              src: ['*.scss'],
+              dest: '<%= yeoman.app %>/css',
+              ext: '.css'
+            }]
+          }
         },
 
         connect: {
@@ -397,6 +422,10 @@ module.exports = function(grunt) {
         }
     });
 
+    // grunt.registerTask('default', ['sass']);
+    // grunt.registerTask('default', ['sass:app', 'watch']);
+    // grunt.loadNpmTasks('grunt-sass');
+    // grunt.loadNpmTasks('grunt-contrib-watch');
 
     grunt.registerTask('serve', function(target) {
         if (target === 'dist') {
@@ -406,6 +435,7 @@ module.exports = function(grunt) {
 
         grunt.task.run([
             'clean:server',
+            'sass',
             'injector',
             'concurrent:server',
             'autoprefixer',
@@ -436,6 +466,7 @@ module.exports = function(grunt) {
 
     grunt.registerTask('build', [
         'clean:dist',
+        'sass',
         'injector',
         'ngdocs',
         'useminPrepare',
