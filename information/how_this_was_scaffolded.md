@@ -143,6 +143,60 @@ grunt.registerTask('default', [
 ```
 
 
+### ADDING BROWSERSYNC TO THE WORKFLOW
+
+```
+npm install grunt-browser-sync --save-dev
+```
+
+
+Then add to `Gulpfile.js` > `grunt.initConfig`
+
+```
+grunt.initConfig({
+
+    ...
+
+    sass: {
+        ...
+    },
+
+    browserSync: {
+      dev: {
+        bsFiles: {
+          src : [
+            'app/css/*.css',
+            'app/*.html'
+          ]
+        },
+        options: {
+          watchTask: true,
+          server: './app'
+        }
+      }
+    },
+
+    ...
+```
+
+and also
+
+```
+grunt.registerTask('serve', function(target) {
+    ...
+    grunt.task.run([
+        ...
+        'sass',
+        'browserSync', // allows to share preview across network
+        ...
+        // 'connect:livereload', // remove duplicate load from browsersSync
+        'watch'
+    ]);
+});
+```
+
+
 *References*
 https://www.npmjs.com/package/generator-angularjs-cordova
 http://benfrain.com/lightning-fast-sass-compiling-with-libsass-node-sass-and-grunt-sass/
+http://www.browsersync.io/docs/grunt/
