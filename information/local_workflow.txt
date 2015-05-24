@@ -1,8 +1,6 @@
-***LOCAL WORK FLOW***
+## LOCAL WORK FLOW
 
 The following information will allow you to run locally the application from either a browser, or an iOS emulator or running the app on your phone via Xcode.
-
-
 
 `grunt serve` - run the app from within the app/, on a browser and trigger grunt tasks up on changes in the fileset.
 
@@ -18,8 +16,7 @@ The following information will allow you to run locally the application from eit
 
 `cordova emulate ios` - loads the app and run it on the ios emulator, should you have properly installed the latest version of Xcode.
 
-
-*TYPICAL WORKFLOW*
+### TYPICAL WORKFLOW
 
 ```
 grunt serve
@@ -27,7 +24,7 @@ grunt build
 cordova emulate ios
 ```
 
-*LOADING WITHIN YOUR IPHONE*
+### LOADING WITHIN YOUR IPHONE
 For this you will need a developer account and will have to run the `grunt build` to make sure that you have the latest version.
 
  - Find the `hrx.xcodeproj` file in the directory `/platforms/ios/` using finder. 
@@ -38,5 +35,5 @@ For this you will need a developer account and will have to run the `grunt build
  - Make sure that your credentials are properly set up and that your iphone is open and not locked up.
 
 
-*References*
+#### References
 https://www.npmjs.com/package/generator-angularjs-cordova
