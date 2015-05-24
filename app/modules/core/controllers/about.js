@@ -8,7 +8,7 @@
  */
 angular
     .module('core')
-    .controller('AboutController', ['$scope', 'sharedScope', function($scope, sharedScope) {
-      $scope.sharedScope = sharedScope;
+    .controller('AboutController', ['$scope', 'SharedData', function($scope, SharedData) {
+      $scope.SharedData = SharedData;
       $scope.aboutVariable = 'Jules Moretti - About';
     }]);

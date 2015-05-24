@@ -8,8 +8,8 @@
  */
 angular
     .module('core')
-    .controller('HomeController', ['$scope', 'sharedScope', function($scope, sharedScope) {
-      $scope.sharedScope = sharedScope;
+    .controller('HomeController', ['$scope', 'SharedData', function($scope, SharedData) {
+      $scope.SharedData = SharedData;
       $scope.homeVariable = 'Jules Moretti - home';
       $scope.sent_over = 'type Something';
     }]);
