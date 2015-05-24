@@ -485,6 +485,7 @@ module.exports = function(grunt) {
 
     grunt.registerTask('default', [
         'newer:jshint',
+        'sass',
         'test',
         'build'
     ]);
