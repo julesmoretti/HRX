@@ -5,6 +5,7 @@ This is how this platform was setup before entering any new line of codes. Follo
 For information on how to download and run the latest version of the HRX app please read the `github_workflow.txt`
 
 
+
 *THEREFORE TO GENERATE AN ANGULARJS WITH CORDOVA*
 
 Load the Terminal Application and make sure that you are then in the user directory by typing `cd ~` and enter.

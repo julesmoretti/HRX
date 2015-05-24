@@ -3,6 +3,7 @@
 The following information will allow you to run locally the application from either a browser, or an iOS emulator or running the app on your phone via Xcode.
 
 
+
 `grunt serve` - run the app from within the app/, on a browser and trigger grunt tasks up on changes in the fileset.
 
 `grunt build` - perform various build related tasks and copies processed source to www/ (clean, minify, inject dependencies etc.,)
