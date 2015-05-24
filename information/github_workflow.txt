@@ -4,6 +4,7 @@ Work flow to download from git hub latest version of the HRX app and getting it 
 
 Assuming you have `git`, `npm` and `bower` installed on your local machine. Otherwise read the `getting_your_machine_ready.txt`.
 
+
 ### FIRST TIME GETTING THE APPLICATION UP AND RUNNING
 
 Using terminal application navigate to a directory of your chose where you would like the HRX folder to be created with all the relevant information.

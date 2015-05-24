@@ -1,7 +1,7 @@
 # HRX MOBILE APP
 *Started on May 23rd 2015*
 
-To install this repo follow the instructions located in [/information/github_workflow.txt](/information/github_workflow.txt#L7-17).
+To install this repo follow the instructions located in [/information/github_workflow.txt](/information/github_workflow.txt#L8-18).
 
 For information on how to then run and preview this application on your local machine or iPhone please read the [/information/local_workflow.txt](/information/local_workflow.txt#L19-25).
 
