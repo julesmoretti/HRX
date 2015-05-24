@@ -21,4 +21,6 @@ angular
         angular
             .bootstrap(document,
                 [ApplicationConfiguration.applicationModuleName]);
+
+        console.log('app loaded');
     });

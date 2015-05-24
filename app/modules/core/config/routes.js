@@ -26,10 +26,15 @@ angular
              * - When the path is `'/'`, route to home
              * */
             $stateProvider
-                .state('home', {
-                    url: '/',
-                    templateUrl: 'modules/core/views/home.html',
-                    controller: 'HomeController'
-                });
+              .state('home', {
+                url: '/',
+                templateUrl: 'modules/core/views/home.html',
+                controller: 'HomeController'
+              })
+              .state('about', {
+                url: '/about',
+                templateUrl: 'modules/core/views/about.html',
+                controller: 'AboutController'
+              });
         }
     ]);
