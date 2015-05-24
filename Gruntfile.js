@@ -80,6 +80,21 @@ module.exports = function(grunt) {
           }
         },
 
+        browserSync: {
+          dev: {
+            bsFiles: {
+              src : [
+                'app/css/*.css',
+                'app/*.html'
+              ]
+            },
+            options: {
+              watchTask: true,
+              server: './app'
+            }
+          }
+        },
+
         connect: {
             options: {
                 port: 9000,
@@ -422,11 +437,6 @@ module.exports = function(grunt) {
         }
     });
 
-    // grunt.registerTask('default', ['sass']);
-    // grunt.registerTask('default', ['sass:app', 'watch']);
-    // grunt.loadNpmTasks('grunt-sass');
-    // grunt.loadNpmTasks('grunt-contrib-watch');
-
     grunt.registerTask('serve', function(target) {
         if (target === 'dist') {
             console.log('dist serve');
@@ -436,10 +446,11 @@ module.exports = function(grunt) {
         grunt.task.run([
             'clean:server',
             'sass',
+            'browserSync', // allows to share preview across network
             'injector',
             'concurrent:server',
             'autoprefixer',
-            'connect:livereload',
+            // 'connect:livereload', // remove duplicate load from browsersSync
             'watch'
         ]);
     });
