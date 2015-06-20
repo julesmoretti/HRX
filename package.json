@@ -1,6 +1,6 @@
 {
   "name": "hrx",
-  "description": "Hack Reactor App built with Cordova and Angular",
+  "description": "Hack Reactor own alumni network.",
   "version": "0.0.1",
   "author": "Hack Reactor/Jules Moretti",
   "engines": {
