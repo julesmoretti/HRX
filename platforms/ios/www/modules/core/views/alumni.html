@@ -1,0 +1,14 @@
+<div style="background-color: green;">
+  <ul>
+      <li ng-repeat="subscriber in subscribers">
+          <!-- <a ui-sref=".alumn({id: subscriber.id})" > {{subscriber.name}}</a> -->
+          <a ui-sref="home.map.menu.alumni.alumn({id: subscriber.id})" > {{subscriber.name}}</a>
+          {{subscriber.email}}
+      </li>
+  </ul>
+  <div id="alumn" ui-view="alumn"></div>
+</div>
+
+
+
+

@@ -200,3 +200,7 @@ grunt.registerTask('serve', function(target) {
 https://www.npmjs.com/package/generator-angularjs-cordova
 http://benfrain.com/lightning-fast-sass-compiling-with-libsass-node-sass-and-grunt-sass/
 http://www.browsersync.io/docs/grunt/
+http://www.funnyant.com/angularjs-ui-router/
+http://daneden.github.io/animate.css/
+http://www.yearofmoo.com/2013/08/remastered-animation-in-angularjs-1-2.html
+http://support.hockeyapp.net/kb/client-integration-ios-mac-os-x/ios-device-types

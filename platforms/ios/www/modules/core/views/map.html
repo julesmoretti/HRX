@@ -1,0 +1,19 @@
+
+<!-- <div id="geolocation">Geolocation Data</div><br> -->
+<!-- localstorage - {{$storage}} -->
+
+<!-- <div ng-click="clearLocalStorage()">clear cache</div> -->
+
+<map id="ngMap" center="-34.397, 150.644" zoom="8" styles="[{stylers:[{hue:'#ff1a00'},{invert_lightness:true},{saturation:-100},{lightness:33},{gamma:0.5}]},{featureType:'water',elementType:'geometry',stylers:[{color:'#2D333C'}]}]" disable-default-u-i="true"></map>
+
+<a ui-sref="home" >home</a>
+
+<!-- FILTER TOGGLE SWITCH -->
+<div id="mapFilter" class="ion-android-more-vertical" ui-sref=".filter"></div>
+
+<!-- MENU TOGGLE SWITCH -->
+<div id="mapMenu" class="ion-android-menu" ui-sref=".menu"></div>
+
+<!-- UI VIEWS FOR FILTER AND MENU -->
+<div id="menu" ui-view="menu"></div>
+<div id="filter" ui-view="filter"></div>

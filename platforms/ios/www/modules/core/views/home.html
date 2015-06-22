@@ -1,7 +1,23 @@
-<div class="page-header">
+Home page<br>
+
+<a ui-sref=".map" >Map</a>
+<!-- <div class="page-header">
     <h1 id="home-h1">Congratulations!</h1>
 </div>
 <p id="home-content">
-    You have successfully created an AngularJs application running within a cordova app!
-    Jules 2014
+    You have successfully created an AngularJs application running within a cordova app! </br>
+    {{homeVariable}}</br>
 </p>
+<hr>
+<input ng-model="SharedData.FirstName"></input></br>
+{{SharedData.FirstName}}
+<hr>
+<div id="geolocation">Geolocation Data</div><br>
+localstorage - {{$storage}}
+
+<div ng-click="clearLocalStorage()">clear cache</div>
+<a ui-sref=".menu" >Menu</a><br>
+<a ui-sref=".filter" >Filter</a><br> -->
+<div id='deviceProperties'>
+  Loading device properties...
+</div>

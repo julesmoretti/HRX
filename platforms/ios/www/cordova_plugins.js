@@ -1,60 +1,17 @@
 cordova.define('cordova/plugin_list', function(require, exports, module) {
 module.exports = [
     {
-        "file": "plugins/org.apache.cordova.splashscreen/www/splashscreen.js",
-        "id": "org.apache.cordova.splashscreen.SplashScreen",
+        "file": "plugins/com.chariotsolutions.cordova.plugin.keyboard_toolbar_remover/www/keyboard_toolbar_remover.js",
+        "id": "com.chariotsolutions.cordova.plugin.keyboard_toolbar_remover.KeyboardToolbarRemover",
         "clobbers": [
-            "navigator.splashscreen"
+            "toolbar"
         ]
     },
     {
-        "file": "plugins/org.apache.cordova.network-information/www/network.js",
-        "id": "org.apache.cordova.network-information.network",
+        "file": "plugins/cordova-plugin-statusbar/www/statusbar.js",
+        "id": "cordova-plugin-statusbar.statusbar",
         "clobbers": [
-            "navigator.connection",
-            "navigator.network.connection"
-        ]
-    },
-    {
-        "file": "plugins/org.apache.cordova.network-information/www/Connection.js",
-        "id": "org.apache.cordova.network-information.Connection",
-        "clobbers": [
-            "Connection"
-        ]
-    },
-    {
-        "file": "plugins/org.apache.cordova.device-motion/www/Acceleration.js",
-        "id": "org.apache.cordova.device-motion.Acceleration",
-        "clobbers": [
-            "Acceleration"
-        ]
-    },
-    {
-        "file": "plugins/org.apache.cordova.device-motion/www/accelerometer.js",
-        "id": "org.apache.cordova.device-motion.accelerometer",
-        "clobbers": [
-            "navigator.accelerometer"
-        ]
-    },
-    {
-        "file": "plugins/org.apache.cordova.device-orientation/www/CompassError.js",
-        "id": "org.apache.cordova.device-orientation.CompassError",
-        "clobbers": [
-            "CompassError"
-        ]
-    },
-    {
-        "file": "plugins/org.apache.cordova.device-orientation/www/CompassHeading.js",
-        "id": "org.apache.cordova.device-orientation.CompassHeading",
-        "clobbers": [
-            "CompassHeading"
-        ]
-    },
-    {
-        "file": "plugins/org.apache.cordova.device-orientation/www/compass.js",
-        "id": "org.apache.cordova.device-orientation.compass",
-        "clobbers": [
-            "navigator.compass"
+            "window.StatusBar"
         ]
     },
     {
@@ -135,101 +92,45 @@ module.exports = [
         ]
     },
     {
-        "file": "plugins/org.apache.cordova.geolocation/www/Coordinates.js",
-        "id": "org.apache.cordova.geolocation.Coordinates",
+        "file": "plugins/org.apache.cordova.device/www/device.js",
+        "id": "org.apache.cordova.device.device",
         "clobbers": [
-            "Coordinates"
+            "device"
         ]
     },
     {
-        "file": "plugins/org.apache.cordova.geolocation/www/PositionError.js",
-        "id": "org.apache.cordova.geolocation.PositionError",
+        "file": "plugins/org.apache.cordova.device-motion/www/Acceleration.js",
+        "id": "org.apache.cordova.device-motion.Acceleration",
         "clobbers": [
-            "PositionError"
+            "Acceleration"
         ]
     },
     {
-        "file": "plugins/org.apache.cordova.geolocation/www/Position.js",
-        "id": "org.apache.cordova.geolocation.Position",
+        "file": "plugins/org.apache.cordova.device-motion/www/accelerometer.js",
+        "id": "org.apache.cordova.device-motion.accelerometer",
         "clobbers": [
-            "Position"
+            "navigator.accelerometer"
         ]
     },
     {
-        "file": "plugins/org.apache.cordova.geolocation/www/geolocation.js",
-        "id": "org.apache.cordova.geolocation.geolocation",
+        "file": "plugins/org.apache.cordova.device-orientation/www/CompassError.js",
+        "id": "org.apache.cordova.device-orientation.CompassError",
         "clobbers": [
-            "navigator.geolocation"
+            "CompassError"
         ]
     },
     {
-        "file": "plugins/org.apache.cordova.inappbrowser/www/inappbrowser.js",
-        "id": "org.apache.cordova.inappbrowser.inappbrowser",
+        "file": "plugins/org.apache.cordova.device-orientation/www/CompassHeading.js",
+        "id": "org.apache.cordova.device-orientation.CompassHeading",
         "clobbers": [
-            "window.open"
+            "CompassHeading"
         ]
     },
     {
-        "file": "plugins/org.apache.cordova.media/www/MediaError.js",
-        "id": "org.apache.cordova.media.MediaError",
+        "file": "plugins/org.apache.cordova.device-orientation/www/compass.js",
+        "id": "org.apache.cordova.device-orientation.compass",
         "clobbers": [
-            "window.MediaError"
-        ]
-    },
-    {
-        "file": "plugins/org.apache.cordova.media/www/Media.js",
-        "id": "org.apache.cordova.media.Media",
-        "clobbers": [
-            "window.Media"
-        ]
-    },
-    {
-        "file": "plugins/org.apache.cordova.media-capture/www/CaptureAudioOptions.js",
-        "id": "org.apache.cordova.media-capture.CaptureAudioOptions",
-        "clobbers": [
-            "CaptureAudioOptions"
-        ]
-    },
-    {
-        "file": "plugins/org.apache.cordova.media-capture/www/CaptureImageOptions.js",
-        "id": "org.apache.cordova.media-capture.CaptureImageOptions",
-        "clobbers": [
-            "CaptureImageOptions"
-        ]
-    },
-    {
-        "file": "plugins/org.apache.cordova.media-capture/www/CaptureVideoOptions.js",
-        "id": "org.apache.cordova.media-capture.CaptureVideoOptions",
-        "clobbers": [
-            "CaptureVideoOptions"
-        ]
-    },
-    {
-        "file": "plugins/org.apache.cordova.media-capture/www/CaptureError.js",
-        "id": "org.apache.cordova.media-capture.CaptureError",
-        "clobbers": [
-            "CaptureError"
-        ]
-    },
-    {
-        "file": "plugins/org.apache.cordova.media-capture/www/MediaFileData.js",
-        "id": "org.apache.cordova.media-capture.MediaFileData",
-        "clobbers": [
-            "MediaFileData"
-        ]
-    },
-    {
-        "file": "plugins/org.apache.cordova.media-capture/www/MediaFile.js",
-        "id": "org.apache.cordova.media-capture.MediaFile",
-        "clobbers": [
-            "MediaFile"
-        ]
-    },
-    {
-        "file": "plugins/org.apache.cordova.media-capture/www/capture.js",
-        "id": "org.apache.cordova.media-capture.capture",
-        "clobbers": [
-            "navigator.device.capture"
+            "navigator.compass"
         ]
     },
     {
@@ -377,21 +278,144 @@ module.exports = [
             "cordova"
         ],
         "runs": true
+    },
+    {
+        "file": "plugins/org.apache.cordova.geolocation/www/Coordinates.js",
+        "id": "org.apache.cordova.geolocation.Coordinates",
+        "clobbers": [
+            "Coordinates"
+        ]
+    },
+    {
+        "file": "plugins/org.apache.cordova.geolocation/www/PositionError.js",
+        "id": "org.apache.cordova.geolocation.PositionError",
+        "clobbers": [
+            "PositionError"
+        ]
+    },
+    {
+        "file": "plugins/org.apache.cordova.geolocation/www/Position.js",
+        "id": "org.apache.cordova.geolocation.Position",
+        "clobbers": [
+            "Position"
+        ]
+    },
+    {
+        "file": "plugins/org.apache.cordova.geolocation/www/geolocation.js",
+        "id": "org.apache.cordova.geolocation.geolocation",
+        "clobbers": [
+            "navigator.geolocation"
+        ]
+    },
+    {
+        "file": "plugins/org.apache.cordova.inappbrowser/www/inappbrowser.js",
+        "id": "org.apache.cordova.inappbrowser.inappbrowser",
+        "clobbers": [
+            "window.open"
+        ]
+    },
+    {
+        "file": "plugins/org.apache.cordova.media/www/MediaError.js",
+        "id": "org.apache.cordova.media.MediaError",
+        "clobbers": [
+            "window.MediaError"
+        ]
+    },
+    {
+        "file": "plugins/org.apache.cordova.media/www/Media.js",
+        "id": "org.apache.cordova.media.Media",
+        "clobbers": [
+            "window.Media"
+        ]
+    },
+    {
+        "file": "plugins/org.apache.cordova.media-capture/www/CaptureAudioOptions.js",
+        "id": "org.apache.cordova.media-capture.CaptureAudioOptions",
+        "clobbers": [
+            "CaptureAudioOptions"
+        ]
+    },
+    {
+        "file": "plugins/org.apache.cordova.media-capture/www/CaptureImageOptions.js",
+        "id": "org.apache.cordova.media-capture.CaptureImageOptions",
+        "clobbers": [
+            "CaptureImageOptions"
+        ]
+    },
+    {
+        "file": "plugins/org.apache.cordova.media-capture/www/CaptureVideoOptions.js",
+        "id": "org.apache.cordova.media-capture.CaptureVideoOptions",
+        "clobbers": [
+            "CaptureVideoOptions"
+        ]
+    },
+    {
+        "file": "plugins/org.apache.cordova.media-capture/www/CaptureError.js",
+        "id": "org.apache.cordova.media-capture.CaptureError",
+        "clobbers": [
+            "CaptureError"
+        ]
+    },
+    {
+        "file": "plugins/org.apache.cordova.media-capture/www/MediaFileData.js",
+        "id": "org.apache.cordova.media-capture.MediaFileData",
+        "clobbers": [
+            "MediaFileData"
+        ]
+    },
+    {
+        "file": "plugins/org.apache.cordova.media-capture/www/MediaFile.js",
+        "id": "org.apache.cordova.media-capture.MediaFile",
+        "clobbers": [
+            "MediaFile"
+        ]
+    },
+    {
+        "file": "plugins/org.apache.cordova.media-capture/www/capture.js",
+        "id": "org.apache.cordova.media-capture.capture",
+        "clobbers": [
+            "navigator.device.capture"
+        ]
+    },
+    {
+        "file": "plugins/org.apache.cordova.network-information/www/network.js",
+        "id": "org.apache.cordova.network-information.network",
+        "clobbers": [
+            "navigator.connection",
+            "navigator.network.connection"
+        ]
+    },
+    {
+        "file": "plugins/org.apache.cordova.network-information/www/Connection.js",
+        "id": "org.apache.cordova.network-information.Connection",
+        "clobbers": [
+            "Connection"
+        ]
+    },
+    {
+        "file": "plugins/org.apache.cordova.splashscreen/www/splashscreen.js",
+        "id": "org.apache.cordova.splashscreen.SplashScreen",
+        "clobbers": [
+            "navigator.splashscreen"
+        ]
     }
 ];
 module.exports.metadata = 
 // TOP OF METADATA
 {
-    "org.apache.cordova.splashscreen": "1.0.0",
-    "org.apache.cordova.network-information": "0.2.15",
+    "com.chariotsolutions.cordova.plugin.keyboard_toolbar_remover": "0.0.2",
+    "cordova-plugin-statusbar": "1.0.0",
+    "org.apache.cordova.contacts": "0.2.16",
+    "org.apache.cordova.device": "0.3.0",
     "org.apache.cordova.device-motion": "0.2.11",
     "org.apache.cordova.device-orientation": "0.3.11",
-    "org.apache.cordova.contacts": "0.2.16",
+    "org.apache.cordova.file": "1.3.3",
     "org.apache.cordova.geolocation": "0.3.12",
     "org.apache.cordova.inappbrowser": "0.6.0",
     "org.apache.cordova.media": "0.2.16",
     "org.apache.cordova.media-capture": "0.3.6",
-    "org.apache.cordova.file": "1.3.3"
+    "org.apache.cordova.network-information": "0.2.15",
+    "org.apache.cordova.splashscreen": "1.0.0"
 }
 // BOTTOM OF METADATA
 });

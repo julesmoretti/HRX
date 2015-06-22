@@ -1,0 +1,8 @@
+<div class='menuList'>
+  <ul>
+    <li ng-repeat="menuItem in menuList">
+      <a ui-sref=".{{menuItem.link}}" > {{menuItem.name}}</a>
+    </li>
+  </ul>
+  <div  ng-repeat="menuItem in menuList" ng-attr-id="{{menuItem.link}}" ui-view="{{menuItem.link}}"></div>
+</div>

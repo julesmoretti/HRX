@@ -26,6 +26,8 @@ module.exports = function(config) {
             'app/lib/angular-bootstrap/ui-bootstrap-tpls.js',
             'app/lib/angular-ui-utils/ui-utils.js',
             'app/lib/angular-ui-router/release/angular-ui-router.js',
+            'app/lib/ngstorage/ngStorage.js',
+            'app/lib/ngmap/build/scripts/ng-map.js',
             <!-- endinjector -->
 
             'app/js/config.js',

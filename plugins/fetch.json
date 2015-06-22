@@ -1,0 +1,87 @@
+{
+    "cordova-plugin-statusbar": {
+        "source": {
+            "type": "registry",
+            "id": "cordova-plugin-statusbar"
+        },
+        "is_top_level": true,
+        "variables": {}
+    },
+    "com.chariotsolutions.cordova.plugin.keyboard_toolbar_remover": {
+        "source": {
+            "type": "git",
+            "url": "https://github.com/don/KeyboardToolbarRemover",
+            "subdir": "."
+        },
+        "is_top_level": true,
+        "variables": {}
+    },
+    "org.apache.cordova.device": {
+        "source": {
+            "type": "registry",
+            "id": "org.apache.cordova.device"
+        },
+        "is_top_level": true,
+        "variables": {}
+    },
+    "org.apache.cordova.contacts": {
+        "source": {
+            "type": "local",
+            "path": "/Users/jules/.plugman/cache/org.apache.cordova.contacts/0.2.16/package"
+        }
+    },
+    "org.apache.cordova.device-motion": {
+        "source": {
+            "type": "local",
+            "path": "/Users/jules/.plugman/cache/org.apache.cordova.device-motion/0.2.11/package"
+        }
+    },
+    "org.apache.cordova.device-orientation": {
+        "source": {
+            "type": "local",
+            "path": "/Users/jules/.plugman/cache/org.apache.cordova.device-orientation/0.3.11/package"
+        }
+    },
+    "org.apache.cordova.file": {
+        "source": {
+            "type": "local",
+            "path": "/Users/jules/.plugman/cache/org.apache.cordova.file/1.3.3/package"
+        }
+    },
+    "org.apache.cordova.geolocation": {
+        "source": {
+            "type": "local",
+            "path": "/Users/jules/.plugman/cache/org.apache.cordova.geolocation/0.3.12/package"
+        }
+    },
+    "org.apache.cordova.inappbrowser": {
+        "source": {
+            "type": "local",
+            "path": "/Users/jules/.plugman/cache/org.apache.cordova.inappbrowser/0.6.0/package"
+        }
+    },
+    "org.apache.cordova.media": {
+        "source": {
+            "type": "local",
+            "path": "/Users/jules/.plugman/cache/org.apache.cordova.media/0.2.16/package"
+        }
+    },
+    "org.apache.cordova.media-capture": {
+        "source": {
+            "type": "local",
+            "path": "/Users/jules/.plugman/cache/org.apache.cordova.media-capture/0.3.6/package"
+        }
+    },
+    "org.apache.cordova.network-information": {
+        "source": {
+            "type": "local",
+            "path": "/Users/jules/.plugman/cache/org.apache.cordova.network-information/0.2.15/package"
+        }
+    },
+    "org.apache.cordova.splashscreen": {
+        "source": {
+            "type": "local",
+            "path": "/Users/jules/.plugman/cache/org.apache.cordova.splashscreen/1.0.0/package"
+        }
+    }
+}
