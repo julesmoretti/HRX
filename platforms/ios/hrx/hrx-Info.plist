@@ -173,5 +173,10 @@
     </array>
     <key>NSLocationWhenInUseUsageDescription</key>
     <string></string>
+    <key>UIAppFonts</key>
+    <array>
+      <string>ionicons.ttf</string>
+      <string>Roboto-Light</string>
+    </array>
   </dict>
 </plist>

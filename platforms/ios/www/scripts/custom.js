@@ -1,7 +1,7 @@
 'use strict';
 var ApplicationConfiguration = (function() {
     var applicationModuleName = 'angularjsapp';
-    var applicationModuleVendorDependencies = ['ngResource', 'ngCookies', 'ngAnimate', 'ngTouch', 'ngSanitize', 'ui.router', 'ui.bootstrap', 'ui.utils', 'ngStorage', 'ngMap'];
+    var applicationModuleVendorDependencies = ['ngResource', 'ngCookies', 'ngAnimate', 'ngTouch', 'ngSanitize', 'ui.router', 'ui.bootstrap', 'ui.utils', 'ngStorage'];
     var registerModule = function(moduleName) {
         angular
             .module(moduleName, []);
@@ -83,7 +83,7 @@ angular
                 views: {
                   'filter@home.map': {
                     templateUrl: 'modules/core/views/filter.html',
-                    controller: 'MapController'
+                    controller: 'FilterController'
                   }
                 }
               })
@@ -99,7 +99,7 @@ angular
                     controller: 'MenuController'
                   },
                   'menuFooter@home.map.menu': {
-                    template: '<a ui-sref="home.map">Back</a>MENU',
+                    template: '<div class="back-button ion-android-close" ui-sref="home.map"></div><div class="main-title"></div>',
                     controller: 'MenuController'
                   }
                 }
@@ -113,7 +113,7 @@ angular
                       controller: 'AlumniController'
                     },
                     'menuFooter@home.map.menu': {
-                      template: '<a ui-sref="home.map.menu">Back</a>Alumni',
+                      template: '<div class="back-button ion-chevron-left" ui-sref="home.map.menu"></div><div class="main-title">Alumni</div>',
                       controller: 'AlumniController'
                     }
                   }
@@ -126,7 +126,7 @@ angular
                         controller: 'AlumnController'
                       },
                       'menuFooter@home.map.menu': {
-                        template: '<a ui-sref="home.map.menu.alumni">Back</a>{{selectedAlumn.name}}',
+                        template: '<div class="back-button ion-chevron-left" ui-sref="home.map.menu.alumni"></div><div class="main-title">{{selectedAlumn.name}}</div>',
                         controller: 'AlumnController'
                       }
                   }
@@ -307,10 +307,229 @@ angular
             $scope.$storage = $localStorage;
           }
 
-          $scope.$on('mapInitialized', function(event, map) {
-            $scope.map = { center: { latitude: 45, longitude: -73 }, zoom: 8 };
-            map.setCenter( $scope.map );
-          });
+          $scope.windowWidth = window.innerWidth;
+          $scope.windowHeight = window.innerHeight;
+
+
+
+          var styles = [{
+                          stylers: [
+                            {hue:'#ff1a00'},
+                            {invert_lightness:true},
+                            {saturation:-100},
+                            {lightness:33},
+                            {gamma:0.5}]
+                        },
+                        {
+                          featureType:'water',
+                          elementType:'geometry',
+                          stylers:[{color:'#2D333C'}]
+                        }];
+
+          var styles = [
+                        {
+                            "featureType": "all",
+                            "elementType": "labels.text.fill",
+                            "stylers": [
+                                {
+                                    "saturation": "0"
+                                },
+                                {
+                                    "color": "#5bc0de"
+                                },
+                                {
+                                    "lightness": "0"
+                                }
+                            ]
+                        },
+                        {
+                            "featureType": "all",
+                            "elementType": "labels.text.stroke",
+                            "stylers": [
+                                {
+                                    "visibility": "on"
+                                },
+                                {
+                                    "color": "#000000"
+                                },
+                                {
+                                    "lightness": 16
+                                },
+                                {
+                                    "weight": "0.1"
+                                }
+                            ]
+                        },
+                        {
+                            "featureType": "all",
+                            "elementType": "labels.icon",
+                            "stylers": [
+                                {
+                                    "visibility": "off"
+                                }
+                            ]
+                        },
+                        {
+                            "featureType": "administrative",
+                            "elementType": "geometry.fill",
+                            "stylers": [
+                                {
+                                    "color": "#000000"
+                                },
+                                {
+                                    "lightness": "25"
+                                }
+                            ]
+                        },
+                        {
+                            "featureType": "administrative",
+                            "elementType": "geometry.stroke",
+                            "stylers": [
+                                {
+                                    "color": "#000000"
+                                },
+                                {
+                                    "lightness": "25"
+                                },
+                                {
+                                    "weight": 1.2
+                                }
+                            ]
+                        },
+                        {
+                            "featureType": "landscape",
+                            "elementType": "geometry",
+                            "stylers": [
+                                {
+                                    "color": "#000000"
+                                },
+                                {
+                                    "lightness": "23"
+                                }
+                            ]
+                        },
+                        {
+                            "featureType": "poi",
+                            "elementType": "geometry",
+                            "stylers": [
+                                {
+                                    "color": "#000000"
+                                },
+                                {
+                                    "lightness": "17"
+                                }
+                            ]
+                        },
+                        {
+                            "featureType": "road.highway",
+                            "elementType": "geometry.fill",
+                            "stylers": [
+                                {
+                                    "color": "#000000"
+                                },
+                                {
+                                    "lightness": "5"
+                                }
+                            ]
+                        },
+                        {
+                            "featureType": "road.highway",
+                            "elementType": "geometry.stroke",
+                            "stylers": [
+                                {
+                                    "color": "#000000"
+                                },
+                                {
+                                    "lightness": "10"
+                                },
+                                {
+                                    "weight": 0.2
+                                }
+                            ]
+                        },
+                        {
+                            "featureType": "road.arterial",
+                            "elementType": "geometry",
+                            "stylers": [
+                                {
+                                    "color": "#000000"
+                                },
+                                {
+                                    "lightness": "15"
+                                }
+                            ]
+                        },
+                        {
+                            "featureType": "road.local",
+                            "elementType": "geometry",
+                            "stylers": [
+                                {
+                                    "color": "#000000"
+                                },
+                                {
+                                    "lightness": "15"
+                                }
+                            ]
+                        },
+                        {
+                            "featureType": "transit",
+                            "elementType": "geometry",
+                            "stylers": [
+                                {
+                                    "color": "#ffffff"
+                                },
+                                {
+                                    "lightness": "-61"
+                                },
+                                {
+                                    "gamma": "1"
+                                },
+                                {
+                                    "saturation": "0"
+                                }
+                            ]
+                        },
+                        {
+                            "featureType": "water",
+                            "elementType": "geometry",
+                            "stylers": [
+                                {
+                                    "color": "#2b353c"
+                                },
+                                {
+                                    "saturation": "30"
+                                },
+                                {
+                                    "lightness": "13"
+                                }
+                            ]
+                        }
+                    ];
+          var styledMap = new google.maps.StyledMapType(styles,
+            {name: "Styled Map"});
+          var mapOptions = {
+            zoom: 11,
+            center: new google.maps.LatLng(55.6468, 37.581),
+            mapTypeControlOptions: {
+              mapTypeIds: [google.maps.MapTypeId.ROADMAP, 'map_style']
+            },
+            panControl: false,
+            zoomControl: true,
+            zoomControlOptions: {
+              position: google.maps.ControlPosition.LEFT_TOP
+            },
+            mapTypeControl: false,
+            scaleControl: false,
+            streetViewControl: false,
+            overviewMapControl: false
+          };
+          var map = new google.maps.Map(document.getElementById('map-canvas'),
+            mapOptions);
+          map.mapTypes.set('map_style', styledMap);
+          map.setMapTypeId('map_style');
+
+
+          $('#map_canvas').find('img[src="https://maps.gstatic.com/mapfiles/szc4.png"]').parent('.gmnoprint').css('background-color', 'red');
 
 
 

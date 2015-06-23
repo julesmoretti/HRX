@@ -19,15 +19,15 @@ module.exports = function(config) {
             'app/lib/angular/angular.js',
             'app/lib/angular-resource/angular-resource.js',
             'app/lib/angular-mocks/angular-mocks.js',
-            'app/lib/angular-cookies/angular-cookies.js',
             'app/lib/angular-animate/angular-animate.js',
+            'app/lib/angular-cookies/angular-cookies.js',
             'app/lib/angular-touch/angular-touch.js',
             'app/lib/angular-sanitize/angular-sanitize.js',
             'app/lib/angular-bootstrap/ui-bootstrap-tpls.js',
             'app/lib/angular-ui-utils/ui-utils.js',
             'app/lib/angular-ui-router/release/angular-ui-router.js',
             'app/lib/ngstorage/ngStorage.js',
-            'app/lib/ngmap/build/scripts/ng-map.js',
+            'app/lib/fastclick/lib/fastclick.js',
             <!-- endinjector -->
 
             'app/js/config.js',

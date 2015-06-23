@@ -14,6 +14,7 @@ angular
         function($stateProvider, $urlRouterProvider) {
 
             $urlRouterProvider.otherwise('/');
+            // $urlRouterProvider.otherwise('/map/filter');
 
             /**
              * @ngdoc event
@@ -51,7 +52,7 @@ angular
                 views: {
                   'filter@home.map': {
                     templateUrl: 'modules/core/views/filter.html',
-                    controller: 'MapController'
+                    controller: 'FilterController'
                   }
                 }
               })
@@ -67,7 +68,8 @@ angular
                     controller: 'MenuController'
                   },
                   'menuFooter@home.map.menu': {
-                    template: '<a ui-sref="home.map">Back</a>MENU',
+                    // template: '<div class="back-button ion-chevron-left" ui-sref="home.map"></div><div class="main-title">Menu</div>',
+                    template: '<div class="back-button ion-android-close" ui-sref="home.map"></div><div class="main-title"></div>',
                     controller: 'MenuController'
                   }
                 }
@@ -82,7 +84,7 @@ angular
                       controller: 'AlumniController'
                     },
                     'menuFooter@home.map.menu': {
-                      template: '<a ui-sref="home.map.menu">Back</a>Alumni',
+                      template: '<div class="back-button ion-chevron-left" ui-sref="home.map.menu"></div><div class="main-title">Alumni</div>',
                       controller: 'AlumniController'
                     }
                   }
@@ -96,7 +98,7 @@ angular
                         controller: 'AlumnController'
                       },
                       'menuFooter@home.map.menu': {
-                        template: '<a ui-sref="home.map.menu.alumni">Back</a>{{selectedAlumn.name}}',
+                        template: '<div class="back-button ion-chevron-left" ui-sref="home.map.menu.alumni"></div><div class="main-title">{{selectedAlumn.name}}</div>',
                         controller: 'AlumnController'
                       }
                   }

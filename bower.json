@@ -4,19 +4,24 @@
   "description": "Hack Reactor own alumni network",
   "dependencies": {
     "bootstrap": "~3.2.0",
-    "angular": "~1.2",
-    "angular-resource": "~1.2",
-    "angular-mocks": "~1.2",
-    "angular-cookies": "~1.2",
-    "angular-animate": "~1.2",
-    "angular-touch": "~1.2",
-    "angular-sanitize": "~1.2",
-    "angular-bootstrap": "~0.10.0",
-    "angular-ui-utils": "~0.1.1",
-    "angular-ui-router": "~0.2.10",
+    "angular": "~1.4.1",
+    "angular-resource": "~1.4.1",
+    "angular-mocks": "~1.4.1",
+    "angular-animate": "1.4.1",
+    "angular-cookies": "~1.4.1",
+    "angular-touch": "~1.4.1",
+    "angular-sanitize": "~1.4.1",
+    "angular-bootstrap": "0.13.0",
+    "angular-ui-utils": "~0.2.3",
+    "angular-ui-router": "~0.2.15",
     "ngstorage": "~0.3.6",
-    "ngmap": "~1.7.11",
     "titatoggle": "~1.2.6",
-    "ionicons": "~2.0.1"
+    "ionicons": "~2.0.1",
+    "fastclick": "~1.0.6"
+  },
+  "resolutions": {
+    "angular": "~1.4.1",
+    "angular-touch": "~1.4.1",
+    "angular-sanitize": "~1.4.1"
   }
 }

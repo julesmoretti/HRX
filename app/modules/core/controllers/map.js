@@ -20,11 +20,267 @@ angular
             $scope.$storage = $localStorage;
           }
 
-          $scope.$on('mapInitialized', function(event, map) {
-            $scope.map = { center: { latitude: 45, longitude: -73 }, zoom: 8 };
-            map.setCenter( $scope.map );
-            // ..
-          });
+          $scope.windowWidth = window.innerWidth;
+          $scope.windowHeight = window.innerHeight;
+
+
+
+          var styles = [{
+                          stylers: [
+                            {hue:'#ff1a00'},
+                            {invert_lightness:true},
+                            {saturation:-100},
+                            {lightness:33},
+                            {gamma:0.5}]
+                        },
+                        {
+                          featureType:'water',
+                          elementType:'geometry',
+                          stylers:[{color:'#2D333C'}]
+                        }];
+
+          var styles = [
+                        {
+                            "featureType": "all",
+                            "elementType": "labels.text.fill",
+                            "stylers": [
+                                {
+                                    "saturation": "0"
+                                },
+                                {
+                                    "color": "#5bc0de"
+                                },
+                                {
+                                    "lightness": "0"
+                                }
+                            ]
+                        },
+                        {
+                            "featureType": "all",
+                            "elementType": "labels.text.stroke",
+                            "stylers": [
+                                {
+                                    "visibility": "on"
+                                },
+                                {
+                                    "color": "#000000"
+                                },
+                                {
+                                    "lightness": 16
+                                },
+                                {
+                                    "weight": "0.1"
+                                }
+                            ]
+                        },
+                        {
+                            "featureType": "all",
+                            "elementType": "labels.icon",
+                            "stylers": [
+                                {
+                                    "visibility": "off"
+                                }
+                            ]
+                        },
+                        {
+                            "featureType": "administrative",
+                            "elementType": "geometry.fill",
+                            "stylers": [
+                                {
+                                    "color": "#000000"
+                                },
+                                {
+                                    "lightness": "25"
+                                }
+                            ]
+                        },
+                        {
+                            "featureType": "administrative",
+                            "elementType": "geometry.stroke",
+                            "stylers": [
+                                {
+                                    "color": "#000000"
+                                },
+                                {
+                                    "lightness": "25"
+                                },
+                                {
+                                    "weight": 1.2
+                                }
+                            ]
+                        },
+                        {
+                            "featureType": "landscape",
+                            "elementType": "geometry",
+                            "stylers": [
+                                {
+                                    "color": "#000000"
+                                },
+                                {
+                                    "lightness": "23"
+                                }
+                            ]
+                        },
+                        {
+                            "featureType": "poi",
+                            "elementType": "geometry",
+                            "stylers": [
+                                {
+                                    "color": "#000000"
+                                },
+                                {
+                                    "lightness": "17"
+                                }
+                            ]
+                        },
+                        {
+                            "featureType": "road.highway",
+                            "elementType": "geometry.fill",
+                            "stylers": [
+                                {
+                                    "color": "#000000"
+                                },
+                                {
+                                    "lightness": "5"
+                                }
+                            ]
+                        },
+                        {
+                            "featureType": "road.highway",
+                            "elementType": "geometry.stroke",
+                            "stylers": [
+                                {
+                                    "color": "#000000"
+                                },
+                                {
+                                    "lightness": "10"
+                                },
+                                {
+                                    "weight": 0.2
+                                }
+                            ]
+                        },
+                        {
+                            "featureType": "road.arterial",
+                            "elementType": "geometry",
+                            "stylers": [
+                                {
+                                    "color": "#000000"
+                                },
+                                {
+                                    "lightness": "15"
+                                }
+                            ]
+                        },
+                        {
+                            "featureType": "road.local",
+                            "elementType": "geometry",
+                            "stylers": [
+                                {
+                                    "color": "#000000"
+                                },
+                                {
+                                    "lightness": "15"
+                                }
+                            ]
+                        },
+                        {
+                            "featureType": "transit",
+                            "elementType": "geometry",
+                            "stylers": [
+                                {
+                                    "color": "#ffffff"
+                                },
+                                {
+                                    "lightness": "-61"
+                                },
+                                {
+                                    "gamma": "1"
+                                },
+                                {
+                                    "saturation": "0"
+                                }
+                            ]
+                        },
+                        {
+                            "featureType": "water",
+                            "elementType": "geometry",
+                            "stylers": [
+                                {
+                                    "color": "#2b353c"
+                                },
+                                {
+                                    "saturation": "30"
+                                },
+                                {
+                                    "lightness": "13"
+                                }
+                            ]
+                        }
+                    ];
+
+
+          // Create a new StyledMapType object, passing it the array of styles,
+          // as well as the name to be displayed on the map type control.
+          var styledMap = new google.maps.StyledMapType(styles,
+            {name: "Styled Map"});
+
+          // Create a map object, and include the MapTypeId to add
+          // to the map type control.
+          var mapOptions = {
+            zoom: 11,
+            center: new google.maps.LatLng(55.6468, 37.581),
+            mapTypeControlOptions: {
+              mapTypeIds: [google.maps.MapTypeId.ROADMAP, 'map_style']
+            },
+            panControl: false,
+            zoomControl: true,
+            zoomControlOptions: {
+              // style: google.maps.ZoomControlStyle.LARGE,
+              position: google.maps.ControlPosition.LEFT_TOP
+            },
+            mapTypeControl: false,
+            scaleControl: false,
+            streetViewControl: false,
+            overviewMapControl: false
+          };
+          var map = new google.maps.Map(document.getElementById('map-canvas'),
+            mapOptions);
+
+          //Associate the styled map with the MapTypeId and set it to display.
+          map.mapTypes.set('map_style', styledMap);
+          map.setMapTypeId('map_style');
+
+
+          $('#map_canvas').find('img[src="https://maps.gstatic.com/mapfiles/szc4.png"]').parent('.gmnoprint').css('background-color', 'red');
+
+          // function initialize() {
+            // var mapOptions = {
+            //   center: { lat: -34.397, lng: 150.644},
+            //   zoom: 8
+            // };
+            // var map = new google.maps.Map(document.getElementById('map-canvas'),
+            //     mapOptions);
+            // console.log(map);
+          // }
+
+          // google.maps.event.addDomListener(window, 'load', initialize);
+
+          // $scope.map = { center: { latitude: 45, longitude: -73 }, zoom: 8 };
+
+          // var marker = {
+          //   idKey: 123,
+          //   coords: {
+          //   latitude: 37.7836377,
+          //   longitude: -122.4132168
+          //   }
+          // };
+
+          // $scope.$on('mapInitialized', function(event, map) {
+          //   $scope.map = { center: { latitude: 45, longitude: -73 }, zoom: 8 };
+          //   map.setCenter( $scope.map );
+          //   // ..
+          // });
 
 
 
