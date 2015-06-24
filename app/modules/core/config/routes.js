@@ -13,7 +13,8 @@ angular
         '$urlRouterProvider',
         function($stateProvider, $urlRouterProvider) {
 
-            $urlRouterProvider.otherwise('/');
+            // $urlRouterProvider.otherwise('/');
+            $urlRouterProvider.otherwise('/map');
             // $urlRouterProvider.otherwise('/map/filter');
 
             /**
@@ -68,8 +69,8 @@ angular
                     controller: 'MenuController'
                   },
                   'menuFooter@home.map.menu': {
-                    // template: '<div class="back-button ion-chevron-left" ui-sref="home.map"></div><div class="main-title">Menu</div>',
-                    template: '<div class="back-button ion-android-close" ui-sref="home.map"></div><div class="main-title"></div>',
+                    // template: '<div class="back-button ion-ios-arrow-back" ui-sref="home.map"></div><div class="main-title">Menu</div>',
+                    template: '<div class="back-button ion-android-close" ui-sref="home.map"></div><div class="main-title"></div><div class="settings-button ion-gear-a" ui-sref="home.map.menu.settings"></div>',
                     controller: 'MenuController'
                   }
                 }
@@ -84,7 +85,7 @@ angular
                       controller: 'AlumniController'
                     },
                     'menuFooter@home.map.menu': {
-                      template: '<div class="back-button ion-chevron-left" ui-sref="home.map.menu"></div><div class="main-title">Alumni</div>',
+                      template: '<div class="back-button ion-ios-arrow-back" ui-sref="home.map.menu"></div><div class="main-title">Alumni</div>',
                       controller: 'AlumniController'
                     }
                   }
@@ -98,7 +99,7 @@ angular
                         controller: 'AlumnController'
                       },
                       'menuFooter@home.map.menu': {
-                        template: '<div class="back-button ion-chevron-left" ui-sref="home.map.menu.alumni"></div><div class="main-title">{{selectedAlumn.name}}</div>',
+                        template: '<div class="back-button ion-ios-arrow-back" ui-sref="home.map.menu.alumni"></div><div class="main-title">{{selectedAlumn.name}}</div>',
                         controller: 'AlumnController'
                       }
                   }

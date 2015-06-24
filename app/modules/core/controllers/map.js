@@ -8,326 +8,376 @@
 */
 angular
     .module('core')
-    .controller('MapController', ['$scope', '$http', '$window', '$localStorage', 'SharedData' , function( $scope, $http, $window, $localStorage, SharedData ) {
+    .controller('MapController', ['$scope', '$http', '$window', '$localStorage', 'SharedData', '$rootScope', '$state', function( $scope, $http, $window, $localStorage, SharedData, $rootScope, $state ) {
       $scope.SharedData = SharedData;
       $scope.homeVariable = 'Jules Moretti - home';
       $scope.sent_over = 'type Something';
 
-        angular.element(document).ready(function (){
-          console.log('Angular is ready');
+      $scope.infowindowShow = false;
 
-          if ( !$scope.$storage ) {
-            $scope.$storage = $localStorage;
-          }
+      $rootScope.$state = $state;
 
-          $scope.windowWidth = window.innerWidth;
-          $scope.windowHeight = window.innerHeight;
+      angular.element(document).ready(function (){
+        console.log('Angular is ready');
 
+        if ( !$scope.$storage ) {
+          $scope.$storage = $localStorage;
+        }
 
+        document.addEventListener("deviceready", onDeviceReady, false);
 
-          var styles = [{
-                          stylers: [
-                            {hue:'#ff1a00'},
-                            {invert_lightness:true},
-                            {saturation:-100},
-                            {lightness:33},
-                            {gamma:0.5}]
-                        },
-                        {
-                          featureType:'water',
-                          elementType:'geometry',
-                          stylers:[{color:'#2D333C'}]
-                        }];
+        function onDeviceReady() {
+          console.log('Cordova is ready');
 
-          var styles = [
-                        {
-                            "featureType": "all",
-                            "elementType": "labels.text.fill",
-                            "stylers": [
-                                {
-                                    "saturation": "0"
-                                },
-                                {
-                                    "color": "#5bc0de"
-                                },
-                                {
-                                    "lightness": "0"
-                                }
-                            ]
-                        },
-                        {
-                            "featureType": "all",
-                            "elementType": "labels.text.stroke",
-                            "stylers": [
-                                {
-                                    "visibility": "on"
-                                },
-                                {
-                                    "color": "#000000"
-                                },
-                                {
-                                    "lightness": 16
-                                },
-                                {
-                                    "weight": "0.1"
-                                }
-                            ]
-                        },
-                        {
-                            "featureType": "all",
-                            "elementType": "labels.icon",
-                            "stylers": [
-                                {
-                                    "visibility": "off"
-                                }
-                            ]
-                        },
-                        {
-                            "featureType": "administrative",
-                            "elementType": "geometry.fill",
-                            "stylers": [
-                                {
-                                    "color": "#000000"
-                                },
-                                {
-                                    "lightness": "25"
-                                }
-                            ]
-                        },
-                        {
-                            "featureType": "administrative",
-                            "elementType": "geometry.stroke",
-                            "stylers": [
-                                {
-                                    "color": "#000000"
-                                },
-                                {
-                                    "lightness": "25"
-                                },
-                                {
-                                    "weight": 1.2
-                                }
-                            ]
-                        },
-                        {
-                            "featureType": "landscape",
-                            "elementType": "geometry",
-                            "stylers": [
-                                {
-                                    "color": "#000000"
-                                },
-                                {
-                                    "lightness": "23"
-                                }
-                            ]
-                        },
-                        {
-                            "featureType": "poi",
-                            "elementType": "geometry",
-                            "stylers": [
-                                {
-                                    "color": "#000000"
-                                },
-                                {
-                                    "lightness": "17"
-                                }
-                            ]
-                        },
-                        {
-                            "featureType": "road.highway",
-                            "elementType": "geometry.fill",
-                            "stylers": [
-                                {
-                                    "color": "#000000"
-                                },
-                                {
-                                    "lightness": "5"
-                                }
-                            ]
-                        },
-                        {
-                            "featureType": "road.highway",
-                            "elementType": "geometry.stroke",
-                            "stylers": [
-                                {
-                                    "color": "#000000"
-                                },
-                                {
-                                    "lightness": "10"
-                                },
-                                {
-                                    "weight": 0.2
-                                }
-                            ]
-                        },
-                        {
-                            "featureType": "road.arterial",
-                            "elementType": "geometry",
-                            "stylers": [
-                                {
-                                    "color": "#000000"
-                                },
-                                {
-                                    "lightness": "15"
-                                }
-                            ]
-                        },
-                        {
-                            "featureType": "road.local",
-                            "elementType": "geometry",
-                            "stylers": [
-                                {
-                                    "color": "#000000"
-                                },
-                                {
-                                    "lightness": "15"
-                                }
-                            ]
-                        },
-                        {
-                            "featureType": "transit",
-                            "elementType": "geometry",
-                            "stylers": [
-                                {
-                                    "color": "#ffffff"
-                                },
-                                {
-                                    "lightness": "-61"
-                                },
-                                {
-                                    "gamma": "1"
-                                },
-                                {
-                                    "saturation": "0"
-                                }
-                            ]
-                        },
-                        {
-                            "featureType": "water",
-                            "elementType": "geometry",
-                            "stylers": [
-                                {
-                                    "color": "#2b353c"
-                                },
-                                {
-                                    "saturation": "30"
-                                },
-                                {
-                                    "lightness": "13"
-                                }
-                            ]
-                        }
-                    ];
-
-
-          // Create a new StyledMapType object, passing it the array of styles,
-          // as well as the name to be displayed on the map type control.
-          var styledMap = new google.maps.StyledMapType(styles,
-            {name: "Styled Map"});
-
-          // Create a map object, and include the MapTypeId to add
-          // to the map type control.
-          var mapOptions = {
-            zoom: 11,
-            center: new google.maps.LatLng(55.6468, 37.581),
-            mapTypeControlOptions: {
-              mapTypeIds: [google.maps.MapTypeId.ROADMAP, 'map_style']
-            },
-            panControl: false,
-            zoomControl: true,
-            zoomControlOptions: {
-              // style: google.maps.ZoomControlStyle.LARGE,
-              position: google.maps.ControlPosition.LEFT_TOP
-            },
-            mapTypeControl: false,
-            scaleControl: false,
-            streetViewControl: false,
-            overviewMapControl: false
-          };
-          var map = new google.maps.Map(document.getElementById('map-canvas'),
-            mapOptions);
-
-          //Associate the styled map with the MapTypeId and set it to display.
-          map.mapTypes.set('map_style', styledMap);
-          map.setMapTypeId('map_style');
-
-
-          $('#map_canvas').find('img[src="https://maps.gstatic.com/mapfiles/szc4.png"]').parent('.gmnoprint').css('background-color', 'red');
-
-          // function initialize() {
-            // var mapOptions = {
-            //   center: { lat: -34.397, lng: 150.644},
-            //   zoom: 8
-            // };
-            // var map = new google.maps.Map(document.getElementById('map-canvas'),
-            //     mapOptions);
-            // console.log(map);
+          // $scope.clearLocalStorage = function () {
+          //   $localStorage.$reset();
           // }
 
-          // google.maps.event.addDomListener(window, 'load', initialize);
+          // Now safe to use device APIs
 
-          // $scope.map = { center: { latitude: 45, longitude: -73 }, zoom: 8 };
+          StatusBar.hide();  // hide iPhone status bar
+          // toolbar.hide()
+          // Keyboard.shrinkView(true);
+          // Keyboard.hideFormAccessoryBar(true);
+        };
 
-          // var marker = {
-          //   idKey: 123,
-          //   coords: {
-          //   latitude: 37.7836377,
-          //   longitude: -122.4132168
-          //   }
-          // };
+        $scope.checkState = function ( stateName, stateString ) {
 
-          // $scope.$on('mapInitialized', function(event, map) {
-          //   $scope.map = { center: { latitude: 45, longitude: -73 }, zoom: 8 };
-          //   map.setCenter( $scope.map );
-          //   // ..
-          // });
-
-
-
-          $scope.clearLocalStorage = function () {
-            $localStorage.$reset();
+          if ( !stateName || !stateString || stateName.length < stateString.length ) {
+            return false;
+          } else if ( stateName.slice(0, stateString.length ) ===  stateString) {
+            return true;
+          } else {
+            return false;
           }
+        }
 
+        $scope.filters = {
+          hrLounge : true,
+          conferences : true,
+          alumni : true,
+          companies : true,
+          events : true
+        };
 
-          document.addEventListener("deviceready", onDeviceReady, false);
+        // var markers = [];
+        $scope.myMarkers = [];
+        $scope.hrMarkers = [];
+        $scope.conferencesMarkers = [];
+        $scope.alumniMarkers = [];
+        $scope.companiesMarkers = [];
+        $scope.eventsMarkers = [];
 
-          function onDeviceReady() {
-            console.log('Cordova is ready');
+        $scope.mapLocation = false;
 
-            // Now safe to use device APIs
+        // map style ref: https://snazzymaps.com
+        var styles = [
+                      {
+                          "featureType": "all",
+                          "elementType": "labels.text.fill",
+                          "stylers": [
+                              {
+                                  "saturation": "0"
+                              },
+                              {
+                                  "color": "#5bc0de"
+                              },
+                              {
+                                  "lightness": "0"
+                              }
+                          ]
+                      },
+                      {
+                          "featureType": "all",
+                          "elementType": "labels.text.stroke",
+                          "stylers": [
+                              {
+                                  "visibility": "on"
+                              },
+                              {
+                                  "color": "#000000"
+                              },
+                              {
+                                  "lightness": 16
+                              },
+                              {
+                                  "weight": "0.1"
+                              }
+                          ]
+                      },
+                      {
+                          "featureType": "all",
+                          "elementType": "labels.icon",
+                          "stylers": [
+                              {
+                                  "visibility": "off"
+                              }
+                          ]
+                      },
+                      {
+                          "featureType": "administrative",
+                          "elementType": "geometry.fill",
+                          "stylers": [
+                              {
+                                  "color": "#000000"
+                              },
+                              {
+                                  "lightness": "25"
+                              }
+                          ]
+                      },
+                      {
+                          "featureType": "administrative",
+                          "elementType": "geometry.stroke",
+                          "stylers": [
+                              {
+                                  "color": "#000000"
+                              },
+                              {
+                                  "lightness": "25"
+                              },
+                              {
+                                  "weight": 1.2
+                              }
+                          ]
+                      },
+                      {
+                          "featureType": "landscape",
+                          "elementType": "geometry",
+                          "stylers": [
+                              {
+                                  "color": "#000000"
+                              },
+                              {
+                                  "lightness": "23"
+                              }
+                          ]
+                      },
+                      {
+                          "featureType": "poi",
+                          "elementType": "geometry",
+                          "stylers": [
+                              {
+                                  "color": "#000000"
+                              },
+                              {
+                                  "lightness": "17"
+                              }
+                          ]
+                      },
+                      {
+                          "featureType": "road.highway",
+                          "elementType": "geometry.fill",
+                          "stylers": [
+                              {
+                                  "color": "#000000"
+                              },
+                              {
+                                  "lightness": "5"
+                              }
+                          ]
+                      },
+                      {
+                          "featureType": "road.highway",
+                          "elementType": "geometry.stroke",
+                          "stylers": [
+                              {
+                                  "color": "#000000"
+                              },
+                              {
+                                  "lightness": "10"
+                              },
+                              {
+                                  "weight": 0.2
+                              }
+                          ]
+                      },
+                      {
+                          "featureType": "road.arterial",
+                          "elementType": "geometry",
+                          "stylers": [
+                              {
+                                  "color": "#000000"
+                              },
+                              {
+                                  "lightness": "15"
+                              }
+                          ]
+                      },
+                      {
+                          "featureType": "road.local",
+                          "elementType": "geometry",
+                          "stylers": [
+                              {
+                                  "color": "#000000"
+                              },
+                              {
+                                  "lightness": "15"
+                              }
+                          ]
+                      },
+                      {
+                          "featureType": "transit",
+                          "elementType": "geometry",
+                          "stylers": [
+                              {
+                                  "color": "#ffffff"
+                              },
+                              {
+                                  "lightness": "-61"
+                              },
+                              {
+                                  "gamma": "1"
+                              },
+                              {
+                                  "saturation": "0"
+                              }
+                          ]
+                      },
+                      {
+                          "featureType": "water",
+                          "elementType": "geometry",
+                          "stylers": [
+                              {
+                                  "color": "#2b353c"
+                              },
+                              {
+                                  "saturation": "30"
+                              },
+                              {
+                                  "lightness": "13"
+                              }
+                          ]
+                      }
+                  ];
 
-            // StatusBar.hide();  // hide iPhone status bar
-            // toolbar.hide()
-            // Keyboard.shrinkView(true);
-            // Keyboard.hideFormAccessoryBar(true);
+        // load main map
+        $scope.map = {
+          center: {
+            latitude: 37.82670075048411,
+            longitude: -122.42281079292297
+          },
+          zoom: 16
+        };
 
-            // var posOptions = { timeout: 10000, enableHighAccuracy: true };
-            // var posOptions = {enableHighAccuracy: false };
-            // navigator.geolocation.getCurrentPosition( onSuccess, onError, posOptions ); // gets Geo location data
+        // load map options
+        $scope.mapOptions = {
+          styles: styles,
+          mapTypeControlOptions: {
+            mapTypeIds: [google.maps.MapTypeId.ROADMAP, 'map_style']
+          },
+          panControl: false,
+          zoomControl: false,
+          mapTypeControl: false,
+          scaleControl: false,
+          streetViewControl: false,
+          overviewMapControl: false
+        };
 
-            // onSuccess Geolocation
-            //
-            // function onSuccess(position) {
-            //     var element = document.getElementById('geolocation');
-            //     element.innerHTML = 'Latitude: '           + position.coords.latitude              + '<br />' +
-            //                         'Longitude: '          + position.coords.longitude             + '<br />' +
-            //                         'Altitude: '           + position.coords.altitude              + '<br />' +
-            //                         'Accuracy: '           + position.coords.accuracy              + '<br />' +
-            //                         'Altitude Accuracy: '  + position.coords.altitudeAccuracy      + '<br />' +
-            //                         'Heading: '            + position.coords.heading               + '<br />' +
-            //                         'Speed: '              + position.coords.speed                 + '<br />' +
-            //                         'Timestamp: '          + position.timestamp                    + '<br />';
-            // }
+        // PLACE MARKER ON START - ONLY FOR TESTING
+        // var position = {};
+            // position.id = 'self';
+            // position.latLng = { latitude: 37.82670075048411, longitude: -122.42281079292297 },
+            // position.img = {url: 'img/Pins_People.svg', scaledSize: new google.maps.Size(25, 50)};
 
-            // onError Callback receives a PositionError object
-            //
-            // function onError(error) {
-            //     alert('code: '    + error.code    + '\n' +
-            //           'message: ' + error.message + '\n');
-            // }
+        // $scope.myMarkers.push( position );
 
-            // navigator.vibrate(3000);
-          }
+        // offsets the infoWindow above the markers
+        $scope.infoWindow = { options: { pixelOffset: new google.maps.Size(0, -50, 'px', 'px') }};
+
+        $scope.$watch('infoWindow', function(){
+          console.log('infoWindow changed');
         });
+
+
+        $scope.closeInfoWindow = function () {
+          console.log('closeInfoWindow');
+          $scope.infoWindow.show = false;
+          $scope.$apply();
+        }
+
+        $scope.openMarkerInfo = function( markerType, id ) {
+          // used to be marker
+          console.log('openMarkerInfo', markerType, id );
+          $scope.infoWindow.show = false;
+            $scope.$apply();
+
+          if ( markerType && id ) {
+            for ( var i = 0; i < $scope[ markerType ].length; i++ ) {
+              if ( $scope[ markerType ][ i ].id === id ) {
+                console.log('openMarkerInfo through', JSON.stringify( $scope[ markerType ][ i ] ) );
+                console.log('openMarkerInfo through', $scope[ markerType ][ i ].latLng.latitude, $scope[ markerType ][ i ].latLng.longitude );
+
+                var foundLat = $scope[ markerType ][ i ].latLng.latitude;
+                var foundLng = $scope[ markerType ][ i ].latLng.longitude;
+
+                $scope.infoWindow.coordinates = { latitude: foundLat, longitude: foundLng };
+                // $scope.infoWindow.id = id;
+                // $scope.infoWindow.group = markerType;
+                $scope.infoWindow.show = true;
+
+                $scope.map = $scope.map;
+
+                console.log( $scope.infoWindow );
+                $scope.$apply();
+              }
+            }
+          }
+          // $scope.infoWindow.show = true;
+          // $scope.currentMarker = marker;
+          // $scope.currentMarkerLat = marker.getPosition().lat();
+          // $scope.currentMarkerLng = marker.getPosition().lng();
+          // $scope.myInfoWindow.open($scope.myMap, marker);
+        };
+
+        $scope.getLocation = function() {
+
+          $scope.mapLocation = true;
+          $scope.infowindowShow = false;
+          // var posOptions = { timeout: 10000, enableHighAccuracy: true };
+          var posOptions = { enableHighAccuracy: true };
+          navigator.geolocation.getCurrentPosition( onSuccess, onError, posOptions ); // gets Geo location data
+
+
+          // onSuccess Geolocation
+          function onSuccess(position) {
+
+            var foundLat = position.coords.latitude;
+            var foundLng = position.coords.longitude;
+
+            $scope.myMarkers = [];
+            $scope.$apply();
+
+            var position = {};
+                position.id = 'self';
+                position.latLng = { latitude: foundLat, longitude: foundLng };
+                position.img = {url: 'img/Pins_People.svg', scaledSize: new google.maps.Size(25, 50)};
+
+
+            $scope.myMarkers.push( position );
+
+            $scope.infoWindow.coordinates = position.latLng;
+            $scope.infoWindow.show = true;
+            $scope.infoWindow.id = position.id;
+            $scope.infoWindow.group = 'myMarkers';
+
+            $scope.map = { center: { latitude: foundLat, longitude: foundLng } };
+            $scope.$apply();
+            $scope.mapLocation = false;
+          }
+
+
+          // onError Callback receives a PositionError object
+          function onError(error) {
+            $scope.mapLocation = false;
+              alert('code: '    + error.code    + '\n' +
+                    'message: ' + error.message + '\n');
+          }
+        }
+
+        $scope.getLocation();
+
+        // navigator.vibrate(3000);
+      });
 
     }]);

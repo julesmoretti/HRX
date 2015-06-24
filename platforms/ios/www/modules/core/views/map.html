@@ -4,15 +4,73 @@
 
 <!-- <div ng-click="clearLocalStorage()">clear cache</div> -->
 
-<a ui-sref="home" >home</a>
+<!-- <a ui-sref="home" >home</a> -->
+<!-- <div id="geolocation">GEOLOCATION</div> -->
 
-  <div id="map-canvas" ng-attr-style="width: {{windowWidth}}px; height: {{windowHeight}}px;"></div>
+<!-- MARKERS -->
+
+<!-- PERSONAL POSITION MARKERS -->
+<div ng-repeat="marker in myMarkers" ui-map-marker="myMarkers[$index]"
+  ui-event="{'map-click': 'openMarkerInfo(marker)'}">
+</div>
+
+<!-- HACK REACTOR MARKER -->
+<div ng-repeat="marker in hrMarkers" ui-map-marker="hrMarkers[$index]"
+  ui-event="{'map-click': 'openMarkerInfo(marker)'}">
+</div>
+
+<!-- CONFERENCE MARKERS -->
+<div ng-repeat="marker in conferencesMarkers" ui-map-marker="conferencesMarkers[$index]"
+  ui-event="{'map-click': 'openMarkerInfo(marker)'}">
+</div>
+
+<!-- ALUMNI MARKERS -->
+<div ng-repeat="marker in alumniMarkers" ui-map-marker="alumniMarkers[$index]"
+  ui-event="{'map-click': 'openMarkerInfo(marker)'}">
+</div>
+
+<!-- COMPANIES MARKERS -->
+<div ng-repeat="marker in companiesMarkers" ui-map-marker="companiesMarkers[$index]"
+  ui-event="{'map-click': 'openMarkerInfo(marker)'}">
+</div>
+
+<!-- EVENT MARKERS -->
+<div ng-repeat="marker in eventsMarkers" ui-map-marker="eventsMarkers[$index]"
+  ui-event="{'map-click': 'openMarkerInfo(marker)'}">
+</div>
+
+<!-- BACKGROUND MASK FOR MAP -->
+<div class="mapBackgroundMask"></div>
+
+<div ng-class="{{$state.current.name}}"></div>
+<div class="middle" ng-class="{blur: checkState( $state.current.name, 'home.map.menu' )}">
+  <ui-gmap-google-map options='mapOptions' center='map.center' zoom='map.zoom'>
+
+    <ui-gmap-window options='infoWindow.options' coords="infoWindow.coordinates" show="infoWindow.show" closeClick="infoWindow.show = false">
+      <div id="bodyContent">
+        <div id="infoWindowProfile"><img src="img/profile.jpg"/></div>
+        <div id="infoWindowText" ui-sref="home.map.menu.alumni"><span>Jules Moretti</span></br>
+        <span>alumnus</span>
+        </div>
+      </div>
+    </ui-gmap-window>
+
+    <ui-gmap-marker ng-repeat="myMarker in myMarkers" idKey='myMarker.id' coords='myMarker.latLng' icon='myMarker.img' click='openMarkerInfo( "myMarkers", myMarker.id )'></ui-gmap-marker>
+
+  </ui-gmap-google-map>
+</div>
+
+
+<!-- BRINGS YOU BACK TO WHERE YOU ARE CURRENTLY LOCATED -->
+<div id="mapLocation" class="mapLocation ion-android-locate" ng-class="{blur: checkState( $state.current.name, 'home.map.menu' )}" ng-click="getLocation()" ng-hide="mapLocation"></div>
+
+<div id="mapLocation" class="mapLocation ion-load-c mapLocationSpin" ng-class="{blur: checkState( $state.current.name, 'home.map.menu' )}" ng-show="mapLocation"></div>
 
 <!-- FILTER TOGGLE SWITCH -->
-<div id="mapFilter" class="ion-android-more-vertical" ui-sref=".filter"></div>
+<div id="mapFilter" class="ion-android-more-vertical" ng-class="{blur: checkState( $state.current.name, 'home.map.menu' )}" ui-sref=".filter"></div>
 
 <!-- MENU TOGGLE SWITCH -->
-<div id="mapMenu" class="ion-android-menu" ui-sref=".menu"></div>
+<div id="mapMenu" class="ion-android-menu" ng-class="{blur: checkState( $state.current.name, 'home.map.menu' )}" ui-sref=".menu"></div>
 
 <!-- UI VIEWS FOR FILTER AND MENU -->
 <div id="menu" ui-view="menu"></div>

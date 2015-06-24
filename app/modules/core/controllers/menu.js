@@ -16,7 +16,6 @@ angular
         {name: 'Companies', link: 'companies'},
         {name: 'Calendar', link: 'calendar'},
         {name: 'Messenger', link: 'messenger'},
-        {name: 'Profile', link: 'profile'},
-        {name: 'Settings', link: 'settings'}
+        {name: 'Profile', link: 'profile'}
       ];
     }]);

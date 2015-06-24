@@ -28,6 +28,8 @@ module.exports = function(config) {
             'app/lib/angular-ui-router/release/angular-ui-router.js',
             'app/lib/ngstorage/ngStorage.js',
             'app/lib/fastclick/lib/fastclick.js',
+            'app/lib/lodash/lodash.js',
+            'app/lib/angular-google-maps/dist/angular-google-maps.js',
             <!-- endinjector -->
 
             'app/js/config.js',

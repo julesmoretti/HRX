@@ -205,3 +205,4 @@ http://daneden.github.io/animate.css/
 http://www.yearofmoo.com/2013/08/remastered-animation-in-angularjs-1-2.html
 http://support.hockeyapp.net/kb/client-integration-ios-mac-os-x/ios-device-types
 http://billpatrianakos.me/blog/2014/04/25/phonegap-for-ios-the-definitive-guide-to-using-custom-fonts/
+https://snazzymaps.com
