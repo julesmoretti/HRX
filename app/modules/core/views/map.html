@@ -16,7 +16,7 @@
 <div ng-class="{{$state.current.name}}"></div>
 <!-- <div class="middle" ng-class="{blur: checkState( $state.current.name, 'home.map.menu' )}"> -->
 <div class="middle">
-  <ui-gmap-google-map options='mapOptions' center='map.center' zoom='map.zoom'>
+  <ui-gmap-google-map options='mapOptions' center='map.center' zoom='map.zoom' bounds='map.bounds'>
 
     <ui-gmap-window options='infoWindow.options' coords="infoWindow.coordinates" show="infoWindow.show" closeClick="infoWindow.show = false">
       <div id="bodyContent">

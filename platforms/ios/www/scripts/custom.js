@@ -211,7 +211,7 @@ angular
 
       $scope.moveFrameDown = function ( event, value ) {
         event.preventDefault(); event.stopPropagation();
-        window.scrollTo(0,70);
+        window.scrollTo(0,70); // shifts the frame down to align the input window by the keyboard.
       };
 
       $scope.getPosition = function () {
@@ -615,6 +615,9 @@ angular
           }
         };
 
+        $scope.positionAccuracyCount = 0;
+        $scope.positionAccuracyMin = 100000000;
+
         $scope.getLocation = function() {
 
           $scope.mapLocation = true;
@@ -622,29 +625,43 @@ angular
           var posOptions = { enableHighAccuracy: true };
           navigator.geolocation.getCurrentPosition( onSuccess, onError, posOptions ); // gets Geo location data
           function onSuccess(position) {
+            console.log( position.coords.accuracy );
+
+            $scope.positionAccuracyCount++;
 
             var foundLat = position.coords.latitude;
             var foundLng = position.coords.longitude;
 
-            $scope.myMarkers = [];
-            $scope.$apply();
+            if ( position.coords.accuracy < $scope.positionAccuracyMin ) {
+              $scope.positionAccuracyMin = position.coords.accuracy;
 
-            var position = {};
-                position.id = 'self';
-                position.latLng = { latitude: foundLat, longitude: foundLng };
-                position.img = {url: 'img/Pins_People.svg', scaledSize: new google.maps.Size(25, 50)};
+              $scope.myMarkers = [];
+              $scope.$apply();
+
+              var position = {};
+                  position.id = 'self';
+                  position.latLng = { latitude: foundLat, longitude: foundLng };
+                  position.img = {url: 'img/Pins_People.svg', scaledSize: new google.maps.Size(25, 50)};
 
 
-            $scope.myMarkers.push( position );
+              $scope.myMarkers.push( position );
 
-            $scope.infoWindow.coordinates = position.latLng;
-            $scope.infoWindow.show = true;
-            $scope.infoWindow.id = position.id;
-            $scope.infoWindow.group = 'myMarkers';
+              $scope.infoWindow.coordinates = position.latLng;
+              $scope.infoWindow.show = true;
+              $scope.infoWindow.id = position.id;
+              $scope.infoWindow.group = 'myMarkers';
 
-            $scope.map = { center: { latitude: foundLat, longitude: foundLng } };
-            $scope.$apply();
-            $scope.mapLocation = false;
+              $scope.map = { center: { latitude: foundLat, longitude: foundLng } };
+              $scope.$apply();
+            }
+
+            if ( $scope.positionAccuracyCount < 3 ) {
+              $scope.getLocation();
+            } else {
+              $scope.positionAccuracyCount = 0;
+              $scope.positionAccuracyMin = 100000000;
+              $scope.mapLocation = false;
+            }
           }
           function onError(error) {
             $scope.mapLocation = false;
@@ -653,7 +670,7 @@ angular
           }
         }
 
-        $scope.getLocation();
+        window.setTimeout( $scope.getLocation(), 300 );
       });
 
     }]);

@@ -21,20 +21,33 @@ angular
       };
 
       $scope.getPosition = function () {
-        console.log('filterInput called');
+        // console.log('filterInput called');
         if ( $scope.filterInput.length ) {
-          console.log('filterInput called has input', $scope.filterInput );
+          // console.log('filterInput called has input', $scope.filterInput );
 
           var geocoder = new google.maps.Geocoder();
 
           geocoder.geocode( { 'address': $scope.filterInput}, function(results, status) {
+
             if (status == google.maps.GeocoderStatus.OK) {
-              console.log( results[0].geometry.location.A, results[0].geometry.location.F )
+
               cordova.plugins.Keyboard.close();
+
               $scope.filterInput = "";
 
               $scope.infowindowShow = false;
 
+              var viewport = { "northeast" : {
+                                  "latitude" : results[0].geometry.viewport.za.j,
+                                  "longitude" : results[0].geometry.viewport.ra.A
+                               },
+                               "southwest" : {
+                                  "latitude" : results[0].geometry.viewport.za.A,
+                                  "longitude" : results[0].geometry.viewport.ra.j
+                               }};
+
+              // $scope.map.bounds = results[0].geometry.viewport;
+              $scope.map.bounds = viewport;
               $scope.map.center = { latitude: results[0].geometry.location.A, longitude: results[0].geometry.location.F };
               $scope.$apply();
 
