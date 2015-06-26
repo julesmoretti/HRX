@@ -1,52 +1,61 @@
 <div class="filter">
 
-  <div class="closeFilter ion-android-close" ui-sref="home.map">
-  </div>
-
-  <!-- <paper-input label="Input label"></paper-input> -->
-  <!-- <paper-input label="Input label" ng-model="myText"></paper-input> -->
-<!-- {{infoWindow.show}} -->
+  <!-- LOCATION SEARCH INPUT FIELD -->
   <form ng-submit="getPosition()">
     <div class="input-group">
-      <span class="input-group-addon ion-android-close" ng-click="filterInput = ''"></span>
+
+      <!-- CLOSE BUTTON -->
+      <span class="input-group-addon ion-android-close" ng-click="filterInput = ''; SharedData.moveLocationDown = false"></span>
+
+      <!-- INPUT FIELD -->
       <input id="filterInput" ng-model="filterInput" type="text" placeholder="Search a location" class="form-control" aria-label="Amount (to the nearest dollar)" ng-focus="moveFrameDown($event, 200)">
+
+      <!-- SEARCH FIELD -->
       <span class="input-group-addon ion-android-search" ng-click="getPosition()"></span>
     </div>
   </form>
 
+  <!-- HACK REACTOR LOUNGE CHECKBOX -->
   <div class="checkbox checkbox-slider--c checkbox-slider-info">
     <label>
-      <input ng-model="filters.hrLounge" type="checkbox">
+      <input ng-model="filters.hrLounge" type="checkbox" ng-click="closeInfoWindow()">
       <span ng-class="{filterSelected: filters.hrLounge }">HR Lounge</span>
     </label>
   </div>
 
+  <!-- CONFERENCES CHECKBOX -->
   <div class="checkbox checkbox-slider--c checkbox-slider-info">
     <label>
-      <input ng-model="filters.conferences" type="checkbox">
+      <input ng-model="filters.conferences" type="checkbox" ng-click="closeInfoWindow()">
       <span ng-class="{filterSelected: filters.conferences }">Conferences</span>
     </label>
   </div>
 
+  <!-- ALUMNI CHECKBOX -->
   <div class="checkbox checkbox-slider--c checkbox-slider-info">
     <label>
-      <input ng-model="filters.alumni" type="checkbox">
+      <input ng-model="filters.alumni" type="checkbox" ng-click="closeInfoWindow()">
       <span ng-class="{filterSelected: filters.alumni }">Alumni</span>
     </label>
   </div>
 
+  <!-- COMPANIES CHECKBOX -->
   <div class="checkbox checkbox-slider--c checkbox-slider-info">
     <label>
-      <input ng-model="filters.companies" type="checkbox">
+      <input ng-model="filters.companies" type="checkbox" ng-click="closeInfoWindow()">
       <span ng-class="{filterSelected: filters.companies }">Companies</span>
     </label>
   </div>
 
+  <!-- EVENTS CHECKBOX -->
   <div class="checkbox checkbox-slider--c checkbox-slider-info">
     <label>
-      <input ng-model="filters.events" type="checkbox">
+      <input ng-model="filters.events" type="checkbox" ng-click="closeInfoWindow()">
       <span ng-class="{filterSelected: filters.events }">Events</span>
     </label>
   </div>
+
+  <!-- CLOSE FILTER BUTTON -->
+  <div class="closeFilter ion-android-close" ui-sref="home.map"></div>
 
 </div>

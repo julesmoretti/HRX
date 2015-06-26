@@ -17,11 +17,14 @@ angular
       $scope.moveFrameDown = function ( event, value ) {
         // console.log(value, event);
         event.preventDefault(); event.stopPropagation();
-        window.scrollTo(0,70); // shifts the frame down to align the input window by the keyboard.
+        window.scrollTo(0,40); // shifts the frame down to align the input window by the keyboard.
+        // $scope.moveLocationDown = !$scope.moveLocationDown;
+        $scope.SharedData.moveLocationDown = true;
       };
 
       $scope.getPosition = function () {
         // console.log('filterInput called');
+        $scope.SharedData.moveLocationDown = false;
         if ( $scope.filterInput.length ) {
           // console.log('filterInput called has input', $scope.filterInput );
 
@@ -29,26 +32,37 @@ angular
 
           geocoder.geocode( { 'address': $scope.filterInput}, function(results, status) {
 
+            // console.log( 'getPosition', results[0], status );
+
             if (status == google.maps.GeocoderStatus.OK) {
 
-              cordova.plugins.Keyboard.close();
+              var app = document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://' ) === -1;
+              if ( app ) cordova.plugins.Keyboard.close();
 
               $scope.filterInput = "";
 
               $scope.infowindowShow = false;
 
+              var viewportKeys = Object.keys( results[0].geometry.viewport );
+              var viewportKeysA = Object.keys( results[0].geometry.viewport[ viewportKeys[0] ] );
+              var viewportKeysB = Object.keys( results[0].geometry.viewport[ viewportKeys[1] ] );
+              // console.log( 'viewportKeys', viewportKeys, viewportKeysA, viewportKeysB );
+
               var viewport = { "northeast" : {
-                                  "latitude" : results[0].geometry.viewport.za.j,
-                                  "longitude" : results[0].geometry.viewport.ra.A
+                                  "latitude" : results[0].geometry.viewport[ viewportKeys[0] ][ viewportKeysB[1] ],
+                                  "longitude" : results[0].geometry.viewport[ viewportKeys[1] ][ viewportKeysB[1] ]
                                },
                                "southwest" : {
-                                  "latitude" : results[0].geometry.viewport.za.A,
-                                  "longitude" : results[0].geometry.viewport.ra.j
+                                  "latitude" : results[0].geometry.viewport[ viewportKeys[0] ][ viewportKeysB[0] ],
+                                  "longitude" : results[0].geometry.viewport[ viewportKeys[1] ][ viewportKeysB[0] ]
                                }};
 
               // $scope.map.bounds = results[0].geometry.viewport;
               $scope.map.bounds = viewport;
-              $scope.map.center = { latitude: results[0].geometry.location.A, longitude: results[0].geometry.location.F };
+
+              var mypositionKey = Object.keys( results[0].geometry.location );
+
+              $scope.map.center = { latitude: results[0].geometry.location[ mypositionKey[0] ], longitude: results[0].geometry.location[ mypositionKey[1] ] };
               $scope.$apply();
 
               // map.setCenter(results[0].geometry.location);

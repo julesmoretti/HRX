@@ -8,7 +8,7 @@
 <!-- <div id="geolocation">GEOLOCATION</div> -->
 
 <!-- MENU TOGGLE MASK OVER MAP -->
-<div ng-show="checkState( $state.current.name, 'home.map.menu' )" class="mapForegroundMask"></div>
+<div ng-show="checkState( $state.current.name, 'home.map.menu' )" ui-sref="home.map" class="mapForegroundMask"></div>
 
 <!-- BACKGROUND MASK FOR MAP -->
 <div class="mapBackgroundMask"></div>
@@ -52,9 +52,9 @@
 
 
 <!-- BRINGS YOU BACK TO WHERE YOU ARE CURRENTLY LOCATED -->
-<div id="mapLocation" class="mapLocation ion-android-locate" ng-click="getLocation()" ng-hide="mapLocation"></div>
+<div id="mapLocation" class="mapLocation ion-android-locate" ng-class="{moveCurrentLocationDown: SharedData.moveLocationDown}" ng-click="showMyLocation()" ng-hide="mapLocation"></div>
 
-<div id="mapLocation" class="mapLocation ion-load-c mapLocationSpin" ng-show="mapLocation"></div>
+<div id="mapLocation" class="mapLocation ion-load-c mapLocationSpin" ng-class="{moveCurrentLocationDown: SharedData.moveLocationDown}" ng-show="mapLocation"></div>
 
 <!-- FILTER TOGGLE SWITCH -->
 <div id="mapFilter" class="ion-android-more-vertical" ui-sref=".filter"></div>

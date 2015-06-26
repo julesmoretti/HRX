@@ -9,7 +9,14 @@ angular
         function($locationProvider) {
             $locationProvider.hashPrefix('!');
         }
-    ]);
+    ])
+    .config(function(uiGmapGoogleMapApiProvider) {
+        uiGmapGoogleMapApiProvider.configure({
+            key: 'AIzaSyDfKyIsQyXUKsZpZTqXjkqPDVqQvCNrtDw',
+            v: '3.17',
+            libraries: 'weather,geometry,visualization'
+        });
+    });
 
 //Then define the init function for starting up the application
 angular

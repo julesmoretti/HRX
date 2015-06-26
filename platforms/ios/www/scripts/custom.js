@@ -29,7 +29,14 @@ angular
         function($locationProvider) {
             $locationProvider.hashPrefix('!');
         }
-    ]);
+    ])
+    .config(function(uiGmapGoogleMapApiProvider) {
+        uiGmapGoogleMapApiProvider.configure({
+            key: 'AIzaSyDfKyIsQyXUKsZpZTqXjkqPDVqQvCNrtDw',
+            v: '3.17',
+            libraries: 'weather,geometry,visualization'
+        });
+    });
 angular
     .element(document)
     .ready(function() {
@@ -211,25 +218,44 @@ angular
 
       $scope.moveFrameDown = function ( event, value ) {
         event.preventDefault(); event.stopPropagation();
-        window.scrollTo(0,70); // shifts the frame down to align the input window by the keyboard.
+        window.scrollTo(0,40); // shifts the frame down to align the input window by the keyboard.
+        $scope.SharedData.moveLocationDown = true;
       };
 
       $scope.getPosition = function () {
-        console.log('filterInput called');
+        $scope.SharedData.moveLocationDown = false;
         if ( $scope.filterInput.length ) {
-          console.log('filterInput called has input', $scope.filterInput );
 
           var geocoder = new google.maps.Geocoder();
 
           geocoder.geocode( { 'address': $scope.filterInput}, function(results, status) {
+
             if (status == google.maps.GeocoderStatus.OK) {
-              console.log( results[0].geometry.location.A, results[0].geometry.location.F )
-              cordova.plugins.Keyboard.close();
+
+              var app = document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://' ) === -1;
+              if ( app ) cordova.plugins.Keyboard.close();
+
               $scope.filterInput = "";
 
               $scope.infowindowShow = false;
 
-              $scope.map.center = { latitude: results[0].geometry.location.A, longitude: results[0].geometry.location.F };
+              var viewportKeys = Object.keys( results[0].geometry.viewport );
+              var viewportKeysA = Object.keys( results[0].geometry.viewport[ viewportKeys[0] ] );
+              var viewportKeysB = Object.keys( results[0].geometry.viewport[ viewportKeys[1] ] );
+
+              var viewport = { "northeast" : {
+                                  "latitude" : results[0].geometry.viewport[ viewportKeys[0] ][ viewportKeysB[1] ],
+                                  "longitude" : results[0].geometry.viewport[ viewportKeys[1] ][ viewportKeysB[1] ]
+                               },
+                               "southwest" : {
+                                  "latitude" : results[0].geometry.viewport[ viewportKeys[0] ][ viewportKeysB[0] ],
+                                  "longitude" : results[0].geometry.viewport[ viewportKeys[1] ][ viewportKeysB[0] ]
+                               }};
+              $scope.map.bounds = viewport;
+
+              var mypositionKey = Object.keys( results[0].geometry.location );
+
+              $scope.map.center = { latitude: results[0].geometry.location[ mypositionKey[0] ], longitude: results[0].geometry.location[ mypositionKey[1] ] };
               $scope.$apply();
             } else {
               alert("Geocode was not successful for the following reason: " + status);
@@ -326,20 +352,320 @@ angular
 
 angular
     .module('core')
-    .controller('MapController', ['$scope', '$http', '$window', '$localStorage', 'SharedData', '$rootScope', '$state', function( $scope, $http, $window, $localStorage, SharedData, $rootScope, $state ) {
+    .controller('MapController', ['$scope', '$http', '$window', '$localStorage', 'SharedData', '$rootScope', '$state', 'uiGmapGoogleMapApi', function( $scope, $http, $window, $localStorage, SharedData, $rootScope, $state, uiGmapGoogleMapApi ) {
       $scope.SharedData = SharedData;
       $scope.homeVariable = 'Jules Moretti - home';
       $scope.sent_over = 'type Something';
 
-      $scope.infowindowShow = false;
+      $scope.SharedData.moveLocationDown = false;
 
       $rootScope.$state = $state;
+
+      $scope.infowindowShow = false;
 
       angular.element(document).ready(function (){
         console.log('Angular is ready');
 
         if ( !$scope.$storage ) {
           $scope.$storage = $localStorage;
+        }
+
+        uiGmapGoogleMapApi.then(function(maps) {
+          console.log('google maps ready');
+          $scope.infoWindow = { options: { pixelOffset: new google.maps.Size(0, -50, 'px', 'px') }};
+          var styles = [
+                        {
+                            "featureType": "all",
+                            "elementType": "labels.text.fill",
+                            "stylers": [
+                                {
+                                    "saturation": "0"
+                                },
+                                {
+                                    "color": "#5bc0de"
+                                },
+                                {
+                                    "lightness": "0"
+                                }
+                            ]
+                        },
+                        {
+                            "featureType": "all",
+                            "elementType": "labels.text.stroke",
+                            "stylers": [
+                                {
+                                    "visibility": "on"
+                                },
+                                {
+                                    "color": "#000000"
+                                },
+                                {
+                                    "lightness": 16
+                                },
+                                {
+                                    "weight": "0.1"
+                                }
+                            ]
+                        },
+                        {
+                            "featureType": "all",
+                            "elementType": "labels.icon",
+                            "stylers": [
+                                {
+                                    "visibility": "off"
+                                }
+                            ]
+                        },
+                        {
+                            "featureType": "administrative",
+                            "elementType": "geometry.fill",
+                            "stylers": [
+                                {
+                                    "color": "#000000"
+                                },
+                                {
+                                    "lightness": "25"
+                                }
+                            ]
+                        },
+                        {
+                            "featureType": "administrative",
+                            "elementType": "geometry.stroke",
+                            "stylers": [
+                                {
+                                    "color": "#000000"
+                                },
+                                {
+                                    "lightness": "25"
+                                },
+                                {
+                                    "weight": 1.2
+                                }
+                            ]
+                        },
+                        {
+                            "featureType": "landscape",
+                            "elementType": "geometry",
+                            "stylers": [
+                                {
+                                    "color": "#000000"
+                                },
+                                {
+                                    "lightness": "23"
+                                }
+                            ]
+                        },
+                        {
+                            "featureType": "poi",
+                            "elementType": "geometry",
+                            "stylers": [
+                                {
+                                    "color": "#000000"
+                                },
+                                {
+                                    "lightness": "17"
+                                }
+                            ]
+                        },
+                        {
+                            "featureType": "road.highway",
+                            "elementType": "geometry.fill",
+                            "stylers": [
+                                {
+                                    "color": "#000000"
+                                },
+                                {
+                                    "lightness": "5"
+                                }
+                            ]
+                        },
+                        {
+                            "featureType": "road.highway",
+                            "elementType": "geometry.stroke",
+                            "stylers": [
+                                {
+                                    "color": "#000000"
+                                },
+                                {
+                                    "lightness": "10"
+                                },
+                                {
+                                    "weight": 0.2
+                                }
+                            ]
+                        },
+                        {
+                            "featureType": "road.arterial",
+                            "elementType": "geometry",
+                            "stylers": [
+                                {
+                                    "color": "#000000"
+                                },
+                                {
+                                    "lightness": "15"
+                                }
+                            ]
+                        },
+                        {
+                            "featureType": "road.local",
+                            "elementType": "geometry",
+                            "stylers": [
+                                {
+                                    "color": "#000000"
+                                },
+                                {
+                                    "lightness": "15"
+                                }
+                            ]
+                        },
+                        {
+                            "featureType": "transit",
+                            "elementType": "geometry",
+                            "stylers": [
+                                {
+                                    "color": "#ffffff"
+                                },
+                                {
+                                    "lightness": "-61"
+                                },
+                                {
+                                    "gamma": "1"
+                                },
+                                {
+                                    "saturation": "0"
+                                }
+                            ]
+                        },
+                        {
+                            "featureType": "water",
+                            "elementType": "geometry",
+                            "stylers": [
+                                {
+                                    "color": "#2b353c"
+                                },
+                                {
+                                    "saturation": "30"
+                                },
+                                {
+                                    "lightness": "13"
+                                }
+                            ]
+                        }
+                    ];
+          $scope.map = {
+            center: {
+              latitude: 37.82670075048411,
+              longitude: -122.42281079292297
+            },
+            zoom: 16
+          };
+          $scope.mapOptions = {
+            styles: styles,
+            mapTypeControlOptions: {
+              mapTypeIds: [google.maps.MapTypeId.ROADMAP, 'map_style']
+            },
+            panControl: false,
+            zoomControl: false,
+            mapTypeControl: false,
+            scaleControl: false,
+            streetViewControl: false,
+            overviewMapControl: false
+          };
+
+          window.setTimeout( $scope.getLocation(), 300 );
+
+        });
+
+        $scope.mapLocation = false;
+        $scope.mapFirstLoad = true;
+
+        $scope.closeInfoWindow = function () {
+          console.log('closeInfoWindow');
+          $scope.infoWindow.show = false;
+        }
+
+        $scope.openMarkerInfo = function( markerType, id ) {
+          console.log('openMarkerInfo', markerType, id );
+          $scope.infoWindow.show = false;
+            $scope.$apply();
+
+          if ( markerType && id ) {
+            for ( var i = 0; i < $scope[ markerType ].length; i++ ) {
+              if ( $scope[ markerType ][ i ].id === id ) {
+                console.log('openMarkerInfo through', JSON.stringify( $scope[ markerType ][ i ] ) );
+                console.log('openMarkerInfo through', $scope[ markerType ][ i ].latLng.latitude, $scope[ markerType ][ i ].latLng.longitude );
+
+                var foundLat = $scope[ markerType ][ i ].latLng.latitude;
+                var foundLng = $scope[ markerType ][ i ].latLng.longitude;
+
+                $scope.infoWindow.coordinates = { latitude: foundLat, longitude: foundLng };
+                $scope.infoWindow.show = true;
+
+                $scope.map = $scope.map;
+
+                console.log( $scope.infoWindow );
+                $scope.$apply();
+              }
+            }
+          }
+        };
+
+        $scope.showMyLocation = function( ) {
+          $scope.map = { center: { latitude: $scope.currentLatitude, longitude: $scope.currentLongitude } };
+        };
+
+        $scope.getLocation = function() {
+
+          if ( $scope.mapFirstLoad ) $scope.mapLocation = true;
+          $scope.infowindowShow = false;
+          var posOptions = {
+                              enableHighAccuracy: false,  // false means longer battery life
+                            };
+
+          navigator.geolocation.getCurrentPosition( onSuccess, onError, posOptions ); // gets Geo location data
+          function onSuccess( position ) {
+            $scope.currentLatitude = position.coords.latitude;
+            $scope.currentLongitude = position.coords.longitude;
+            $scope.positionAccuracyMin = position.coords.accuracy;
+
+            $scope.myMarkers = [];
+            $scope.$apply();
+
+            var position = {};
+                position.id = 'self';
+                position.latLng = { latitude: $scope.currentLatitude, longitude: $scope.currentLongitude };
+                position.img = {url: 'img/Pins_People.svg', scaledSize: new google.maps.Size(25, 50)};
+
+            $scope.myMarkers[0] = position;
+
+              if ( $scope.mapFirstLoad ) {
+                $scope.mapLocation = false;
+                $scope.mapFirstLoad = false;
+                $scope.showMyLocation();
+
+                $scope.infoWindow.coordinates = $scope.myMarkers[0].latLng;
+                $scope.infoWindow.show = true;
+                $scope.infoWindow.id = position.id;
+                $scope.infoWindow.group = 'myMarkers';
+              }
+
+              window.setTimeout( function() {
+                $scope.infoWindow.show = false;
+                $scope.$apply();
+              }, 5000 ); // hides infoWindow after 5 second
+
+            $scope.$apply();
+
+            window.setTimeout( function() {
+              $scope.getLocation()
+            }, 60000 ); // calls getLocation every 5 minutes
+          }
+          function onError(error) {
+            $scope.mapLocation = false;
+            window.setTimeout( function() {
+              $scope.getLocation()
+            }, ( 500 ) ); // calls getLocation every 5 minutes
+          }
         }
 
         document.addEventListener("deviceready", onDeviceReady, false);
@@ -376,301 +702,6 @@ angular
         $scope.alumniMarkers = [];
         $scope.companiesMarkers = [];
         $scope.eventsMarkers = [];
-
-        $scope.mapLocation = false;
-        var styles = [
-                      {
-                          "featureType": "all",
-                          "elementType": "labels.text.fill",
-                          "stylers": [
-                              {
-                                  "saturation": "0"
-                              },
-                              {
-                                  "color": "#5bc0de"
-                              },
-                              {
-                                  "lightness": "0"
-                              }
-                          ]
-                      },
-                      {
-                          "featureType": "all",
-                          "elementType": "labels.text.stroke",
-                          "stylers": [
-                              {
-                                  "visibility": "on"
-                              },
-                              {
-                                  "color": "#000000"
-                              },
-                              {
-                                  "lightness": 16
-                              },
-                              {
-                                  "weight": "0.1"
-                              }
-                          ]
-                      },
-                      {
-                          "featureType": "all",
-                          "elementType": "labels.icon",
-                          "stylers": [
-                              {
-                                  "visibility": "off"
-                              }
-                          ]
-                      },
-                      {
-                          "featureType": "administrative",
-                          "elementType": "geometry.fill",
-                          "stylers": [
-                              {
-                                  "color": "#000000"
-                              },
-                              {
-                                  "lightness": "25"
-                              }
-                          ]
-                      },
-                      {
-                          "featureType": "administrative",
-                          "elementType": "geometry.stroke",
-                          "stylers": [
-                              {
-                                  "color": "#000000"
-                              },
-                              {
-                                  "lightness": "25"
-                              },
-                              {
-                                  "weight": 1.2
-                              }
-                          ]
-                      },
-                      {
-                          "featureType": "landscape",
-                          "elementType": "geometry",
-                          "stylers": [
-                              {
-                                  "color": "#000000"
-                              },
-                              {
-                                  "lightness": "23"
-                              }
-                          ]
-                      },
-                      {
-                          "featureType": "poi",
-                          "elementType": "geometry",
-                          "stylers": [
-                              {
-                                  "color": "#000000"
-                              },
-                              {
-                                  "lightness": "17"
-                              }
-                          ]
-                      },
-                      {
-                          "featureType": "road.highway",
-                          "elementType": "geometry.fill",
-                          "stylers": [
-                              {
-                                  "color": "#000000"
-                              },
-                              {
-                                  "lightness": "5"
-                              }
-                          ]
-                      },
-                      {
-                          "featureType": "road.highway",
-                          "elementType": "geometry.stroke",
-                          "stylers": [
-                              {
-                                  "color": "#000000"
-                              },
-                              {
-                                  "lightness": "10"
-                              },
-                              {
-                                  "weight": 0.2
-                              }
-                          ]
-                      },
-                      {
-                          "featureType": "road.arterial",
-                          "elementType": "geometry",
-                          "stylers": [
-                              {
-                                  "color": "#000000"
-                              },
-                              {
-                                  "lightness": "15"
-                              }
-                          ]
-                      },
-                      {
-                          "featureType": "road.local",
-                          "elementType": "geometry",
-                          "stylers": [
-                              {
-                                  "color": "#000000"
-                              },
-                              {
-                                  "lightness": "15"
-                              }
-                          ]
-                      },
-                      {
-                          "featureType": "transit",
-                          "elementType": "geometry",
-                          "stylers": [
-                              {
-                                  "color": "#ffffff"
-                              },
-                              {
-                                  "lightness": "-61"
-                              },
-                              {
-                                  "gamma": "1"
-                              },
-                              {
-                                  "saturation": "0"
-                              }
-                          ]
-                      },
-                      {
-                          "featureType": "water",
-                          "elementType": "geometry",
-                          "stylers": [
-                              {
-                                  "color": "#2b353c"
-                              },
-                              {
-                                  "saturation": "30"
-                              },
-                              {
-                                  "lightness": "13"
-                              }
-                          ]
-                      }
-                  ];
-        $scope.map = {
-          center: {
-            latitude: 37.82670075048411,
-            longitude: -122.42281079292297
-          },
-          zoom: 16
-        };
-        $scope.mapOptions = {
-          styles: styles,
-          mapTypeControlOptions: {
-            mapTypeIds: [google.maps.MapTypeId.ROADMAP, 'map_style']
-          },
-          panControl: false,
-          zoomControl: false,
-          mapTypeControl: false,
-          scaleControl: false,
-          streetViewControl: false,
-          overviewMapControl: false
-        };
-        $scope.infoWindow = { options: { pixelOffset: new google.maps.Size(0, -50, 'px', 'px') }};
-
-        $scope.$watch('infoWindow', function(){
-          console.log('infoWindow changed');
-        });
-
-
-        $scope.closeInfoWindow = function () {
-          console.log('closeInfoWindow');
-          $scope.infoWindow.show = false;
-          $scope.$apply();
-        }
-
-        $scope.openMarkerInfo = function( markerType, id ) {
-          console.log('openMarkerInfo', markerType, id );
-          $scope.infoWindow.show = false;
-            $scope.$apply();
-
-          if ( markerType && id ) {
-            for ( var i = 0; i < $scope[ markerType ].length; i++ ) {
-              if ( $scope[ markerType ][ i ].id === id ) {
-                console.log('openMarkerInfo through', JSON.stringify( $scope[ markerType ][ i ] ) );
-                console.log('openMarkerInfo through', $scope[ markerType ][ i ].latLng.latitude, $scope[ markerType ][ i ].latLng.longitude );
-
-                var foundLat = $scope[ markerType ][ i ].latLng.latitude;
-                var foundLng = $scope[ markerType ][ i ].latLng.longitude;
-
-                $scope.infoWindow.coordinates = { latitude: foundLat, longitude: foundLng };
-                $scope.infoWindow.show = true;
-
-                $scope.map = $scope.map;
-
-                console.log( $scope.infoWindow );
-                $scope.$apply();
-              }
-            }
-          }
-        };
-
-        $scope.positionAccuracyCount = 0;
-        $scope.positionAccuracyMin = 100000000;
-
-        $scope.getLocation = function() {
-
-          $scope.mapLocation = true;
-          $scope.infowindowShow = false;
-          var posOptions = { enableHighAccuracy: true };
-          navigator.geolocation.getCurrentPosition( onSuccess, onError, posOptions ); // gets Geo location data
-          function onSuccess(position) {
-            console.log( position.coords.accuracy );
-
-            $scope.positionAccuracyCount++;
-
-            var foundLat = position.coords.latitude;
-            var foundLng = position.coords.longitude;
-
-            if ( position.coords.accuracy < $scope.positionAccuracyMin ) {
-              $scope.positionAccuracyMin = position.coords.accuracy;
-
-              $scope.myMarkers = [];
-              $scope.$apply();
-
-              var position = {};
-                  position.id = 'self';
-                  position.latLng = { latitude: foundLat, longitude: foundLng };
-                  position.img = {url: 'img/Pins_People.svg', scaledSize: new google.maps.Size(25, 50)};
-
-
-              $scope.myMarkers.push( position );
-
-              $scope.infoWindow.coordinates = position.latLng;
-              $scope.infoWindow.show = true;
-              $scope.infoWindow.id = position.id;
-              $scope.infoWindow.group = 'myMarkers';
-
-              $scope.map = { center: { latitude: foundLat, longitude: foundLng } };
-              $scope.$apply();
-            }
-
-            if ( $scope.positionAccuracyCount < 3 ) {
-              $scope.getLocation();
-            } else {
-              $scope.positionAccuracyCount = 0;
-              $scope.positionAccuracyMin = 100000000;
-              $scope.mapLocation = false;
-            }
-          }
-          function onError(error) {
-            $scope.mapLocation = false;
-              alert('code: '    + error.code    + '\n' +
-                    'message: ' + error.message + '\n');
-          }
-        }
-
-        window.setTimeout( $scope.getLocation(), 300 );
       });
 
     }]);
