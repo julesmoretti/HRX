@@ -209,6 +209,11 @@ angular
 
       $scope.filterInput = '';
 
+      $scope.moveFrameDown = function ( event, value ) {
+        event.preventDefault(); event.stopPropagation();
+        window.scrollTo(0,70);
+      };
+
       $scope.getPosition = function () {
         console.log('filterInput called');
         if ( $scope.filterInput.length ) {
@@ -219,6 +224,9 @@ angular
           geocoder.geocode( { 'address': $scope.filterInput}, function(results, status) {
             if (status == google.maps.GeocoderStatus.OK) {
               console.log( results[0].geometry.location.A, results[0].geometry.location.F )
+              cordova.plugins.Keyboard.close();
+              $scope.filterInput = "";
+
               $scope.infowindowShow = false;
 
               $scope.map.center = { latitude: results[0].geometry.location.A, longitude: results[0].geometry.location.F };
@@ -228,7 +236,7 @@ angular
             }
           });
         }
-      }
+      };
 
     }]);
 
@@ -340,6 +348,8 @@ angular
           console.log('Cordova is ready');
 
           StatusBar.hide();  // hide iPhone status bar
+          cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
+          cordova.plugins.Keyboard.disableScroll(false);
         };
 
         $scope.checkState = function ( stateName, stateString ) {

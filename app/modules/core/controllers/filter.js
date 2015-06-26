@@ -14,6 +14,12 @@ angular
 
       $scope.filterInput = '';
 
+      $scope.moveFrameDown = function ( event, value ) {
+        // console.log(value, event);
+        event.preventDefault(); event.stopPropagation();
+        window.scrollTo(0,70); // shifts the frame down to align the input window by the keyboard.
+      };
+
       $scope.getPosition = function () {
         console.log('filterInput called');
         if ( $scope.filterInput.length ) {
@@ -24,6 +30,9 @@ angular
           geocoder.geocode( { 'address': $scope.filterInput}, function(results, status) {
             if (status == google.maps.GeocoderStatus.OK) {
               console.log( results[0].geometry.location.A, results[0].geometry.location.F )
+              cordova.plugins.Keyboard.close();
+              $scope.filterInput = "";
+
               $scope.infowindowShow = false;
 
               $scope.map.center = { latitude: results[0].geometry.location.A, longitude: results[0].geometry.location.F };
@@ -40,6 +49,6 @@ angular
             }
           });
         }
-      }
+      };
 
     }]);

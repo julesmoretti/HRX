@@ -7,15 +7,6 @@
         "is_top_level": true,
         "variables": {}
     },
-    "com.chariotsolutions.cordova.plugin.keyboard_toolbar_remover": {
-        "source": {
-            "type": "git",
-            "url": "https://github.com/don/KeyboardToolbarRemover",
-            "subdir": "."
-        },
-        "is_top_level": true,
-        "variables": {}
-    },
     "org.apache.cordova.device": {
         "source": {
             "type": "registry",
@@ -83,5 +74,13 @@
             "type": "local",
             "path": "/Users/jules/.plugman/cache/org.apache.cordova.splashscreen/1.0.0/package"
         }
+    },
+    "com.ionic.keyboard": {
+        "source": {
+            "type": "registry",
+            "id": "com.ionic.keyboard"
+        },
+        "is_top_level": true,
+        "variables": {}
     }
 }

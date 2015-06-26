@@ -1,6 +1,6 @@
 {
   "name": "hrx",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Hack Reactor own alumni network",
   "dependencies": {
     "bootstrap": "~3.2.0",

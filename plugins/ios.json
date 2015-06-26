@@ -9,10 +9,6 @@
                 "parents": {
                     "/*": [
                         {
-                            "xml": "<feature name=\"KeyboardToolbarRemover\"><param name=\"ios-package\" value=\"KeyboardToolbarRemover\" /></feature>",
-                            "count": 1
-                        },
-                        {
                             "xml": "<feature name=\"StatusBar\"><param name=\"ios-package\" value=\"CDVStatusBar\" /><param name=\"onload\" value=\"true\" /></feature>",
                             "count": 1
                         },
@@ -66,6 +62,10 @@
                         },
                         {
                             "xml": "<feature name=\"SplashScreen\"><param name=\"ios-package\" value=\"CDVSplashScreen\" /><param name=\"onload\" value=\"true\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"Keyboard\"><param name=\"ios-package\" onload=\"true\" value=\"IonicKeyboard\" /></feature>",
                             "count": 1
                         }
                     ]
@@ -136,9 +136,6 @@
         }
     },
     "installed_plugins": {
-        "com.chariotsolutions.cordova.plugin.keyboard_toolbar_remover": {
-            "PACKAGE_NAME": "io.hrxclub.hrx"
-        },
         "cordova-plugin-statusbar": {
             "PACKAGE_NAME": "io.hrxclub.hrx"
         },
@@ -173,6 +170,9 @@
             "PACKAGE_NAME": "io.hrxclub.hrx"
         },
         "org.apache.cordova.splashscreen": {
+            "PACKAGE_NAME": "io.hrxclub.hrx"
+        },
+        "com.ionic.keyboard": {
             "PACKAGE_NAME": "io.hrxclub.hrx"
         }
     },

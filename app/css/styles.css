@@ -187,10 +187,18 @@ body {
   position: absolute;
 }
 
-.blur {
-  -webkit-transition: all linear 2s;
-  transition: all linear 2s;
-  -webkit-filter: blur(2px);
+/*.blur {*/
+/*-webkit-transition: all linear 0.125s;*/
+/*transition: all linear 0.125s;*/
+/*-webkit-filter: blur(2px);*/
+/*}*/
+.mapForegroundMask {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  background-color: black;
+  opacity: 0.7;
+  z-index: 1;
 }
 
 .mapBackgroundMask {

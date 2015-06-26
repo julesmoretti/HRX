@@ -36,7 +36,9 @@ angular
           // Now safe to use device APIs
 
           StatusBar.hide();  // hide iPhone status bar
-          // toolbar.hide()
+          // toolbar.hide();
+          cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
+          cordova.plugins.Keyboard.disableScroll(false);
           // Keyboard.shrinkView(true);
           // Keyboard.hideFormAccessoryBar(true);
         };
