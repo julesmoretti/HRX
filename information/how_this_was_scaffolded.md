@@ -209,3 +209,4 @@ https://snazzymaps.com
 https://github.com/AlexDisler/cordova-icon
 https://github.com/AlexDisler/cordova-splash
 https://github.com/driftyco/ionic-plugin-keyboard
+http://www.raywenderlich.com/32960/apple-push-notification-services-in-ios-6-tutorial-part-1

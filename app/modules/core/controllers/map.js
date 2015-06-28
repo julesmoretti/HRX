@@ -8,7 +8,7 @@
 */
 angular
     .module('core')
-    .controller('MapController', ['$scope', '$http', '$window', '$localStorage', 'SharedData', '$rootScope', '$state', 'uiGmapGoogleMapApi', function( $scope, $http, $window, $localStorage, SharedData, $rootScope, $state, uiGmapGoogleMapApi ) {
+    .controller('MapController', ['$scope', '$http', '$window', '$localStorage', 'SharedData', '$rootScope', '$state', '$location', 'uiGmapGoogleMapApi', function( $scope, $http, $window, $localStorage, SharedData, $rootScope, $state, $location, uiGmapGoogleMapApi ) {
       $scope.SharedData = SharedData;
       $scope.homeVariable = 'Jules Moretti - home';
       $scope.sent_over = 'type Something';
@@ -25,6 +25,11 @@ angular
         if ( !$scope.$storage ) {
           $scope.$storage = $localStorage;
         }
+
+
+        // alert( 'absUrl' + $location.absUrl()+' --- url' + $location.url() + ' --- search' + JSON.stringify( $location.search() ) );
+        // absUrlhttp://localhost:3000/#!/map?access_token=R0OkDz8zAtuhcuxpFsCLOQ --- url/map?access_token=R0OkDz8zAtuhcuxpFsCLOQ --- search[object Object]
+        // bsUrlhttp://localhost:3000/#!/map?access_token=R0OkDz8zAtuhcuxpFsCLOQ --- url/map?access_token=R0OkDz8zAtuhcuxpFsCLOQ --- search{"access_token":"R0OkDz8zAtuhcuxpFsCLOQ"}
 
         uiGmapGoogleMapApi.then(function(maps) {
           console.log('google maps ready');
@@ -226,12 +231,13 @@ angular
             mapTypeControlOptions: {
               mapTypeIds: [google.maps.MapTypeId.ROADMAP, 'map_style']
             },
-            panControl: false,
-            zoomControl: false,
-            mapTypeControl: false,
-            scaleControl: false,
-            streetViewControl: false,
-            overviewMapControl: false
+            disableDefaultUI: true
+            // panControl: false,
+            // zoomControl: false,
+            // mapTypeControl: false,
+            // scaleControl: false,
+            // streetViewControl: false,
+            // overviewMapControl: false
           };
 
           // PLACE MARKER ON START - ONLY FOR TESTING
@@ -291,11 +297,11 @@ angular
           // $scope.myInfoWindow.open($scope.myMap, marker);
         };
 
-        $scope.showMyLocation = function( ) {
+        $scope.showMyLocation = function () {
           $scope.map = { center: { latitude: $scope.currentLatitude, longitude: $scope.currentLongitude } };
         };
 
-        $scope.getLocation = function() {
+        $scope.getLocation = function () {
 
           if ( $scope.mapFirstLoad ) $scope.mapLocation = true;
           $scope.infowindowShow = false;
@@ -366,7 +372,32 @@ angular
           }
         }
 
-        document.addEventListener("deviceready", onDeviceReady, false);
+        // iOS APN CALLBACK HANDLER FROM API NOTIFICATIONS
+        window.onNotificationAPN = function (event) {
+          // alert('event');
+          // alert(JSON.stringify( event ) );
+
+          if ( event.state ) {
+            $state.go( event.state ); // if state param is passed. App will go to this state
+          }
+            // if ( event.alert )
+            // {
+                // navigator.notification.alert(event.alert);
+            // }
+
+            // if ( event.sound )
+            // {
+                // var snd = new Media(event.sound);
+                // snd.play();
+            // }
+
+            // if ( event.badge )
+            // {
+                // pushNotification.setApplicationIconBadgeNumber(successHandler, errorHandler, event.badge);
+            // }
+        }
+
+        document.addEventListener("deviceready", onDeviceReady.bind(this), false);
 
         function onDeviceReady() {
           console.log('Cordova is ready');
@@ -377,12 +408,84 @@ angular
 
           // Now safe to use device APIs
 
-          StatusBar.hide();  // hide iPhone status bar
-          // toolbar.hide();
+          // HIDE THE IPHONE STATUS BAR
+          StatusBar.hide();
+
+          // HIDE THE KEYBOARD DONE BACK AND NEXT ARROW
           cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
           cordova.plugins.Keyboard.disableScroll(false);
-          // Keyboard.shrinkView(true);
-          // Keyboard.hideFormAccessoryBar(true);
+
+
+          var addCallback = function addCallback(key, callback) {
+            if (window.pushCallbacks === undefined) {
+                window.pushCallbacks = {}
+            }
+            window.pushCallbacks[key] = callback;
+          };
+
+          // INITIATE PUSH PUSHNOTIFICATION
+          var pushNotification = window.plugins.pushNotification;
+
+              pushNotification.register( tokenHandler, errorHandler,  {
+                                                                        "badge":"true",
+                                                                        "sound":"true",
+                                                                        "alert":"true",
+                                                                        "ecb":"window.onNotificationAPN"
+                                                                      });
+
+          // result contains any message sent from the plugin call
+          function tokenHandler ( result ) {
+            // alert('result = ' + result);
+            $scope.$storage.deviceToken = result;
+            // sends token to API
+            var req = {
+              method: 'GET',
+              url: 'http://api.hrx.club/hello',
+              headers: {
+                'X-HRX-User-APN-Token' : result
+              }
+            };
+
+            $http( req ).
+              success( function( data, status, headers, config ) {
+                // something called here
+                  // alert( "Successful connection to API: ", data );
+                  // alert( "And status: ", status );
+
+                  // need to handle responses
+                  // {responseCode: 200, message: "Welcome back!", token: "�l����ʲ��u����8�+���ȁ�f��pr/!����%���7�ymxT�Q@�D��</o��ϕ��@0IW�p�� $L� 40����cLHݥmx4��Ƕ���N��͖���,"}
+
+                  // {responseCode: 400, message: "no header detected"}
+                  // {responseCode: 401, message: "no username or password inputed"}
+                  // {responseCode: 402, message: "Username does not exist or wrong password..."}
+
+                // if ( status && status === 200 && data && data.responseCode ) {
+                //   if ( data.responseCode === 200 ) {
+                //     console.log('passed response', data);
+                //   } else {
+                //     console.log('wrong response', data);
+                //     // handle wrong input field...
+                //     $scope.clearLocalStorage();
+                //     $window.open('#!/login', '_self'); // send back to login wherever
+                //   }
+                // } else {
+                //   console.log( 'error function should have caught this' );
+                // }
+              }).
+              error( function( data, status, headers, config ) {
+                // something called here
+                // alert( "Error establishing a connection to API: ", data );
+                // alert( "And status: ", status );
+
+                // need to handle errors like time outs etc...
+              });
+          }
+
+          // result contains any error description text returned from the plugin call
+          function errorHandler (error) {
+              alert('error = ' + error);
+          }
+
         };
 
         $scope.checkState = function ( stateName, stateString ) {

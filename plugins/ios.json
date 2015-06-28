@@ -9,6 +9,14 @@
                 "parents": {
                     "/*": [
                         {
+                            "xml": "<feature name=\"Keyboard\"><param name=\"ios-package\" onload=\"true\" value=\"IonicKeyboard\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"PushPlugin\"><param name=\"ios-package\" value=\"PushPlugin\" /></feature>",
+                            "count": 1
+                        },
+                        {
                             "xml": "<feature name=\"StatusBar\"><param name=\"ios-package\" value=\"CDVStatusBar\" /><param name=\"onload\" value=\"true\" /></feature>",
                             "count": 1
                         },
@@ -62,10 +70,6 @@
                         },
                         {
                             "xml": "<feature name=\"SplashScreen\"><param name=\"ios-package\" value=\"CDVSplashScreen\" /><param name=\"onload\" value=\"true\" /></feature>",
-                            "count": 1
-                        },
-                        {
-                            "xml": "<feature name=\"Keyboard\"><param name=\"ios-package\" onload=\"true\" value=\"IonicKeyboard\" /></feature>",
                             "count": 1
                         }
                     ]
@@ -136,6 +140,12 @@
         }
     },
     "installed_plugins": {
+        "com.ionic.keyboard": {
+            "PACKAGE_NAME": "io.hrxclub.hrx"
+        },
+        "com.phonegap.plugins.PushPlugin": {
+            "PACKAGE_NAME": "io.hrxclub.hrx"
+        },
         "cordova-plugin-statusbar": {
             "PACKAGE_NAME": "io.hrxclub.hrx"
         },
@@ -170,9 +180,6 @@
             "PACKAGE_NAME": "io.hrxclub.hrx"
         },
         "org.apache.cordova.splashscreen": {
-            "PACKAGE_NAME": "io.hrxclub.hrx"
-        },
-        "com.ionic.keyboard": {
             "PACKAGE_NAME": "io.hrxclub.hrx"
         }
     },

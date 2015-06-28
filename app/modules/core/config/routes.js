@@ -13,8 +13,8 @@ angular
         '$urlRouterProvider',
         function($stateProvider, $urlRouterProvider) {
 
-            // $urlRouterProvider.otherwise('/');
-            $urlRouterProvider.otherwise('/map');
+            $urlRouterProvider.otherwise('/');
+            // $urlRouterProvider.otherwise('/map');
             // $urlRouterProvider.otherwise('/map/filter');
 
             /**
@@ -34,6 +34,16 @@ angular
                   'home': {
                     templateUrl: 'modules/core/views/home.html',
                     controller: 'HomeController'
+                  }
+                }
+              })
+
+              .state('home.login', {
+                url: 'login',
+                views: {
+                  'home@': {
+                    templateUrl: 'modules/core/views/login.html',
+                    controller: 'LoginController'
                   }
                 }
               })
@@ -70,7 +80,8 @@ angular
                   },
                   'menuFooter@home.map.menu': {
                     // template: '<div class="back-button ion-ios-arrow-back" ui-sref="home.map"></div><div class="main-title">Menu</div>',
-                    template: '<div class="back-button ion-android-close" ui-sref="home.map"></div><div class="main-title"></div><div class="settings-button ion-gear-a" ui-sref="home.map.menu.settings"></div>',
+                    template: '<div class="back-button ion-android-close" ui-sref="home.map"></div><div class="main-title"></div><div class="settings-button ion-gear-a" ng-click="signOut()"></div>',
+                    // template: '<div class="back-button ion-android-close" ui-sref="home.map"></div><div class="main-title"></div><div class="settings-button ion-gear-a" ui-sref="home.map.menu.settings" ng-click="signOut()"></div>',
                     controller: 'MenuController'
                   }
                 }

@@ -29,6 +29,147 @@ body {
   bottom: -50px !important;
 }
 
+.home {
+  background-color: #222;
+  /*width: 100%;*/
+  /*height: 100%;*/
+  position: absolute;
+  top: 0px;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  color: #555;
+}
+
+.login {
+  background-color: #222;
+  /*width: 100%;*/
+  /*height: 100%;*/
+  position: absolute;
+  top: 0px;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  color: #555;
+}
+
+.login #loginLogo {
+  width: 300px;
+  height: 300px;
+  position: absolute;
+  top: calc(50% - 150px);
+  left: calc(50% - 150px);
+  /*background-image: url(../img/HRA-logo.svg);*/
+  /*background-repeat: no-repeat;*/
+  /*background-attachment: fixed;*/
+  /*background-position: center;*/
+}
+
+.login #loginLogo object {
+  width: 300px;
+  height: 300px;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  pointer-events: none;
+}
+
+.login #loginLogo .floatingGitEyes {
+  width: 100px;
+  height: 100px;
+  position: absolute;
+  top: calc(50% - 50px);
+  left: calc(50% - 50px);
+  /*background-image: url(../img/github-cat-eye.svg);*/
+  /*background-repeat: no-repeat;*/
+  /*background-position: center;*/
+  -webkit-animation-name: blink;
+  -webkit-animation-duration: 2.5s;
+  -webkit-animation-iteration-count: infinite;
+  animation-name: blink;
+  animation-duration: 2.5s;
+  animation-iteration-count: infinite;
+}
+
+.login #loginLogo .floatingGitEyes object {
+  width: 100px;
+  height: 100px;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  pointer-events: none;
+}
+
+.login #loginLogo .floatingGit {
+  width: 100px;
+  height: 100px;
+  position: absolute;
+  top: calc(50% - 50px);
+  left: calc(50% - 50px);
+  /*background-image: url(../img/github-cat-no-eye.svg);*/
+  /*background-repeat: no-repeat;*/
+  /*background-position: center;*/
+  -webkit-animation-name: ghostLike;
+  -webkit-animation-duration: 1s;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-direction: alternate;
+  animation-name: ghostLike;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+.login #loginLogo .floatingGit object {
+  width: 100px;
+  height: 100px;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  pointer-events: none;
+}
+
+@-webkit-keyframes ghostLike {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.5;
+  }
+}
+
+@keyframes ghostLike {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.5;
+  }
+}
+
+@-webkit-keyframes blink {
+  0% {
+    opacity: 0;
+  }
+  5% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes blink {
+  0% {
+    opacity: 0;
+  }
+  5% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
 #menu, #menuList, #alumni, #alumn {
   background-color: #222;
   position: absolute;

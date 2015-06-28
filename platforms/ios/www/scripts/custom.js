@@ -33,7 +33,7 @@ angular
     .config(function(uiGmapGoogleMapApiProvider) {
         uiGmapGoogleMapApiProvider.configure({
             key: 'AIzaSyDfKyIsQyXUKsZpZTqXjkqPDVqQvCNrtDw',
-            v: '3.17',
+            v: '3',
             libraries: 'weather,geometry,visualization'
         });
     });
@@ -61,7 +61,8 @@ angular
     .config(['$stateProvider',
         '$urlRouterProvider',
         function($stateProvider, $urlRouterProvider) {
-            $urlRouterProvider.otherwise('/map');
+
+            $urlRouterProvider.otherwise('/');
 
                         $stateProvider
               .state('home', {
@@ -70,6 +71,16 @@ angular
                   'home': {
                     templateUrl: 'modules/core/views/home.html',
                     controller: 'HomeController'
+                  }
+                }
+              })
+
+              .state('home.login', {
+                url: 'login',
+                views: {
+                  'home@': {
+                    templateUrl: 'modules/core/views/login.html',
+                    controller: 'LoginController'
                   }
                 }
               })
@@ -105,7 +116,7 @@ angular
                     controller: 'MenuController'
                   },
                   'menuFooter@home.map.menu': {
-                    template: '<div class="back-button ion-android-close" ui-sref="home.map"></div><div class="main-title"></div><div class="settings-button ion-gear-a" ui-sref="home.map.menu.settings"></div>',
+                    template: '<div class="back-button ion-android-close" ui-sref="home.map"></div><div class="main-title"></div><div class="settings-button ion-gear-a" ng-click="signOut()"></div>',
                     controller: 'MenuController'
                   }
                 }
@@ -270,7 +281,7 @@ angular
 
 angular
     .module('core')
-    .controller('HomeController', ['$scope', '$http', '$window', '$localStorage', 'SharedData' , function( $scope, $http, $window, $localStorage, SharedData ) {
+    .controller('HomeController', ['$scope', '$http', '$window', '$localStorage', 'SharedData', '$rootScope', '$state', function( $scope, $http, $window, $localStorage, SharedData, $rootScope, $state ) {
       $scope.SharedData = SharedData;
       $scope.homeVariable = 'Jules Moretti - home';
       $scope.sent_over = 'type Something';
@@ -291,47 +302,18 @@ angular
           document.addEventListener("deviceready", onDeviceReady, false);
 
           function onDeviceReady() {
-            console.log('Cordova is ready');
-
-            StatusBar.hide();  // hide iPhone status bar
-
-            var element = document.getElementById('deviceProperties');
-
-            element.innerHTML = 'Device Name: '     + device.name     + '<br />' +
-                                'Device Cordova: ' + device.cordova + '<br />' +
-                                'Device Platform: ' + device.platform + '<br />' +
-                                'Device UUID: '     + device.uuid     + '<br />' +
-                                'Device Model: '    + device.model    + '<br />' +
-                                'Device Version: '  + device.version  + '<br />';
-
-
-            var model = device.model;
-
-            if ( model.length && model.length === 9 && model.slice(0,-3) === 'iPhone' ) {
-              console.log( model.slice(0,-3) );
-
-              var modelVersion = model.slice(-3).split(',');
-              console.log( modelVersion[0], modelVersion[1] );
-              if ( modelVersion[0] === '1' || modelVersion[0] === '2' ) {
-                console.log('iPhone: 1, 2, 3G, 3GS = 480x320');
-                $scope.SharedData.menuWidth = 320;
-              } else if ( modelVersion[0] === '3' || modelVersion[0] === '4' || modelVersion[0] === '5' || modelVersion[0] === '6' ) {
-                console.log('iPhone: 4, 4S = 960x640');
-                console.log('iPhone: 5, 5C, 5s = 1136x640');
-                $scope.SharedData.menuWidth = 640;
-              } else if ( modelVersion[0] === '7' && modelVersion[1] === '1' ) {
-                console.log('iPhone: 6+ = 1920x1080');
-                $scope.SharedData.menuWidth = 1080;
-              } else if ( modelVersion[0] === '7' && modelVersion[1] === '2' ) {
-                console.log('iPhone: 6 = 1334x750');
-                $scope.SharedData.menuWidth = 750;
-
-              }
-
-            } else {
-              $scope.SharedData.menuWidth = 320;
-            }
+            StatusBar.hide();
+            cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
+            cordova.plugins.Keyboard.disableScroll(false);
           }
+
+          if ( !$scope.$storage.token ) {
+            $scope.clearLocalStorage();
+            $state.go('home.login');
+          } else {
+            $state.go('home.map');
+          }
+
         });
 
     }]);
@@ -340,19 +322,37 @@ angular
 
 angular
     .module('core')
-    .controller('LoginController', [
-        '$scope',
-        function($scope) {
+    .controller('LoginController', ['$scope', '$http', '$window', '$localStorage', 'SharedData', '$rootScope', '$location', '$state', function( $scope, $http, $window, $localStorage, SharedData, $rootScope, $location, $state ) {
+      $scope.SharedData = SharedData;
 
+      if ( !$scope.$storage ) {
+        $scope.$storage = $localStorage;
+      }
 
-        }
-]);
+      $scope.GHlogin = function() {
+        var ref = window.open('http://api.hrx.club/GHlogin', '_blank', 'location=no,toolbar=no');
+        ref.addEventListener('loadstart', function( event ) {
+          var url = event.url;
+          var urlStart = url.split('?');
+          var urlSuccessPage = "http://localhost:5000/success/";
+          if ( urlStart[0] === urlSuccessPage) {
+            var result = JSON.parse( decodeURIComponent( urlStart[1] ) );
+            ref.close();
+            if ( result.access_token && ( result.message === 'Welcome to HRX!' || result.message === 'Welcome back!' ) ) {
+              $scope.$storage.token = result.access_token;
+              $state.go( 'home.map' );
+            }
+          }
+        });
+
+      };
+    }]);
 
 'use strict';
 
 angular
     .module('core')
-    .controller('MapController', ['$scope', '$http', '$window', '$localStorage', 'SharedData', '$rootScope', '$state', 'uiGmapGoogleMapApi', function( $scope, $http, $window, $localStorage, SharedData, $rootScope, $state, uiGmapGoogleMapApi ) {
+    .controller('MapController', ['$scope', '$http', '$window', '$localStorage', 'SharedData', '$rootScope', '$state', '$location', 'uiGmapGoogleMapApi', function( $scope, $http, $window, $localStorage, SharedData, $rootScope, $state, $location, uiGmapGoogleMapApi ) {
       $scope.SharedData = SharedData;
       $scope.homeVariable = 'Jules Moretti - home';
       $scope.sent_over = 'type Something';
@@ -564,12 +564,7 @@ angular
             mapTypeControlOptions: {
               mapTypeIds: [google.maps.MapTypeId.ROADMAP, 'map_style']
             },
-            panControl: false,
-            zoomControl: false,
-            mapTypeControl: false,
-            scaleControl: false,
-            streetViewControl: false,
-            overviewMapControl: false
+            disableDefaultUI: true
           };
 
           window.setTimeout( $scope.getLocation(), 300 );
@@ -610,11 +605,11 @@ angular
           }
         };
 
-        $scope.showMyLocation = function( ) {
+        $scope.showMyLocation = function () {
           $scope.map = { center: { latitude: $scope.currentLatitude, longitude: $scope.currentLongitude } };
         };
 
-        $scope.getLocation = function() {
+        $scope.getLocation = function () {
 
           if ( $scope.mapFirstLoad ) $scope.mapLocation = true;
           $scope.infowindowShow = false;
@@ -667,15 +662,56 @@ angular
             }, ( 500 ) ); // calls getLocation every 5 minutes
           }
         }
+        window.onNotificationAPN = function (event) {
 
-        document.addEventListener("deviceready", onDeviceReady, false);
+          if ( event.state ) {
+            $state.go( event.state ); // if state param is passed. App will go to this state
+          }
+        }
+
+        document.addEventListener("deviceready", onDeviceReady.bind(this), false);
 
         function onDeviceReady() {
           console.log('Cordova is ready');
-
-          StatusBar.hide();  // hide iPhone status bar
+          StatusBar.hide();
           cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
           cordova.plugins.Keyboard.disableScroll(false);
+
+
+          var addCallback = function addCallback(key, callback) {
+            if (window.pushCallbacks === undefined) {
+                window.pushCallbacks = {}
+            }
+            window.pushCallbacks[key] = callback;
+          };
+          var pushNotification = window.plugins.pushNotification;
+
+              pushNotification.register( tokenHandler, errorHandler,  {
+                                                                        "badge":"true",
+                                                                        "sound":"true",
+                                                                        "alert":"true",
+                                                                        "ecb":"window.onNotificationAPN"
+                                                                      });
+          function tokenHandler ( result ) {
+            $scope.$storage.deviceToken = result;
+            var req = {
+              method: 'GET',
+              url: 'http://api.hrx.club/hello',
+              headers: {
+                'X-HRX-User-APN-Token' : result
+              }
+            };
+
+            $http( req ).
+              success( function( data, status, headers, config ) {
+              }).
+              error( function( data, status, headers, config ) {
+              });
+          }
+          function errorHandler (error) {
+              alert('error = ' + error);
+          }
+
         };
 
         $scope.checkState = function ( stateName, stateString ) {
@@ -710,9 +746,13 @@ angular
 
 angular
     .module('core')
-    .controller('MenuController', ['$scope', 'SharedData', function($scope, SharedData) {
+    .controller('MenuController', ['$scope', '$state', '$localStorage', 'SharedData', function($scope, $state, $localStorage, SharedData) {
       $scope.SharedData = SharedData;
-      $scope.aboutVariable = 'Jules Moretti - About';
+
+      if ( !$scope.$storage ) {
+        $scope.$storage = $localStorage;
+      }
+
       $scope.menuList = [
         {name: 'Alumni', link: 'alumni'},
         {name: 'Companies', link: 'companies'},
@@ -720,6 +760,12 @@ angular
         {name: 'Messenger', link: 'messenger'},
         {name: 'Profile', link: 'profile'}
       ];
+
+      $scope.signOut = function () {
+        $localStorage.$reset();
+        $state.go( 'home.login' );
+      }
+
     }]);
 
 'use strict';

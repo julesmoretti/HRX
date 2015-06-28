@@ -13,4 +13,8 @@
     <feature name="Geolocation">
       <param name="ios-package" value="CDVLocation" />
     </feature>
+    <feature name="InAppBrowser">
+      <param name="android-package" value="org.apache.cordova.InAppBrowser"/>
+    </feature>
+    <gap:plugin name="org.apache.cordova.inappbrowser" />
 </widget>

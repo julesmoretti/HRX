@@ -8,9 +8,13 @@
 */
 angular
     .module('core')
-    .controller('MenuController', ['$scope', 'SharedData', function($scope, SharedData) {
+    .controller('MenuController', ['$scope', '$state', '$localStorage', 'SharedData', function($scope, $state, $localStorage, SharedData) {
       $scope.SharedData = SharedData;
-      $scope.aboutVariable = 'Jules Moretti - About';
+
+      if ( !$scope.$storage ) {
+        $scope.$storage = $localStorage;
+      }
+
       $scope.menuList = [
         {name: 'Alumni', link: 'alumni'},
         {name: 'Companies', link: 'companies'},
@@ -18,4 +22,11 @@ angular
         {name: 'Messenger', link: 'messenger'},
         {name: 'Profile', link: 'profile'}
       ];
+
+      $scope.signOut = function () {
+        // alert('signOUT');
+        $localStorage.$reset();
+        $state.go( 'home.login' );
+      }
+
     }]);

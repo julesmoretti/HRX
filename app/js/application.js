@@ -13,7 +13,8 @@ angular
     .config(function(uiGmapGoogleMapApiProvider) {
         uiGmapGoogleMapApiProvider.configure({
             key: 'AIzaSyDfKyIsQyXUKsZpZTqXjkqPDVqQvCNrtDw',
-            v: '3.17',
+            v: '3',
+            // v: '3.17',
             libraries: 'weather,geometry,visualization'
         });
     });
