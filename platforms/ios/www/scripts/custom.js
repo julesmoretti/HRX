@@ -354,8 +354,6 @@ angular
     .module('core')
     .controller('MapController', ['$scope', '$http', '$window', '$localStorage', 'SharedData', '$rootScope', '$state', '$location', 'uiGmapGoogleMapApi', function( $scope, $http, $window, $localStorage, SharedData, $rootScope, $state, $location, uiGmapGoogleMapApi ) {
       $scope.SharedData = SharedData;
-      $scope.homeVariable = 'Jules Moretti - home';
-      $scope.sent_over = 'type Something';
 
       $scope.SharedData.moveLocationDown = false;
 
@@ -686,26 +684,37 @@ angular
           };
           var pushNotification = window.plugins.pushNotification;
 
-              pushNotification.register( tokenHandler, errorHandler,  {
-                                                                        "badge":"true",
-                                                                        "sound":"true",
-                                                                        "alert":"true",
-                                                                        "ecb":"window.onNotificationAPN"
-                                                                      });
+          if ( !$scope.$storage.iosTokenRegistered ) {
+
+            pushNotification.register( tokenHandler, errorHandler,  {
+                                                                      "badge":"true",
+                                                                      "sound":"true",
+                                                                      "alert":"true",
+                                                                      "ecb":"window.onNotificationAPN"
+                                                                    });
+          }
           function tokenHandler ( result ) {
             $scope.$storage.deviceToken = result;
             var req = {
               method: 'GET',
-              url: 'http://api.hrx.club/hello',
+              url: 'http://api.hrx.club/apntoken',
               headers: {
+                'X-HRX-User-Token' : $scope.$storage.token,
                 'X-HRX-User-APN-Token' : result
               }
             };
 
             $http( req ).
               success( function( data, status, headers, config ) {
+
+                if ( data.responseCode === 200 || data.responseCode === 300 ) {
+                  $scope.$storage.iosTokenRegistered = true;
+                } else {
+                  alert( "Response code: " + data.responseCode + " - " + data.message );
+                }
               }).
               error( function( data, status, headers, config ) {
+                alert( "Error establishing a connection to API: "+ data+" - And status: " + status );
               });
           }
           function errorHandler (error) {

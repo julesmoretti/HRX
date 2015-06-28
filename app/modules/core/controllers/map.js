@@ -10,8 +10,6 @@ angular
     .module('core')
     .controller('MapController', ['$scope', '$http', '$window', '$localStorage', 'SharedData', '$rootScope', '$state', '$location', 'uiGmapGoogleMapApi', function( $scope, $http, $window, $localStorage, SharedData, $rootScope, $state, $location, uiGmapGoogleMapApi ) {
       $scope.SharedData = SharedData;
-      $scope.homeVariable = 'Jules Moretti - home';
-      $scope.sent_over = 'type Something';
 
       $scope.SharedData.moveLocationDown = false;
 
@@ -426,12 +424,15 @@ angular
           // INITIATE PUSH PUSHNOTIFICATION
           var pushNotification = window.plugins.pushNotification;
 
-              pushNotification.register( tokenHandler, errorHandler,  {
-                                                                        "badge":"true",
-                                                                        "sound":"true",
-                                                                        "alert":"true",
-                                                                        "ecb":"window.onNotificationAPN"
-                                                                      });
+          if ( !$scope.$storage.iosTokenRegistered ) {
+
+            pushNotification.register( tokenHandler, errorHandler,  {
+                                                                      "badge":"true",
+                                                                      "sound":"true",
+                                                                      "alert":"true",
+                                                                      "ecb":"window.onNotificationAPN"
+                                                                    });
+          }
 
           // result contains any message sent from the plugin call
           function tokenHandler ( result ) {
@@ -440,42 +441,35 @@ angular
             // sends token to API
             var req = {
               method: 'GET',
-              url: 'http://api.hrx.club/hello',
+              // url: 'http://api.hrx.club/apntoken',
+              url: 'http://api.hrx.club/apntoken',
               headers: {
+                // 'X-HRX-User-Token' : encodeURIComponent( $scope.$storage.token ),
+                'X-HRX-User-Token' : $scope.$storage.token,
                 'X-HRX-User-APN-Token' : result
               }
             };
 
             $http( req ).
               success( function( data, status, headers, config ) {
-                // something called here
-                  // alert( "Successful connection to API: ", data );
-                  // alert( "And status: ", status );
 
-                  // need to handle responses
-                  // {responseCode: 200, message: "Welcome back!", token: "�l����ʲ��u����8�+���ȁ�f��pr/!����%���7�ymxT�Q@�D��</o��ϕ��@0IW�p�� $L� 40����cLHݥmx4��Ƕ���N��͖���,"}
+                // data responses
+                // alert( "data: "+ data );
+                // { responseCode: 200, message: 'Added device to Database' }
+                // { responseCode: 300, message: 'Already have it on file' }
 
-                  // {responseCode: 400, message: "no header detected"}
-                  // {responseCode: 401, message: "no username or password inputed"}
-                  // {responseCode: 402, message: "Username does not exist or wrong password..."}
+                // { responseCode: 400, message: 'APN token - No header detected... please report this error' }
+                // { responseCode: 401, message: 'APN token - No valid token found... please report this error' }
 
-                // if ( status && status === 200 && data && data.responseCode ) {
-                //   if ( data.responseCode === 200 ) {
-                //     console.log('passed response', data);
-                //   } else {
-                //     console.log('wrong response', data);
-                //     // handle wrong input field...
-                //     $scope.clearLocalStorage();
-                //     $window.open('#!/login', '_self'); // send back to login wherever
-                //   }
-                // } else {
-                //   console.log( 'error function should have caught this' );
-                // }
+                if ( data.responseCode === 200 || data.responseCode === 300 ) {
+                  $scope.$storage.iosTokenRegistered = true;
+                } else {
+                  alert( "Response code: " + data.responseCode + " - " + data.message );
+                }
               }).
               error( function( data, status, headers, config ) {
                 // something called here
-                // alert( "Error establishing a connection to API: ", data );
-                // alert( "And status: ", status );
+                alert( "Error establishing a connection to API: "+ data+" - And status: " + status );
 
                 // need to handle errors like time outs etc...
               });
