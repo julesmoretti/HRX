@@ -565,7 +565,7 @@ angular
             disableDefaultUI: true
           };
 
-          window.setTimeout( $scope.getLocation(), 300 );
+          window.setTimeout( $scope.getLocation(), 500 );
 
         });
 
@@ -585,8 +585,6 @@ angular
           if ( markerType && id ) {
             for ( var i = 0; i < $scope[ markerType ].length; i++ ) {
               if ( $scope[ markerType ][ i ].id === id ) {
-                console.log('openMarkerInfo through', JSON.stringify( $scope[ markerType ][ i ] ) );
-                console.log('openMarkerInfo through', $scope[ markerType ][ i ].latLng.latitude, $scope[ markerType ][ i ].latLng.longitude );
 
                 var foundLat = $scope[ markerType ][ i ].latLng.latitude;
                 var foundLng = $scope[ markerType ][ i ].latLng.longitude;
@@ -595,8 +593,6 @@ angular
                 $scope.infoWindow.show = true;
 
                 $scope.map = $scope.map;
-
-                console.log( $scope.infoWindow );
                 $scope.$apply();
               }
             }
@@ -660,7 +656,8 @@ angular
             }, ( 500 ) ); // calls getLocation every 5 minutes
           }
         }
-        window.onNotificationAPN = function (event) {
+        window.onNotificationAPN = function ( event ) {
+          alert(JSON.stringify( event ) );
 
           if ( event.state ) {
             $state.go( event.state ); // if state param is passed. App will go to this state

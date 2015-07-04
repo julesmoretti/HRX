@@ -139,6 +139,36 @@ body {
       animation-direction: alternate;
     }
 
+    .floatingLI {
+      width: 50px;
+      height: 50px;
+      position: absolute;
+      top: calc(50% - 25px);
+      left: calc(50% - 25px);
+      /*background-image: url(../img/github-cat-no-eye.svg);*/
+      /*background-repeat: no-repeat;*/
+      /*background-position: center;*/
+
+      object {
+        width: 50px;
+        height: 50px;
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        pointer-events: none;
+      }
+
+      -webkit-animation-name: ghostLike;
+      -webkit-animation-duration: 1s;
+      -webkit-animation-iteration-count: infinite;
+      -webkit-animation-direction: alternate;
+
+      animation-name: ghostLike;
+      animation-duration: 1s;
+      animation-iteration-count: infinite;
+      animation-direction: alternate;
+    }
+
     @-webkit-keyframes ghostLike {
         0%   { opacity: 1; }
         100% { opacity: 0.5; }
@@ -297,7 +327,6 @@ body {
 
   color: $menu_bright_triggers;
   text-shadow: 0px 0px 4px #000000;
-
 }
 
 #mapMenu {
@@ -314,7 +343,6 @@ body {
 
   color: $menu_bright_triggers;
   text-shadow: 0px 0px 4px #000000;
-
 }
 
 .angular-google-map-container {
@@ -343,6 +371,100 @@ body {
   height: 100%;
   position: absolute;
   background-color: black;
+}
+
+#settings {
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  width: 100%;
+  color: white;
+  /*box-shadow: 0px 0px 2px #000000;*/
+
+  .settings {
+    background-color: #181818;
+    height: 180px;
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+    padding-top: 5px;
+
+    div {
+      &.checkbox {
+        margin-left: 23px;
+        margin-top: 20px;
+        /*margin-top: 10px;*/
+        /*margin-bottom: 20px;*/
+
+        & input+span:after {
+          background: #181818;
+        }
+
+        & input:checked+span:after {
+          /*background: $android-cyan;*/
+          background: #43899E;
+        }
+
+        span {
+          font-size: 18px;
+          padding-left: 50px;
+          color: #555;
+          line-height: 20px;
+          display: block;
+          pointer-events: none;
+
+          &.filterSelected {
+            color: #43899E !important;
+          }
+
+          &:after {
+            /*background: #111;*/
+          }
+        }
+      }
+
+      &.button {
+        margin: 15px 23px 0px 23px;
+        height: 44px;
+        width: calc( 100% - 46px);
+        background-color: #333;
+        border: 2px solid #43899e;
+        color: #5bc0de;
+        text-align: center;
+        line-height: 40px;
+      }
+    }
+
+  }
+
+  &.ng-enter {
+    -webkit-animation: settings-enter 0.125s ease-out;
+    animation: settings-enter 0.125s ease-out;
+  }
+
+  &.ng-leave {
+    -webkit-animation: settings-enter 0.125s ease-out reverse;
+    animation: settings-enter 0.125s ease-out reverse;
+  }
+
+  @-webkit-keyframes settings-enter {
+    0% {
+      bottom: -180px;
+    }
+    100% {
+      bottom: 0px;
+    }
+  }
+
+  @keyframes settings-enter {
+    0% {
+      bottom: -180px;
+    }
+    100% {
+      bottom: 0px;
+    }
+  }
 }
 
 .middle {
@@ -452,45 +574,86 @@ body {
 }
 
 #menuFooter {
-  position: absolute;
-  bottom: 0px;
-  right: 0px;
-  z-index: 10;
-  height: 68px;
-  line-height: 44px;
-  width: $menu_width;
-  background-color: #181818;
-  box-shadow: 0px 0px 4px #000000;
-  font-size: 1.8em;
 
-  div {
-    text-align: center;
+  .menuFooter {
+    right: 0px;
+    z-index: 10;
+    position: absolute;
+    bottom: 0px;
+    width: $menu_width;
 
-    &.back-button {
-      position: absolute;
-      left: 12px;
-      bottom: 12px;
-      width: 44px;
-      height: 44px;
-      color: #777;
+    height: 68px;
+    line-height: 44px;
+    background-color: #181818;
+    box-shadow: 0px 0px 4px #000000;
+    font-size: 1.8em;
+
+    &.openSettings {
+      -webkit-animation: Footer-settings-enter 0.125s ease-out;
+      animation: Footer-settings-enter 0.125s ease-out;
+      -webkit-animation-fill-mode: forwards;
+      animation-fill-mode: forwards;
+      -webkit-animation-direction: normal;
+      animation-direction: normal;
     }
 
-    &.main-title {
-      width: 100%;
-      color: white;
+    /*    &.openSettings {
+      -webkit-animation: Footer-settings-enter 0.125s ease-out reverse;
+      animation: Footer-settings-enter 0.125s ease-out reverse;
+    }*/
+
+    @-webkit-keyframes Footer-settings-enter {
+      0% {
+        bottom: 0px;
+      }
+      100% {
+        bottom: 180px;
+      }
     }
 
-    &.settings-button {
-      position: absolute;
-      right: 12px;
-      bottom: 12px;
-      width: 44px;
-      height: 44px;
-      color: #777;
+    @keyframes Footer-settings-enter {
+      0% {
+        bottom: -0px;
+      }
+      100% {
+        bottom: 180px;
+      }
+    }
+
+    /*  &.openSettings {
+      bottom: 140px;
+    }*/
+
+
+    div {
+      text-align: center;
+
+      &.back-button {
+        position: absolute;
+        left: 12px;
+        bottom: 12px;
+        width: 44px;
+        height: 44px;
+        color: #777;
+      }
+
+      &.main-title {
+        width: 100%;
+        color: white;
+      }
+
+      &.settings-button {
+        position: absolute;
+        right: 12px;
+        bottom: 12px;
+        width: 44px;
+        height: 44px;
+        color: #777;
+      }
     }
   }
-
 }
+
 
 #filter {
   background-color: #181818;

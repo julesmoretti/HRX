@@ -18,10 +18,16 @@ angular
       $scope.infowindowShow = false;
 
       angular.element(document).ready(function (){
-        console.log('Angular is ready');
+        console.log('Angular MapController is ready');
 
         if ( !$scope.$storage ) {
           $scope.$storage = $localStorage;
+          // console.log('building MapController localStorage');
+          // DEFAULT SETTINGS
+          // $scope.$storage.set({'notifications':true});
+          $scope.$storage.notifications = true;
+          $scope.$storage.geoPositioning = true;
+          // console.log("storage", $scope.$storage);
         }
 
 
@@ -248,8 +254,7 @@ angular
 
           // offsets the infoWindow above the markers
 
-          window.setTimeout( $scope.getLocation(), 300 );
-
+          window.setTimeout( $scope.getLocation(), 500 );
         });
 
         $scope.mapLocation = false;
@@ -270,8 +275,8 @@ angular
           if ( markerType && id ) {
             for ( var i = 0; i < $scope[ markerType ].length; i++ ) {
               if ( $scope[ markerType ][ i ].id === id ) {
-                console.log('openMarkerInfo through', JSON.stringify( $scope[ markerType ][ i ] ) );
-                console.log('openMarkerInfo through', $scope[ markerType ][ i ].latLng.latitude, $scope[ markerType ][ i ].latLng.longitude );
+                // console.log('openMarkerInfo through', JSON.stringify( $scope[ markerType ][ i ] ) );
+                // console.log('openMarkerInfo through', $scope[ markerType ][ i ].latLng.latitude, $scope[ markerType ][ i ].latLng.longitude );
 
                 var foundLat = $scope[ markerType ][ i ].latLng.latitude;
                 var foundLng = $scope[ markerType ][ i ].latLng.longitude;
@@ -283,7 +288,7 @@ angular
 
                 $scope.map = $scope.map;
 
-                console.log( $scope.infoWindow );
+                // console.log( $scope.infoWindow );
                 $scope.$apply();
               }
             }
@@ -371,9 +376,9 @@ angular
         }
 
         // iOS APN CALLBACK HANDLER FROM API NOTIFICATIONS
-        window.onNotificationAPN = function (event) {
+        window.onNotificationAPN = function ( event ) {
           // alert('event');
-          // alert(JSON.stringify( event ) );
+          alert(JSON.stringify( event ) );
 
           if ( event.state ) {
             $state.go( event.state ); // if state param is passed. App will go to this state

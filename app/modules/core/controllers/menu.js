@@ -23,10 +23,4 @@ angular
         {name: 'Profile', link: 'profile'}
       ];
 
-      $scope.signOut = function () {
-        // alert('signOUT');
-        $localStorage.$reset();
-        $state.go( 'home.login' );
-      }
-
     }]);

@@ -1,0 +1,18 @@
+<div class='settings'>
+
+  <!-- GEO POSITIONING -->
+  <div class="checkbox checkbox-slider--c checkbox-slider-info">
+    <label>
+      <input ng-model="$storage.geoPositioning" type="checkbox">
+      <span ng-class="{filterSelected: $storage.geoPositioning }">Geo Positioning</span>
+    </label>
+  </div>
+  <!-- NOTIFICATIONS -->
+  <div class="checkbox checkbox-slider--c checkbox-slider-info">
+    <label>
+      <input ng-model="$storage.notifications" type="checkbox">
+      <span ng-class="{filterSelected: $storage.notifications }">Notifications</span>
+    </label>
+  </div>
+  <div class="button" ng-click="signOut()">LOG OUT</div>
+</div>

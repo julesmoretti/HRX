@@ -14,11 +14,16 @@ angular
       $scope.sent_over = 'type Something';
 
         angular.element(document).ready(function (){
-          console.log('Angular is ready');
+          console.log('Angular HomeController is ready');
 
           if ( !$scope.$storage ) {
             $scope.$storage = $localStorage;
+
+            // DEFAULT SETTINGS
+            $scope.$storage.notifications = true;
+            $scope.$storage.geoPositioning = true;
           }
+
 
           $scope.clearLocalStorage = function () {
             $localStorage.$reset();
@@ -43,7 +48,8 @@ angular
 
           if ( !$scope.$storage.token ) {
             $scope.clearLocalStorage();
-            $state.go('home.login');
+            // $state.go('home.login');
+            $state.go('home.map');
           } else {
             $state.go('home.map');
           }
