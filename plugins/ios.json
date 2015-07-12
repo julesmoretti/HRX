@@ -71,6 +71,10 @@
                         {
                             "xml": "<feature name=\"SplashScreen\"><param name=\"ios-package\" value=\"CDVSplashScreen\" /><param name=\"onload\" value=\"true\" /></feature>",
                             "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"BackgroundMode\"><param name=\"ios-package\" value=\"APPBackgroundMode\" /></feature>",
+                            "count": 1
                         }
                     ]
                 }
@@ -134,6 +138,12 @@
                             "xml": "<string />",
                             "count": 1
                         }
+                    ],
+                    "UIBackgroundModes": [
+                        {
+                            "xml": "<array><string>audio</string></array>",
+                            "count": 1
+                        }
                     ]
                 }
             }
@@ -180,6 +190,9 @@
             "PACKAGE_NAME": "io.hrxclub.hrx"
         },
         "org.apache.cordova.splashscreen": {
+            "PACKAGE_NAME": "io.hrxclub.hrx"
+        },
+        "de.appplant.cordova.plugin.background-mode": {
             "PACKAGE_NAME": "io.hrxclub.hrx"
         }
     },

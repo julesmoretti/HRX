@@ -405,6 +405,14 @@ module.exports = [
         "clobbers": [
             "navigator.splashscreen"
         ]
+    },
+    {
+        "file": "plugins/de.appplant.cordova.plugin.background-mode/www/background-mode.js",
+        "id": "de.appplant.cordova.plugin.background-mode.BackgroundMode",
+        "clobbers": [
+            "cordova.plugins.backgroundMode",
+            "plugin.backgroundMode"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -423,7 +431,8 @@ module.exports.metadata =
     "org.apache.cordova.media": "0.2.16",
     "org.apache.cordova.media-capture": "0.3.6",
     "org.apache.cordova.network-information": "0.2.15",
-    "org.apache.cordova.splashscreen": "1.0.0"
+    "org.apache.cordova.splashscreen": "1.0.0",
+    "de.appplant.cordova.plugin.background-mode": "0.6.3"
 }
 // BOTTOM OF METADATA
 });

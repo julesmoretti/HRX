@@ -1,6 +1,7 @@
 <div class='menuList'>
   <ul>
     <li ng-repeat="menuItem in menuList" ui-sref=".{{menuItem.link}}">
+      <div ng-attr-class="icon {{menuItem.icon}}"></div>
       <span> {{menuItem.name}}</span>
       <div class="mainMenuArrow ion-ios-arrow-forward"></div>
     </li>

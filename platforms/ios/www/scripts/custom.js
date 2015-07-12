@@ -85,6 +85,16 @@ angular
                 }
               })
 
+              .state('home.loginli', {
+                url: 'loginli',
+                views: {
+                  'home@': {
+                    templateUrl: 'modules/core/views/loginli.html',
+                    controller: 'LoginLiController'
+                  }
+                }
+              })
+
               .state('home.map', {
                 url: 'map',
                 views: {
@@ -116,10 +126,24 @@ angular
                     controller: 'MenuController'
                   },
                   'menuFooter@home.map.menu': {
-                    template: '<div class="back-button ion-android-close" ui-sref="home.map"></div><div class="main-title"></div><div class="settings-button ion-gear-a" ng-click="signOut()"></div>',
+                    template: '<div class="menuFooter"><div class="back-button ion-close" ui-sref="home.map"></div><div class="main-title"></div><div class="settings-button ion-gear-a" ui-sref="home.map.menu.settings"></div></div>',
                     controller: 'MenuController'
                   }
                 }
+              })
+
+              .state('home.map.menu.settings', {
+                  url: '/settings',
+                  views: {
+                    'settings@home.map.menu': {
+                      templateUrl: 'modules/core/views/settings.html',
+                      controller: 'SettingsController'
+                    },
+                    'menuFooter@home.map.menu': {
+                      template: '<div class="menuFooter openSettings"><div class="back-button ion-chevron-down" ui-sref="home.map.menu"></div>',
+                      controller: 'SettingsController'
+                    }
+                  }
               })
 
               .state('home.map.menu.alumni', {
@@ -130,11 +154,12 @@ angular
                       controller: 'AlumniController'
                     },
                     'menuFooter@home.map.menu': {
-                      template: '<div class="back-button ion-ios-arrow-back" ui-sref="home.map.menu"></div><div class="main-title">Alumni</div>',
+                      template: '<div class="menuFooter"><div class="back-button ion-chevron-left" ui-sref="home.map.menu"></div><div class="main-title"></div></div>',
                       controller: 'AlumniController'
                     }
                   }
               })
+
               .state('home.map.menu.alumni.alumn', {
                   url: '/:id',
                   views: {
@@ -143,7 +168,7 @@ angular
                         controller: 'AlumnController'
                       },
                       'menuFooter@home.map.menu': {
-                        template: '<div class="back-button ion-ios-arrow-back" ui-sref="home.map.menu.alumni"></div><div class="main-title">{{selectedAlumn.name}}</div>',
+                        template: '<div class="menuFooter"><div class="back-button ion-chevron-left" ui-sref="home.map.menu.alumni"></div></div>',
                         controller: 'AlumnController'
                       }
                   }
@@ -165,11 +190,47 @@ angular
         function() {
 
             var alumni = [
-              {id: 0, name: 'Jules', email: 'jules@jules.com', description: 'this is the description of 0' },
-              {id: 1, name: 'James', email: 'james@james.com', description: 'this is the description of 1' },
-              {id: 2, name: 'Bruce', email: 'bruce@bruce.com', description: 'this is the description of 2' },
-              {id: 3, name: 'Frank', email: 'frank@frank.com', description: 'this is the description of 3' },
-              {id: 4, name: 'Johny', email: 'Johny@Johny.com', description: 'this is the description of 4' }
+              { id: 0,
+                full_name: 'Jules Moretti',
+                LI_positions: 'Design Technologist',
+                LI_location_name: 'San Francisco Bay Area',
+                LI_location_country_code: 'us',
+                LI_description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas varius tempor arcu, quis hendrerit nunc accumsan quis. In ut dolor metus, eget viverra odio. Quisque sed suscipit leo. Curabitur dictum magna ut turpis interdum a mollis nunc condimentum. Praesent leo est, hendreriteget condimentum sit amet, placerat adipiscing neque. Curabitur id metus tellus, sed semper odio. Phasellus id justo ante, vel bibendum eros. Nulla suscipit felis eget erat iaculis et aliquam turpis consequat. Nunc posuere mollis tellus sit amet dapibus. Praesent sagittis quam sit amet mauris venenatis in dignissim purus dapibus.',
+                skills: ['industrial design', 'front end', 'choreography' ],
+
+                LI_company: {
+                  profile_picture: 'img/profile.jpg',
+                  name: 'WET Design',
+                  size: '201-500 employees',
+                  alumn: 1
+                },
+                LI_url: 'http://linkedin.com/in/julesmoretti',
+
+                GH_profile_picture: 'img/dummy-profile.jpeg',
+                GH_private_repos: 9,
+                GH_public_repos: 39,
+                GH_url: 'https://api.github.com/users/julesmoretti',
+                blog: 'behance.net/julesmoretti',
+
+                LI_address: '3405 Helen St, Apt 9, Oakland, 94608 CA',
+                email: 'jules@jules.com'},
+
+
+
+              {id: 1, full_name: 'James Jackson', GH_profile_picture: 'img/dummy-profile.jpeg' , email: 'james@james.com', LI_description: 'this is the description of 1' },
+              {id: 2, full_name: 'Bruce William', GH_profile_picture: 'img/dummy-profile.jpeg' , email: 'bruce@bruce.com', LI_description: 'this is the description of 2' },
+              {id: 3, full_name: 'Frank Morris', GH_profile_picture: 'img/dummy-profile.jpeg' , email: 'frank@frank.com', LI_description: 'this is the description of 3' },
+              {id: 4, full_name: 'Johny Franckle', GH_profile_picture: 'img/dummy-profile.jpeg' , email: 'Johny@Johny.com', LI_description: 'this is the description of 4' },
+              {id: 5, full_name: 'Jules Morrison', GH_profile_picture: 'img/dummy-profile.jpeg' , email: 'jules@jules.com', LI_description: 'this is the description of 5' },
+              {id: 6, full_name: 'James Snapper', GH_profile_picture: 'img/dummy-profile.jpeg' , email: 'james@james.com', LI_description: 'this is the description of 6' },
+              {id: 7, full_name: 'Bruce Franc', GH_profile_picture: 'img/dummy-profile.jpeg' , email: 'bruce@bruce.com', LI_description: 'this is the description of 7' },
+              {id: 8, full_name: 'Frank Muscle', GH_profile_picture: 'img/dummy-profile.jpeg' , email: 'frank@frank.com', LI_description: 'this is the description of 8' },
+              {id: 9, full_name: 'Johny Black', GH_profile_picture: 'img/dummy-profile.jpeg' , email: 'Johny@Johny.com', LI_description: 'this is the description of 9' },
+              {id: 10, full_name: 'Jules Speghetti', GH_profile_picture: 'img/dummy-profile.jpeg' , email: 'jules@jules.com', LI_description: 'this is the description of 10' },
+              {id: 11, full_name: 'James Franco', GH_profile_picture: 'img/dummy-profile.jpeg' , email: 'james@james.com', LI_description: 'this is the description of 11' },
+              {id: 12, full_name: 'Bruce Lee', GH_profile_picture: 'img/dummy-profile.jpeg' , email: 'bruce@bruce.com', LI_description: 'this is the description of 12' },
+              {id: 13, full_name: 'Frank Diaz', GH_profile_picture: 'img/dummy-profile.jpeg' , email: 'frank@frank.com', LI_description: 'this is the description of 13' },
+              {id: 14, full_name: 'Johny Walker', GH_profile_picture: 'img/dummy-profile.jpeg' , email: 'Johny@Johny.com', LI_description: 'this is the description of 14' },
             ];
 
             return {
@@ -181,7 +242,7 @@ angular
                                 findAlumn: function( id ) {
                     for (var i = 0; i < alumni.length; i++) {
                       if ( alumni[i].id === id ) {
-                        return alumni[i];;
+                        return alumni[i];
                       }
                     };
                     return false;
@@ -287,10 +348,12 @@ angular
       $scope.sent_over = 'type Something';
 
         angular.element(document).ready(function (){
-          console.log('Angular is ready');
+          console.log('Angular HomeController is ready');
 
           if ( !$scope.$storage ) {
             $scope.$storage = $localStorage;
+            $scope.$storage.notifications = true;
+            $scope.$storage.geoPositioning = true;
           }
 
           $scope.clearLocalStorage = function () {
@@ -307,7 +370,7 @@ angular
             cordova.plugins.Keyboard.disableScroll(false);
           }
 
-          if ( !$scope.$storage.token ) {
+          if ( !$scope.$storage.token || !$scope.$storage.LI_Token_Registered ) {
             $scope.clearLocalStorage();
             $state.go('home.login');
           } else {
@@ -322,6 +385,63 @@ angular
 
 angular
     .module('core')
+    .controller('LoginLiController', ['$scope', '$http', '$window', '$localStorage', 'SharedData', '$rootScope', '$location', '$state', function( $scope, $http, $window, $localStorage, SharedData, $rootScope, $location, $state ) {
+      $scope.SharedData = SharedData;
+
+      if ( !$scope.$storage ) {
+        $scope.$storage = $localStorage;
+      }
+
+      $scope.send_LI_token = function ( token, LI_token ) {
+        var req = {
+          method: 'GET',
+          url: 'http://api.hrx.club/LItoken',
+          headers: {
+            'X-HRX-User-Token' : token,
+            'X-HRX-LI-Token' : LI_token
+          }
+        };
+
+        $http( req ).
+          success( function( data, status, headers, config ) {
+
+            if ( data.responseCode === 200 ) {
+              $scope.$storage.LI_Token_Registered = true;
+            } else {
+              alert( "Response code: " + data.responseCode + " - " + data.message );
+            }
+          }).
+          error( function( data, status, headers, config ) {
+            alert( "Error establishing a connection to API: "+ data+" - And status: " + status );
+          });
+      }
+
+      $scope.LIlogin = function() {
+
+        var ref = window.open('http://api.hrx.club/LIlogin', '_blank', 'location=no,toolbar=no');
+        ref.addEventListener('loadstart', function( event ) {
+          var url = event.url;
+          var urlStart = url.split('?');
+          var urlSuccessPage = "http://localhost:1234/li_success/";
+
+          if ( urlStart[0] === urlSuccessPage) {
+            var result = JSON.parse( decodeURIComponent( urlStart[1] ) );
+            ref.close();
+            if ( result.LI_token && ( result.message === 'Welcome to HRX!' ) ) {
+              $scope.$storage.LI_token = result.LI_token;
+              $scope.send_LI_token( $scope.$storage.token ,result.LI_token );
+              $state.go( 'home.map' );
+            }
+          }
+        });
+
+      };
+    }]);
+
+'use strict';
+
+angular
+    .module('core')
     .controller('LoginController', ['$scope', '$http', '$window', '$localStorage', 'SharedData', '$rootScope', '$location', '$state', function( $scope, $http, $window, $localStorage, SharedData, $rootScope, $location, $state ) {
       $scope.SharedData = SharedData;
 
@@ -329,23 +449,26 @@ angular
         $scope.$storage = $localStorage;
       }
 
-      $scope.GHlogin = function() {
-        var ref = window.open('http://api.hrx.club/GHlogin', '_blank', 'location=no,toolbar=no');
-        ref.addEventListener('loadstart', function( event ) {
-          var url = event.url;
-          var urlStart = url.split('?');
-          var urlSuccessPage = "http://localhost:5000/success/";
-          if ( urlStart[0] === urlSuccessPage) {
-            var result = JSON.parse( decodeURIComponent( urlStart[1] ) );
-            ref.close();
-            if ( result.access_token && ( result.message === 'Welcome to HRX!' || result.message === 'Welcome back!' ) ) {
-              $scope.$storage.token = result.access_token;
-              $state.go( 'home.map' );
-            }
-          }
-        });
+      angular.element(document).ready(function (){
+        console.log('Angular LoginController is ready');
 
-      };
+        $scope.GHlogin = function() {
+          var ref = window.open('http://api.hrx.club/GHlogin', '_blank', 'location=no,toolbar=no');
+          ref.addEventListener('loadstart', function( event ) {
+            var url = event.url;
+            var urlStart = url.split('?');
+            var urlSuccessPage = "http://localhost:1234/gh_success/";
+            if ( urlStart[0] === urlSuccessPage) {
+              var result = JSON.parse( decodeURIComponent( urlStart[1] ) );
+              ref.close();
+              if ( result.access_token && ( result.message === 'Welcome to HRX!' || result.message === 'Welcome back!' ) ) {
+                $scope.$storage.token = result.access_token;
+                $state.go( 'home.loginli' );
+              }
+            }
+          });
+        };
+      });
     }]);
 
 'use strict';
@@ -362,10 +485,18 @@ angular
       $scope.infowindowShow = false;
 
       angular.element(document).ready(function (){
-        console.log('Angular is ready');
+        console.log('Angular MapController is ready');
 
         if ( !$scope.$storage ) {
           $scope.$storage = $localStorage;
+
+          if ( !$scope.$storage.notifications ) {
+            $scope.$storage.notifications = true;
+          }
+
+          if ( !$scope.$storage.geoPositioning ) {
+            $scope.$storage.geoPositioning = true;
+          }
         }
 
         uiGmapGoogleMapApi.then(function(maps) {
@@ -566,7 +697,6 @@ angular
           };
 
           window.setTimeout( $scope.getLocation(), 500 );
-
         });
 
         $scope.mapLocation = false;
@@ -603,6 +733,33 @@ angular
           $scope.map = { center: { latitude: $scope.currentLatitude, longitude: $scope.currentLongitude } };
         };
 
+        $scope.updateLocation = function( latitude, longitude ) {
+
+          var req = {
+            method: 'GET',
+            url: 'http://api.hrx.club/geoposition',
+            headers: {
+              'X-HRX-User-Token' : $scope.$storage.token
+            },
+            params: { 'latitude': latitude, 'longitude': longitude }
+          };
+
+          $http( req ).
+            success( function( data, status, headers, config ) {
+
+              if ( data.responseCode === 200 ) {
+              } else {
+                alert( "Response code: " + data.responseCode + " - " + data.message );
+              }
+            }).
+            error( function( data, status, headers, config ) {
+              alert( "Error establishing a connection to API: "+ data+" - And status: " + status );
+            });
+
+
+
+        };
+
         $scope.getLocation = function () {
 
           if ( $scope.mapFirstLoad ) $scope.mapLocation = true;
@@ -615,6 +772,8 @@ angular
           function onSuccess( position ) {
             $scope.currentLatitude = position.coords.latitude;
             $scope.currentLongitude = position.coords.longitude;
+
+            $scope.updateLocation( $scope.currentLatitude, $scope.currentLongitude );
             $scope.positionAccuracyMin = position.coords.accuracy;
 
             $scope.myMarkers = [];
@@ -760,17 +919,94 @@ angular
       }
 
       $scope.menuList = [
-        {name: 'Alumni', link: 'alumni'},
-        {name: 'Companies', link: 'companies'},
-        {name: 'Calendar', link: 'calendar'},
-        {name: 'Messenger', link: 'messenger'},
-        {name: 'Profile', link: 'profile'}
+        {name: 'Alumni', link: 'alumni', icon: 'ion-android-people'},
+        {name: 'Companies', link: 'companies', icon: 'ion-android-home'},
+        {name: 'Calendar', link: 'calendar', icon: 'ion-android-calendar'},
+        {name: 'Messenger', link: 'messenger', icon: 'ion-android-chat'},
+        {name: 'Profile', link: 'profile', icon: 'ion-android-person'}
       ];
 
+    }]);
+
+'use strict';
+
+angular
+    .module('core')
+    .controller('SettingsController', ['$scope', '$state', '$localStorage', 'SharedData', '$http', function( $scope, $state, $localStorage, SharedData, $http ) {
+      $scope.SharedData = SharedData;
+
+      if ( !$scope.$storage ) {
+        $scope.$storage = $localStorage;
+        console.log('Building SettingsController localStorage');
+      }
+
+      $scope.geoPositioningSetting = function () {
+        var req = {
+          method: 'GET',
+          url: 'http://api.hrx.club/geopositioningsetting',
+          headers: {
+            'X-HRX-User-Token' : $scope.$storage.token
+          },
+          params: {
+            'value': $scope.$storage.geoPositioning
+          }
+        };
+
+        $http( req ).
+          success( function( data, status, headers, config ) {
+
+            if ( data.responseCode === 200 ) {
+              if ( data.value ) {
+                $scope.$storage.geoPositioning = true;
+              } else {
+                $scope.$storage.geoPositioning = false;
+              }
+            } else {
+              alert( "Response code: " + data.responseCode + " - " + data.message );
+            }
+          }).
+          error( function( data, status, headers, config ) {
+            alert( "Error establishing a connection to API: "+ data+" - And status: " + status );
+          });
+      };
+
+      $scope.notificationsSetting = function () {
+
+        var req = {
+          method: 'GET',
+          url: 'http://api.hrx.club/notificationssetting',
+          headers: {
+            'X-HRX-User-Token' : $scope.$storage.token,
+            'X-HRX-User-APN-Token' : $scope.$storage.deviceToken
+          },
+          params: {
+            'value': !$scope.$storage.notifications
+          }
+        };
+
+        $http( req ).
+          success( function( data, status, headers, config ) {
+
+            if ( data.responseCode === 200 ) {
+              if ( data.value ) {
+                $scope.$storage.notifications = true;
+              } else {
+                $scope.$storage.notifications = false;
+              }
+            } else {
+              alert( "Response code: " + data.responseCode + " - " + data.message );
+            }
+          }).
+          error( function( data, status, headers, config ) {
+            alert( "Error establishing a connection to API: "+ data+" - And status: " + status );
+          });
+      };
+
       $scope.signOut = function () {
+        console.log('signOUT');
         $localStorage.$reset();
         $state.go( 'home.login' );
-      }
+      };
 
     }]);
 

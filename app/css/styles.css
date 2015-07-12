@@ -487,21 +487,40 @@ body {
 }
 
 .menuList ul {
-  padding-left: 35px;
+  padding-left: 12px;
   list-style-type: none;
   line-height: 68px;
   font-size: 16px;
   text-transform: uppercase;
+  margin-bottom: 0px;
 }
 
 .menuList ul li {
-  height: 68px;
+  height: 67px;
   border-bottom: 1px solid;
   position: relative;
 }
 
+.menuList ul li:nth-last-of-type(1) {
+  border-bottom: 0px;
+}
+
+.menuList ul li div.icon {
+  color: #43899E;
+  width: 44px;
+  height: 44px;
+  line-height: 47px;
+  text-align: center;
+  position: absolute;
+  /*background-color: red;*/
+  top: 11px;
+  font-size: 25px;
+}
+
 .menuList ul li span {
   color: #43899E;
+  padding-left: 56px;
+  line-height: 67px;
 }
 
 .menuList ul li .mainMenuArrow {
@@ -521,7 +540,48 @@ body {
   height: 100%;
 }
 
-.alumniList .mainMenuArrow {
+.alumniList .alumniSearch {
+  width: 100%;
+  position: absolute;
+  top: 0px;
+  /*background-color: yellow;*/
+  height: 68px;
+  /*border-bottom: 1px solid black;*/
+  box-shadow: 0px 0px 4px #000000;
+  z-index: 1;
+}
+
+.alumniList .alumniSearch input {
+  width: 100%;
+  height: 100%;
+  background-color: #151515;
+  border: none;
+  padding: 0px 12px;
+}
+
+.alumniList .alumniLI {
+  height: calc(100% - 68px - 68px);
+  overflow: auto;
+  position: absolute;
+  width: 100%;
+  top: 68px;
+  z-index: 0;
+  /*background-color: red;*/
+}
+
+.alumniList .alumniLI ul li img {
+  width: 44px;
+  height: 44px;
+  position: absolute;
+  top: 11px;
+  border-radius: 30px;
+}
+
+.alumniList .alumniLI ul li span {
+  padding-left: 54px;
+}
+
+.alumniList .alumniLI ul li div.mainMenuArrow {
   position: absolute;
   top: 12px;
   right: 12px;
@@ -531,6 +591,395 @@ body {
   text-align: center;
   color: #43899E;
   font-size: 1.8em;
+}
+
+#alumn .alumn {
+  width: 320px;
+  height: calc( 100% - 68px);
+  overflow: auto;
+  /*color: #DDD;*/
+}
+
+#alumn .alumn ul li.alumn_profile {
+  height: 92px;
+  display: flex;
+}
+
+#alumn .alumn ul li.alumn_profile img {
+  width: 68px;
+  height: 68px;
+  border-radius: 68px;
+  display: inline-block;
+  margin: 12px 0px;
+  float: left;
+}
+
+#alumn .alumn ul li.alumn_profile div {
+  height: 92px;
+  width: calc(100% - 78px);
+  display: inline-block;
+  line-height: 18px;
+  padding-top: 19px;
+  position: relative;
+}
+
+#alumn .alumn ul li.alumn_profile div span:nth-of-type(1) {
+  padding-left: 10px;
+  line-height: 20px;
+  color: #aaa;
+  font-size: 20px;
+}
+
+#alumn .alumn ul li.alumn_profile div span:nth-of-type(2) {
+  line-height: 14px;
+  padding-left: 10px;
+  text-transform: lowercase;
+  font-size: 14px;
+  color: #777;
+}
+
+#alumn .alumn ul li.alumn_profile div div {
+  padding-top: 0px;
+  padding-left: 10px;
+  /*position: absolute;*/
+  /*bottom: 0px;*/
+  /*right: 10px;*/
+  height: initial;
+  width: initial;
+}
+
+#alumn .alumn ul li.alumn_profile div div span:nth-of-type(1) {
+  line-height: 12px;
+  padding-left: 0px;
+  font-size: 12px;
+  text-transform: initial;
+  color: #555;
+}
+
+#alumn .alumn ul li.alumn_profile div div span:nth-of-type(2) {
+  line-height: 20px;
+  padding-left: 0px;
+  font-size: 12px;
+  color: #555;
+  text-transform: uppercase;
+}
+
+#alumn .alumn ul li.alumn_description {
+  height: inherit;
+  line-height: 12px;
+  padding-right: 10px;
+  padding-top: 10px;
+  /*position: relative;*/
+}
+
+#alumn .alumn ul li.alumn_description span.alumn_description_text {
+  line-height: 12px;
+  padding-left: 0px;
+  text-transform: initial;
+  color: #777;
+  font-style: italic;
+  font-size: 12px;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+#alumn .alumn ul li.alumn_description span.alumn_description_text.alumn_description_text_all {
+  -webkit-line-clamp: 50000;
+}
+
+#alumn .alumn ul li.alumn_description ul {
+  width: 100%;
+  height: initial;
+  font-size: 12px;
+  color: #555;
+  line-height: 12px;
+  text-transform: initial;
+  padding: 16px 0px;
+  list-style-type: square;
+}
+
+#alumn .alumn ul li.alumn_description ul li {
+  padding-left: 0px;
+  line-height: inherit;
+  height: inherit;
+  border-bottom: 0px solid;
+  float: right;
+  margin-left: 24px;
+  bottom: 5px;
+}
+
+#alumn .alumn ul li.alumn_description ul li:nth-last-of-type(1) {
+  list-style-type: none;
+}
+
+#alumn .alumn ul li.alumn_company {
+  text-transform: initial;
+  text-decoration: initial;
+  /*color: #555;*/
+  width: calc( 100% - 10px);
+  height: inherit;
+  line-height: 48px;
+}
+
+#alumn .alumn ul li.alumn_company div {
+  display: inline-block;
+  line-height: 14px;
+}
+
+#alumn .alumn ul li.alumn_company div:nth-of-type(1) {
+  height: 100%;
+  position: relative;
+  padding-top: 16px;
+}
+
+#alumn .alumn ul li.alumn_company div:nth-of-type(1) span {
+  line-height: 14px;
+  padding-left: 0px;
+}
+
+#alumn .alumn ul li.alumn_company div:nth-of-type(1) span:nth-of-type(1) {
+  color: #777;
+  font-size: 14px;
+}
+
+#alumn .alumn ul li.alumn_company div:nth-of-type(1) span:nth-of-type(2) {
+  color: #555;
+  font-size: 12px;
+  font-style: italic;
+}
+
+#alumn .alumn ul li.alumn_company div:nth-of-type(2) {
+  width: 44px;
+  height: 44px;
+  border-radius: 44px;
+  text-align: center;
+  line-height: 44px;
+  display: inline-block;
+  background-color: #333;
+  color: #666;
+  position: absolute;
+  top: 10px;
+  right: 54px;
+  font-size: 16px;
+}
+
+#alumn .alumn ul li.alumn_company div:nth-of-type(3) {
+  position: absolute;
+  top: 10px;
+  left: calc(100% - 54px);
+  right: 44px;
+  height: 44px;
+  background-color: red;
+  overflow: hidden;
+}
+
+#alumn .alumn ul li.alumn_company img {
+  width: 44px;
+  height: 44px;
+  border-radius: 44px;
+  top: 10px;
+  position: absolute;
+  right: 0px;
+}
+
+#alumn .alumn ul li.alumn_gh {
+  width: calc( 100% - 10px);
+  position: relative;
+  line-height: 44px;
+}
+
+#alumn .alumn ul li.alumn_gh span {
+  padding-left: 0px;
+  text-transform: initial;
+  color: #777;
+  font-size: 14px;
+  text-overflow: eclipse;
+}
+
+#alumn .alumn ul li.alumn_gh div {
+  color: #666;
+}
+
+#alumn .alumn ul li.alumn_gh div:nth-of-type(1) {
+  background-color: #333;
+  position: absolute;
+  text-align: center;
+  line-height: 24px;
+  width: 24px;
+  height: 24px;
+  border-radius: 24px;
+  right: 118px;
+  top: 20px;
+  color: #43899E;
+}
+
+#alumn .alumn ul li.alumn_gh div:nth-of-type(2) {
+  background-color: #333;
+  position: absolute;
+  line-height: 24px;
+  width: 24px;
+  height: 24px;
+  border-radius: 24px;
+  text-align: center;
+  right: 64px;
+  top: 20px;
+}
+
+#alumn .alumn ul li.alumn_gh a {
+  display: inline-block;
+  position: absolute;
+  top: 10px;
+  right: 0px;
+  width: 44px;
+  height: 44px;
+  border-radius: 44px;
+}
+
+#alumn .alumn ul li.alumn_gh a object {
+  pointer-events: none;
+  width: 44px;
+  height: 44px;
+}
+
+#alumn .alumn ul li.alumn_li {
+  width: calc( 100% - 10px);
+  position: relative;
+  line-height: 44px;
+}
+
+#alumn .alumn ul li.alumn_li span {
+  padding-left: 0px;
+  text-transform: initial;
+  color: #777;
+  font-size: 14px;
+  text-overflow: eclipse;
+}
+
+#alumn .alumn ul li.alumn_li a {
+  display: inline-block;
+  position: absolute;
+  top: 10px;
+  right: 0px;
+  width: 44px;
+  height: 44px;
+  border-radius: 44px;
+  text-align: center;
+  line-height: 58px;
+}
+
+#alumn .alumn ul li.alumn_li a object {
+  pointer-events: none;
+  width: 22px;
+  height: 22px;
+}
+
+#alumn .alumn ul li.alumn_blog {
+  width: calc( 100% - 10px);
+  position: relative;
+  line-height: 44px;
+}
+
+#alumn .alumn ul li.alumn_blog a {
+  width: 100%;
+  height: 100%;
+}
+
+#alumn .alumn ul li.alumn_blog a span {
+  padding-left: 0px;
+  text-transform: initial;
+  color: #777;
+  font-size: 14px;
+  text-overflow: eclipse;
+}
+
+#alumn .alumn ul li.alumn_blog a div {
+  display: inline-block;
+  position: absolute;
+  top: 10px;
+  right: 0px;
+  width: 44px;
+  height: 44px;
+  border-radius: 44px;
+  text-align: center;
+  line-height: 44px;
+  pointer-events: none;
+  color: #666;
+  font-size: 28px;
+}
+
+#alumn .alumn ul li.alumn_address {
+  width: calc( 100% - 10px);
+  position: relative;
+  line-height: 44px;
+}
+
+#alumn .alumn ul li.alumn_address a {
+  width: 100%;
+  height: 100%;
+}
+
+#alumn .alumn ul li.alumn_address a p {
+  /*padding-left: 0px;*/
+  text-transform: initial;
+  color: #777;
+  font-size: 14px;
+  text-overflow: ellipsis;
+  line-height: 66px;
+  white-space: nowrap;
+  overflow: hidden;
+  max-width: 200px;
+}
+
+#alumn .alumn ul li.alumn_address a div {
+  display: inline-block;
+  position: absolute;
+  top: 10px;
+  right: 0px;
+  width: 44px;
+  height: 44px;
+  border-radius: 44px;
+  text-align: center;
+  line-height: 44px;
+  font-size: 28px;
+  color: #666;
+}
+
+#alumn .alumn ul li.alumn_email {
+  width: calc( 100% - 10px);
+  position: relative;
+  line-height: 44px;
+  /*      a {
+            width: 100%;
+            height: 100%;*/
+  /*}*/
+}
+
+#alumn .alumn ul li.alumn_email p {
+  /*padding-left: 0px;*/
+  text-transform: initial;
+  color: #777;
+  font-size: 14px;
+  text-overflow: ellipsis;
+  line-height: 66px;
+  white-space: nowrap;
+  overflow: hidden;
+  max-width: 200px;
+}
+
+#alumn .alumn ul li.alumn_email div {
+  display: inline-block;
+  position: absolute;
+  top: 10px;
+  right: 0px;
+  width: 44px;
+  height: 44px;
+  border-radius: 44px;
+  text-align: center;
+  line-height: 44px;
+  font-size: 28px;
+  color: #666;
 }
 
 #geolocation {
@@ -640,6 +1089,7 @@ body {
   width: 44px;
   height: 44px;
   color: #777;
+  font-size: 22px;
 }
 
 #menuFooter .menuFooter div.main-title {

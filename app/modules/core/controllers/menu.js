@@ -16,11 +16,11 @@ angular
       }
 
       $scope.menuList = [
-        {name: 'Alumni', link: 'alumni'},
-        {name: 'Companies', link: 'companies'},
-        {name: 'Calendar', link: 'calendar'},
-        {name: 'Messenger', link: 'messenger'},
-        {name: 'Profile', link: 'profile'}
+        {name: 'Alumni', link: 'alumni', icon: 'ion-android-people'},
+        {name: 'Companies', link: 'companies', icon: 'ion-android-home'},
+        {name: 'Calendar', link: 'calendar', icon: 'ion-android-calendar'},
+        {name: 'Messenger', link: 'messenger', icon: 'ion-android-chat'},
+        {name: 'Profile', link: 'profile', icon: 'ion-android-person'}
       ];
 
     }]);

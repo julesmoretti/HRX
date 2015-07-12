@@ -1,3 +1,89 @@
-<div style="background-color: cyan;">
-  {{selectedAlumn.description}}
+<div class="alumn">
+
+<!-- TODO -->
+<!-- TO ADD TO DB -->
+<!-- DESCRIPTION -->
+<!-- TOP 3 SKILLS -->
+<!-- DEGREES -->
+<!-- PERSONAL ADDRESS -->
+<!-- CONTACT PHONE NUMBER -->
+
+  <ul>
+    <li class='alumn_profile'>
+      <img src="{{selectedAlumn.GH_profile_picture}}">
+      <div>
+        <span>{{selectedAlumn.full_name}}</span></br>
+        <span>{{selectedAlumn.LI_positions}}</span></br>
+
+        <div>
+          <span>{{selectedAlumn.LI_location_name}}</span> <span>{{selectedAlumn.LI_location_country_code}}</span>
+        </div>
+      </div>
+    </li>
+
+    <li class="alumn_description" ng-init="alumn_decription_show = false">
+      <span class="alumn_description_text" ng-class="{alumn_description_text_all: alumn_decription_show}" ng-click="alumn_decription_show = !alumn_decription_show">{{selectedAlumn.LI_description}}</span>
+      <ul>
+        <li ng-repeat="skills in selectedAlumn.skills"> {{skills}}</li>
+      </ul>
+      <!-- <span>{{selectedAlumn.skills | toArray}}</span> -->
+    </li>
+
+    <li class="alumn_company">
+      <div>
+        <!-- Work at: <span>{{selectedAlumn.company.name}}</span><br> -->
+        <span>WET Design</span><br>
+        <span>200-500 employees</span>
+        <!-- <span>{{selectedAlumn.company.size}}</span> -->
+      </div>
+      <!-- <div>{{selectedAlumn.company.alumn}}</div> -->
+      <div>6</div>
+      <!-- <div> -->
+        <!-- TODO LATER // ADD HERE PICURES OF ALUMN IN COMPANY -->
+      <!-- </div> -->
+      <img src="{{selectedAlumn.LI_company.profile_picture}}"/>
+    </li>
+
+    <li class="alumn_gh">
+      <span>Github profile</span>
+      <div>{{selectedAlumn.GH_public_repos}}</div>
+      <!-- <div>3</div> -->
+      <div>{{selectedAlumn.GH_private_repos}}</div>
+      <!-- <div>39</div> -->
+      <a href="{{selectedAlumn.GH_url}}" target="_blank">
+        <object data="img/github-cat.svg" type="image/svg+xml"></object>
+      </a>
+    </li>
+
+    <li class="alumn_li">
+      <span>LinkedIN profile</span>
+      <a ng-attr-href="{{selectedAlumn.LI_url}}" target="_blank">
+        <object data="img/linkedin.svg" type="image/svg+xml"></object>
+      </a>
+    </li>
+
+    <li class="alumn_blog">
+      <a ng-attr-href="{{selectedAlumn.blog}}" target="_blank">
+        <span>{{selectedAlumn.blog}}</span>
+        <div class="ion-link"></div>
+      </a>
+    </li>
+
+
+
+    <li class="alumn_address">
+      <a ng-attr-href="{{selectedAlumn.blog}}" target="_blank">
+        <p>{{selectedAlumn.LI_address}}</p>
+        <div class="ion-planet"></div>
+      </a>
+    </li>
+
+    <li class="alumn_email">
+      <!-- <a ng-attr-href="{{selectedAlumn.blog}}" target="_blank"> -->
+        <p ng-click="window.open('http://google.com', '_system');">{{selectedAlumn.email}}</p>
+        <div class="ion-email"></div>
+      <!-- </a> -->
+    </li>
+
+  </ul>
 </div>

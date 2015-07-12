@@ -178,5 +178,9 @@
       <string>ionicons.ttf</string>
       <string>Roboto-Light</string>
     </array>
+    <key>UIBackgroundModes</key>
+    <array>
+      <string>audio</string>
+    </array>
   </dict>
 </plist>

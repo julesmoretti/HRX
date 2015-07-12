@@ -25,8 +25,14 @@ angular
           // console.log('building MapController localStorage');
           // DEFAULT SETTINGS
           // $scope.$storage.set({'notifications':true});
-          $scope.$storage.notifications = true;
-          $scope.$storage.geoPositioning = true;
+
+          if ( !$scope.$storage.notifications ) {
+            $scope.$storage.notifications = true;
+          }
+
+          if ( !$scope.$storage.geoPositioning ) {
+            $scope.$storage.geoPositioning = true;
+          }
           // console.log("storage", $scope.$storage);
         }
 
@@ -304,6 +310,48 @@ angular
           $scope.map = { center: { latitude: $scope.currentLatitude, longitude: $scope.currentLongitude } };
         };
 
+        $scope.updateLocation = function( latitude, longitude ) {
+
+          var req = {
+            method: 'GET',
+            // url: 'http://api.hrx.club/apntoken',
+            url: 'http://api.hrx.club/geoposition',
+            headers: {
+              // 'X-HRX-User-Token' : encodeURIComponent( $scope.$storage.token ),
+              'X-HRX-User-Token' : $scope.$storage.token
+            },
+            params: { 'latitude': latitude, 'longitude': longitude }
+          };
+
+          $http( req ).
+            success( function( data, status, headers, config ) {
+
+              // data responses
+              // alert( "data: "+ data );
+              // { responseCode: 200, message: 'Added device to Database' }
+              // { responseCode: 300, message: 'Already have it on file' }
+
+              // { responseCode: 400, message: 'APN token - No header detected... please report this error' }
+              // { responseCode: 401, message: 'APN token - No valid token found... please report this error' }
+
+              if ( data.responseCode === 200 ) {
+                // $scope.$storage.iosTokenRegistered = true;
+                // alert( "Response code: " + data.responseCode + " - " + data.message );
+              } else {
+                alert( "Response code: " + data.responseCode + " - " + data.message );
+              }
+            }).
+            error( function( data, status, headers, config ) {
+              // something called here
+              alert( "Error establishing a connection to API: "+ data+" - And status: " + status );
+
+              // need to handle errors like time outs etc...
+            });
+
+
+
+        };
+
         $scope.getLocation = function () {
 
           if ( $scope.mapFirstLoad ) $scope.mapLocation = true;
@@ -324,6 +372,8 @@ angular
             // $scope.positionAccuracyCount++;
             $scope.currentLatitude = position.coords.latitude;
             $scope.currentLongitude = position.coords.longitude;
+
+            $scope.updateLocation( $scope.currentLatitude, $scope.currentLongitude );
 
             // if ( position.coords.accuracy < $scope.positionAccuracyMin ) {
             $scope.positionAccuracyMin = position.coords.accuracy;

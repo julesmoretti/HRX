@@ -24,7 +24,6 @@ angular
             $scope.$storage.geoPositioning = true;
           }
 
-
           $scope.clearLocalStorage = function () {
             $localStorage.$reset();
           }
@@ -46,10 +45,10 @@ angular
             // navigator.vibrate(3000);
           }
 
-          if ( !$scope.$storage.token ) {
+          if ( !$scope.$storage.token || !$scope.$storage.LI_Token_Registered ) {
             $scope.clearLocalStorage();
-            // $state.go('home.login');
-            $state.go('home.map');
+            $state.go('home.login');
+            // $state.go('home.map');
           } else {
             $state.go('home.map');
           }

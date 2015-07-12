@@ -17,4 +17,6 @@
       <param name="android-package" value="org.apache.cordova.InAppBrowser"/>
     </feature>
     <gap:plugin name="org.apache.cordova.inappbrowser" />
+    <gap:plugin name="org.apache.cordova.device" />
+    <gap:plugin name="de.appplant.cordova.plugin.background-mode" />
 </widget>
