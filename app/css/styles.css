@@ -6,11 +6,52 @@
   font-style: 100;
 }
 
+@font-face {
+  font-family: 'Ubuntu Mono derivative Powerline';
+  src: url("../fonts/Ubuntu Mono derivative Powerline Bold.eot");
+  /* IE9 Compat Modes */
+  src: url("../fonts/Ubuntu Mono derivative Powerline Bold.eot?#iefix") format("embedded-opentype"), url("../fonts/Ubuntu Mono derivative Powerline Bold.woff") format("woff"), url("../fonts/Ubuntu Mono derivative Powerline Bold.ttf") format("truetype"), url("../fonts/Ubuntu Mono derivative Powerline Bold.svg#c73c85af22f1c2bcd7f8faff106eacd4") format("svg");
+  /* Legacy iOS */
+  font-style: normal;
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: 'Ubuntu Mono derivative Powerline';
+  src: url("../fonts/Ubuntu Mono derivative Powerline Bold Italic.eot");
+  /* IE9 Compat Modes */
+  src: url("../fonts/Ubuntu Mono derivative Powerline Bold Italic.eot?#iefix") format("embedded-opentype"), url("../fonts/Ubuntu Mono derivative Powerline Bold Italic.woff") format("woff"), url("../fonts/Ubuntu Mono derivative Powerline Bold Italic.ttf") format("truetype"), url("../fonts/Ubuntu Mono derivative Powerline Bold Italic.svg#c6d75684997c76201a457d270f7a2dbb") format("svg");
+  /* Legacy iOS */
+  font-style: italic;
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: 'Ubuntu Mono derivative Powerline';
+  src: url("../fonts/Ubuntu Mono derivative Powerline.eot");
+  /* IE9 Compat Modes */
+  src: url("../fonts/Ubuntu Mono derivative Powerline.eot?#iefix") format("embedded-opentype"), url("../fonts/Ubuntu Mono derivative Powerline.woff") format("woff"), url("../fonts/Ubuntu Mono derivative Powerline.ttf") format("truetype"), url("../fonts/Ubuntu Mono derivative Powerline.svg#98f86a252556e87f04e6950d7f8c1d3f") format("svg");
+  /* Legacy iOS */
+  font-style: normal;
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: 'Ubuntu Mono derivative Powerline';
+  src: url("../fonts/Ubuntu Mono derivative Powerline Italic.eot");
+  /* IE9 Compat Modes */
+  src: url("../fonts/Ubuntu Mono derivative Powerline Italic.eot?#iefix") format("embedded-opentype"), url("../fonts/Ubuntu Mono derivative Powerline Italic.woff") format("woff"), url("../fonts/Ubuntu Mono derivative Powerline Italic.ttf") format("truetype"), url("../fonts/Ubuntu Mono derivative Powerline Italic.svg#e92c3ab117c506b98fac1a246d46edd1") format("svg");
+  /* Legacy iOS */
+  font-style: italic;
+  font-weight: 400;
+}
+
 html {
   height: 100%;
 }
 
 body {
+  font-family: 'Ubuntu Mono derivative Powerline';
   height: 100%;
   margin: 0;
   padding: 0;
@@ -198,7 +239,7 @@ body {
   }
 }
 
-#menu, #menuList, #alumni, #alumn {
+#menu, #menuList, #alumni, #alumn, #companies, #company {
   background-color: #222;
   position: absolute;
   right: 0px;
@@ -208,12 +249,12 @@ body {
   box-shadow: -1px 0px 6px #000000;
 }
 
-#menu.ng-enter, #menuList.ng-enter, #alumni.ng-enter, #alumn.ng-enter {
+#menu.ng-enter, #menuList.ng-enter, #alumni.ng-enter, #alumn.ng-enter, #companies.ng-enter, #company.ng-enter {
   -webkit-animation: menu-enter 0.125s ease-out;
   animation: menu-enter 0.125s ease-out;
 }
 
-#menu.ng-leave, #menuList.ng-leave, #alumni.ng-leave, #alumn.ng-leave {
+#menu.ng-leave, #menuList.ng-leave, #alumni.ng-leave, #alumn.ng-leave, #companies.ng-leave, #company.ng-leave {
   -webkit-animation: menu-enter 0.125s ease-out reverse;
   animation: menu-enter 0.125s ease-out reverse;
   /*animation-delay: 1s;*/
@@ -362,11 +403,6 @@ body {
   position: absolute;
 }
 
-/*.blur {*/
-/*-webkit-transition: all linear 0.125s;*/
-/*transition: all linear 0.125s;*/
-/*-webkit-filter: blur(2px);*/
-/*}*/
 .mapForegroundMask {
   width: 100%;
   height: 100%;
@@ -403,24 +439,33 @@ body {
 }
 
 #settings .settings div.checkbox {
-  margin-left: 23px;
+  margin-left: 15px;
   margin-top: 20px;
   /*margin-top: 10px;*/
   /*margin-bottom: 20px;*/
 }
 
+#settings .settings div.checkbox input + span:before {
+  width: 36px;
+}
+
 #settings .settings div.checkbox input + span:after {
   background: #181818;
+  border-radius: 0px;
+  width: 18px;
+  height: 18px;
+  top: 2px;
 }
 
 #settings .settings div.checkbox input:checked + span:after {
   /*background: $android-cyan;*/
   background: #43899E;
+  margin-left: 18px;
 }
 
 #settings .settings div.checkbox span {
   font-size: 18px;
-  padding-left: 50px;
+  padding-left: 38px;
   color: #555;
   line-height: 20px;
   display: block;
@@ -436,9 +481,9 @@ body {
 }
 
 #settings .settings div.button {
-  margin: 15px 23px 0px 23px;
+  margin: 31px 15px 0px 15px;
   height: 44px;
-  width: calc( 100% - 46px);
+  width: calc( 100% - 32px);
   background-color: #333;
   border: 2px solid #43899e;
   color: #5bc0de;
@@ -544,11 +589,20 @@ body {
   width: 100%;
   position: absolute;
   top: 0px;
-  /*background-color: yellow;*/
   height: 68px;
-  /*border-bottom: 1px solid black;*/
   box-shadow: 0px 0px 4px #000000;
   z-index: 1;
+}
+
+.alumniList .alumniSearch div {
+  width: 44px;
+  height: 44px;
+  position: absolute;
+  right: 12px;
+  top: 12px;
+  font-size: 1.8em;
+  text-align: center;
+  line-height: 44px;
 }
 
 .alumniList .alumniSearch input {
@@ -557,6 +611,13 @@ body {
   background-color: #151515;
   border: none;
   padding: 0px 12px;
+  border-radius: 0px;
+  color: #5bc0de;
+}
+
+.alumniList .alumniSearch input::-webkit-input-placeholder {
+  color: #444;
+  font-style: italic;
 }
 
 .alumniList .alumniLI {
@@ -566,7 +627,7 @@ body {
   width: 100%;
   top: 68px;
   z-index: 0;
-  /*background-color: red;*/
+  background-color: #222;
 }
 
 .alumniList .alumniLI ul li img {
@@ -579,6 +640,7 @@ body {
 
 .alumniList .alumniLI ul li span {
   padding-left: 54px;
+  text-transform: initial;
 }
 
 .alumniList .alumniLI ul li div.mainMenuArrow {
@@ -597,12 +659,17 @@ body {
   width: 320px;
   height: calc( 100% - 68px);
   overflow: auto;
+  /*position: absolute;*/
+  /*top: 0px;*/
+  /*background-color: #222;*/
+  /*z-index: 2;*/
   /*color: #DDD;*/
 }
 
 #alumn .alumn ul li.alumn_profile {
   height: 92px;
   display: flex;
+  width: calc( 100% - 10px);
 }
 
 #alumn .alumn ul li.alumn_profile img {
@@ -664,10 +731,24 @@ body {
   text-transform: uppercase;
 }
 
+#alumn .alumn ul li.alumn_profile div:nth-of-type(2) {
+  position: absolute;
+  font-size: 20px;
+  right: -10px;
+  top: 19px;
+  width: initial;
+  height: initial;
+  color: #43899E;
+  text-align: right;
+  background-color: #333;
+  padding: 0px 10px 1px 5px;
+  line-height: 20px;
+}
+
 #alumn .alumn ul li.alumn_description {
+  width: calc( 100% - 10px);
   height: inherit;
   line-height: 12px;
-  padding-right: 10px;
   padding-top: 10px;
   /*position: relative;*/
 }
@@ -690,14 +771,13 @@ body {
 }
 
 #alumn .alumn ul li.alumn_description ul {
-  width: 100%;
-  height: initial;
-  font-size: 12px;
+  font-size: 11px;
   color: #555;
-  line-height: 12px;
+  line-height: 11px;
   text-transform: initial;
-  padding: 16px 0px;
+  margin: 10px 0px;
   list-style-type: square;
+  height: 11px;
 }
 
 #alumn .alumn ul li.alumn_description ul li {
@@ -705,67 +785,89 @@ body {
   line-height: inherit;
   height: inherit;
   border-bottom: 0px solid;
-  float: right;
+  float: left;
   margin-left: 24px;
-  bottom: 5px;
 }
 
-#alumn .alumn ul li.alumn_description ul li:nth-last-of-type(1) {
+#alumn .alumn ul li.alumn_description ul li:nth-of-type(1) {
   list-style-type: none;
+  margin-left: 0px;
 }
 
 #alumn .alumn ul li.alumn_company {
   text-transform: initial;
   text-decoration: initial;
-  /*color: #555;*/
   width: calc( 100% - 10px);
-  height: inherit;
-  line-height: 48px;
+  line-height: 64px;
+  height: 65px;
 }
 
-#alumn .alumn ul li.alumn_company div {
+#alumn .alumn ul li.alumn_company a {
+  text-decoration: none;
+  width: 100%;
+  height: 100%;
+}
+
+#alumn .alumn ul li.alumn_company a div {
   display: inline-block;
   line-height: 14px;
 }
 
-#alumn .alumn ul li.alumn_company div:nth-of-type(1) {
+#alumn .alumn ul li.alumn_company a div:nth-of-type(1) {
   height: 100%;
   position: relative;
   padding-top: 16px;
 }
 
-#alumn .alumn ul li.alumn_company div:nth-of-type(1) span {
+#alumn .alumn ul li.alumn_company a div:nth-of-type(1) span {
   line-height: 14px;
   padding-left: 0px;
 }
 
-#alumn .alumn ul li.alumn_company div:nth-of-type(1) span:nth-of-type(1) {
+#alumn .alumn ul li.alumn_company a div:nth-of-type(1) span:nth-of-type(1) {
   color: #777;
   font-size: 14px;
 }
 
-#alumn .alumn ul li.alumn_company div:nth-of-type(1) span:nth-of-type(2) {
+#alumn .alumn ul li.alumn_company a div:nth-of-type(1) span:nth-of-type(2) {
   color: #555;
   font-size: 12px;
   font-style: italic;
 }
 
-#alumn .alumn ul li.alumn_company div:nth-of-type(2) {
-  width: 44px;
-  height: 44px;
+#alumn .alumn ul li.alumn_company a div:nth-of-type(2) {
+  height: 24px;
+  width: 24px;
   border-radius: 44px;
   text-align: center;
-  line-height: 44px;
+  line-height: 24px;
   display: inline-block;
   background-color: #333;
   color: #666;
   position: absolute;
-  top: 10px;
-  right: 54px;
+  top: 20px;
+  right: 118px;
   font-size: 16px;
+  /*padding: 0px 8px;*/
 }
 
-#alumn .alumn ul li.alumn_company div:nth-of-type(3) {
+#alumn .alumn ul li.alumn_company a div:nth-of-type(3) {
+  /*width: 24px;*/
+  height: 24px;
+  border-radius: 44px;
+  text-align: center;
+  line-height: 24px;
+  display: inline-block;
+  background-color: #333;
+  color: #666;
+  position: absolute;
+  top: 20px;
+  right: 64px;
+  font-size: 16px;
+  padding: 0px 8px;
+}
+
+#alumn .alumn ul li.alumn_company a div:nth-of-type(4) {
   position: absolute;
   top: 10px;
   left: calc(100% - 54px);
@@ -775,22 +877,28 @@ body {
   overflow: hidden;
 }
 
-#alumn .alumn ul li.alumn_company img {
+#alumn .alumn ul li.alumn_company a img {
   width: 44px;
   height: 44px;
   border-radius: 44px;
   top: 10px;
   position: absolute;
   right: 0px;
+  opacity: 0.4;
 }
 
 #alumn .alumn ul li.alumn_gh {
   width: calc( 100% - 10px);
   position: relative;
-  line-height: 44px;
+  line-height: 64px;
+  height: 65px;
 }
 
-#alumn .alumn ul li.alumn_gh span {
+#alumn .alumn ul li.alumn_gh a {
+  text-decoration: none;
+}
+
+#alumn .alumn ul li.alumn_gh a span {
   padding-left: 0px;
   text-transform: initial;
   color: #777;
@@ -798,36 +906,38 @@ body {
   text-overflow: eclipse;
 }
 
-#alumn .alumn ul li.alumn_gh div {
+#alumn .alumn ul li.alumn_gh a div {
   color: #666;
 }
 
-#alumn .alumn ul li.alumn_gh div:nth-of-type(1) {
+#alumn .alumn ul li.alumn_gh a div:nth-of-type(1) {
   background-color: #333;
   position: absolute;
   text-align: center;
   line-height: 24px;
-  width: 24px;
+  /*width: 24px;*/
   height: 24px;
   border-radius: 24px;
   right: 118px;
   top: 20px;
   color: #43899E;
+  padding: 0px 8px;
 }
 
-#alumn .alumn ul li.alumn_gh div:nth-of-type(2) {
+#alumn .alumn ul li.alumn_gh a div:nth-of-type(2) {
   background-color: #333;
   position: absolute;
   line-height: 24px;
-  width: 24px;
+  /*width: 24px;*/
   height: 24px;
   border-radius: 24px;
   text-align: center;
   right: 64px;
   top: 20px;
+  padding: 0px 8px;
 }
 
-#alumn .alumn ul li.alumn_gh a {
+#alumn .alumn ul li.alumn_gh a object {
   display: inline-block;
   position: absolute;
   top: 10px;
@@ -835,9 +945,6 @@ body {
   width: 44px;
   height: 44px;
   border-radius: 44px;
-}
-
-#alumn .alumn ul li.alumn_gh a object {
   pointer-events: none;
   width: 44px;
   height: 44px;
@@ -846,10 +953,15 @@ body {
 #alumn .alumn ul li.alumn_li {
   width: calc( 100% - 10px);
   position: relative;
-  line-height: 44px;
+  line-height: 64px;
+  height: 65px;
 }
 
-#alumn .alumn ul li.alumn_li span {
+#alumn .alumn ul li.alumn_li a {
+  text-decoration: none;
+}
+
+#alumn .alumn ul li.alumn_li a span {
   padding-left: 0px;
   text-transform: initial;
   color: #777;
@@ -857,19 +969,13 @@ body {
   text-overflow: eclipse;
 }
 
-#alumn .alumn ul li.alumn_li a {
+#alumn .alumn ul li.alumn_li a object {
   display: inline-block;
   position: absolute;
-  top: 10px;
-  right: 0px;
-  width: 44px;
-  height: 44px;
-  border-radius: 44px;
+  top: 21px;
+  right: 11px;
   text-align: center;
   line-height: 58px;
-}
-
-#alumn .alumn ul li.alumn_li a object {
   pointer-events: none;
   width: 22px;
   height: 22px;
@@ -878,10 +984,12 @@ body {
 #alumn .alumn ul li.alumn_blog {
   width: calc( 100% - 10px);
   position: relative;
-  line-height: 44px;
+  line-height: 64px;
+  height: 65px;
 }
 
 #alumn .alumn ul li.alumn_blog a {
+  text-decoration: none;
   width: 100%;
   height: 100%;
 }
@@ -912,10 +1020,12 @@ body {
 #alumn .alumn ul li.alumn_address {
   width: calc( 100% - 10px);
   position: relative;
-  line-height: 44px;
+  line-height: 64px;
+  height: 65px;
 }
 
 #alumn .alumn ul li.alumn_address a {
+  text-decoration: none;
   width: 100%;
   height: 100%;
 }
@@ -949,14 +1059,17 @@ body {
 #alumn .alumn ul li.alumn_email {
   width: calc( 100% - 10px);
   position: relative;
-  line-height: 44px;
-  /*      a {
-            width: 100%;
-            height: 100%;*/
-  /*}*/
+  line-height: 64px;
+  height: 65px;
 }
 
-#alumn .alumn ul li.alumn_email p {
+#alumn .alumn ul li.alumn_email a {
+  text-decoration: none;
+  width: 100%;
+  height: 100%;
+}
+
+#alumn .alumn ul li.alumn_email a p {
   /*padding-left: 0px;*/
   text-transform: initial;
   color: #777;
@@ -968,7 +1081,7 @@ body {
   max-width: 200px;
 }
 
-#alumn .alumn ul li.alumn_email div {
+#alumn .alumn ul li.alumn_email a div {
   display: inline-block;
   position: absolute;
   top: 10px;
@@ -980,6 +1093,413 @@ body {
   line-height: 44px;
   font-size: 28px;
   color: #666;
+}
+
+#alumn .alumn ul li.alumn_phone {
+  width: calc( 100% - 10px);
+  position: relative;
+  line-height: 64px;
+  height: 65px;
+}
+
+#alumn .alumn ul li.alumn_phone a {
+  text-decoration: none;
+  color: #777 !important;
+  font-size: 14px;
+  -webkit-user-select: initial;
+  user-select: initial;
+}
+
+#alumn .alumn ul li.alumn_phone div {
+  display: inline-block;
+  position: absolute;
+  top: 10px;
+  width: 44px;
+  height: 44px;
+  border-radius: 44px;
+  text-align: center;
+  line-height: 44px;
+  font-size: 28px;
+  color: #666;
+}
+
+#alumn .alumn ul li.alumn_phone div:nth-of-type(1) {
+  right: 54px;
+}
+
+#alumn .alumn ul li.alumn_phone div:nth-of-type(2) {
+  right: 0px;
+}
+
+.companiesList {
+  width: 320px;
+  height: 100%;
+}
+
+.companiesList .companiesSearch {
+  width: 100%;
+  position: absolute;
+  top: 0px;
+  height: 68px;
+  box-shadow: 0px 0px 4px #000000;
+  z-index: 1;
+}
+
+.companiesList .companiesSearch div {
+  width: 44px;
+  height: 44px;
+  position: absolute;
+  right: 12px;
+  top: 12px;
+  font-size: 1.8em;
+  text-align: center;
+  line-height: 44px;
+}
+
+.companiesList .companiesSearch input {
+  width: 100%;
+  height: 100%;
+  background-color: #151515;
+  border: none;
+  padding: 0px 12px;
+  border-radius: 0px;
+  color: #5bc0de;
+}
+
+.companiesList .companiesSearch input::-webkit-input-placeholder {
+  color: #444;
+  font-style: italic;
+}
+
+.companiesList .companiesLI {
+  height: calc(100% - 68px - 68px);
+  overflow: auto;
+  position: absolute;
+  width: 100%;
+  top: 68px;
+  z-index: 0;
+  background-color: #222;
+}
+
+.companiesList .companiesLI ul li img {
+  width: 44px;
+  height: 44px;
+  position: absolute;
+  top: 11px;
+  border-radius: 30px;
+}
+
+.companiesList .companiesLI ul li span {
+  padding-left: 54px;
+  text-transform: initial;
+}
+
+.companiesList .companiesLI ul li div.mainMenuArrow {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  height: 44px;
+  width: 44px;
+  line-height: 44px;
+  text-align: center;
+  color: #43899E;
+  font-size: 1.8em;
+}
+
+#company .company {
+  width: 320px;
+  height: calc( 100% - 68px);
+  overflow: auto;
+  /*position: absolute;*/
+  /*top: 0px;*/
+  /*background-color: #222;*/
+  /*z-index: 2;*/
+  /*color: #DDD;*/
+}
+
+#company .company ul li.company_profile {
+  height: 92px;
+  display: flex;
+  width: calc( 100% - 10px);
+}
+
+#company .company ul li.company_profile img {
+  width: 68px;
+  height: 68px;
+  border-radius: 68px;
+  display: inline-block;
+  margin: 12px 0px;
+  float: left;
+}
+
+#company .company ul li.company_profile div {
+  height: 92px;
+  width: calc(100% - 78px);
+  display: inline-block;
+  line-height: 18px;
+  padding-top: 19px;
+  position: relative;
+}
+
+#company .company ul li.company_profile div span:nth-of-type(1) {
+  padding-left: 10px;
+  line-height: 20px;
+  color: #aaa;
+  font-size: 20px;
+}
+
+#company .company ul li.company_profile div span:nth-of-type(2) {
+  line-height: 14px;
+  padding-left: 10px;
+  text-transform: lowercase;
+  font-size: 14px;
+  color: #777;
+}
+
+#company .company ul li.company_profile div div {
+  padding-top: 0px;
+  padding-left: 10px;
+  /*position: absolute;*/
+  /*bottom: 0px;*/
+  /*right: 10px;*/
+  height: initial;
+  width: initial;
+}
+
+#company .company ul li.company_profile div div span:nth-of-type(1) {
+  line-height: 12px;
+  padding-left: 0px;
+  font-size: 12px;
+  text-transform: initial;
+  color: #555;
+}
+
+#company .company ul li.company_profile div div span:nth-of-type(2) {
+  line-height: 20px;
+  padding-left: 0px;
+  font-size: 12px;
+  color: #555;
+  text-transform: uppercase;
+}
+
+#company .company ul li.company_profile div:nth-of-type(2) {
+  position: absolute;
+  font-size: 20px;
+  right: -10px;
+  top: 19px;
+  width: initial;
+  height: initial;
+  color: #43899E;
+  text-align: right;
+  background-color: #333;
+  padding: 0px 10px 1px 5px;
+  line-height: 20px;
+}
+
+#company .company ul li.company_alumn {
+  text-transform: initial;
+  text-decoration: initial;
+  width: calc( 100% - 10px);
+  line-height: 64px;
+  height: inherit;
+}
+
+#company .company ul li.company_alumn div {
+  display: inline-block;
+  line-height: 14px;
+}
+
+#company .company ul li.company_alumn div.company_alumn_overflow {
+  height: 100%;
+  width: calc( 100% + 1px);
+  position: relative;
+  padding-top: 10px;
+  display: block;
+  overflow: auto;
+  white-space: nowrap;
+  margin-bottom: 5px;
+  padding-left: 53px;
+}
+
+#company .company ul li.company_alumn div.company_alumn_overflow div {
+  width: 24px;
+  height: 24px;
+  background-color: yellow;
+  border-radius: 44px;
+  margin-right: 31px;
+  display: inline-block;
+}
+
+#company .company ul li.company_alumn div.company_alumn_overflow div img {
+  width: inherit;
+  height: inherit;
+  border-radius: 44px;
+}
+
+#company .company ul li.company_alumn div.company_alumn_overflow div:nth-last-of-type(1) {
+  margin-right: 0px;
+}
+
+#company .company ul li.company_alumn div.company_alumn_count {
+  width: 24px;
+  height: 24px;
+  border-radius: 44px;
+  text-align: center;
+  line-height: 24px;
+  display: inline-block;
+  background-color: #333;
+  color: #666;
+  position: absolute;
+  top: 10px;
+  left: 0px;
+  font-size: 16px;
+  padding: 0px 8px;
+}
+
+#company .company ul li.company_alumn div.company_alumn_count.company_alumn_count_blown {
+  width: 44px;
+  height: 44px;
+  line-height: 44px;
+  font-size: 28px;
+}
+
+#company .company ul li.company_alumn div.company_alumn_list {
+  width: 100%;
+  height: 56px;
+  line-height: 50px;
+  position: relative;
+  display: block;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border-top: 1px solid #252525;
+}
+
+#company .company ul li.company_alumn div.company_alumn_list img {
+  width: 44px;
+  height: 44px;
+  border-radius: 44px;
+  position: absolute;
+}
+
+#company .company ul li.company_alumn div.company_alumn_list span {
+  position: absolute;
+  line-height: 44px;
+}
+
+#company .company ul li.company_alumn div.company_alumn_list div.mainMenuArrow {
+  position: absolute;
+  top: 7px;
+  right: 0px;
+  height: 44px;
+  width: 44px;
+  line-height: 44px;
+  text-align: center;
+  color: #43899E;
+  font-size: 1.8em;
+}
+
+#company .company ul li.company_site {
+  width: calc( 100% - 10px);
+  position: relative;
+  line-height: 64px;
+  height: 65px;
+}
+
+#company .company ul li.company_site a {
+  text-decoration: none;
+  width: 100%;
+  height: 100%;
+}
+
+#company .company ul li.company_site a span {
+  padding-left: 0px;
+  text-transform: initial;
+  color: #777;
+  font-size: 14px;
+  text-overflow: eclipse;
+}
+
+#company .company ul li.company_site a div {
+  display: inline-block;
+  position: absolute;
+  top: 10px;
+  right: 0px;
+  width: 44px;
+  height: 44px;
+  border-radius: 44px;
+  text-align: center;
+  line-height: 44px;
+  pointer-events: none;
+  color: #666;
+  font-size: 28px;
+}
+
+#company .company ul li.company_address {
+  width: calc( 100% - 10px);
+  position: relative;
+  line-height: 64px;
+  height: 65px;
+}
+
+#company .company ul li.company_address a {
+  text-decoration: none;
+  width: 100%;
+  height: 100%;
+}
+
+#company .company ul li.company_address a p {
+  /*padding-left: 0px;*/
+  text-transform: initial;
+  color: #777;
+  font-size: 14px;
+  text-overflow: ellipsis;
+  line-height: 66px;
+  white-space: nowrap;
+  overflow: hidden;
+  max-width: 200px;
+}
+
+#company .company ul li.company_address a div {
+  display: inline-block;
+  position: absolute;
+  top: 10px;
+  right: 0px;
+  width: 44px;
+  height: 44px;
+  border-radius: 44px;
+  text-align: center;
+  line-height: 44px;
+  font-size: 28px;
+  color: #666;
+}
+
+#company .company ul li.company_phone {
+  width: calc( 100% - 10px);
+  position: relative;
+  line-height: 64px;
+  height: 65px;
+}
+
+#company .company ul li.company_phone a {
+  text-decoration: none;
+  color: #777 !important;
+  font-size: 14px;
+  -webkit-user-select: initial;
+  user-select: initial;
+}
+
+#company .company ul li.company_phone div {
+  display: inline-block;
+  position: absolute;
+  top: 10px;
+  width: 44px;
+  height: 44px;
+  border-radius: 44px;
+  text-align: center;
+  line-height: 44px;
+  font-size: 28px;
+  color: #666;
+  right: 0px;
 }
 
 #geolocation {
@@ -1021,6 +1541,7 @@ body {
   height: 55px;
   padding-top: 0px;
   vertical-align: bottom;
+  font-family: "Ubuntu Mono derivative Powerline";
 }
 
 #infoWindowText span:nth-of-type(1) {
@@ -1174,24 +1695,33 @@ body {
 }
 
 #filter .filter div.checkbox {
-  margin-left: 23px;
+  margin-left: 15px;
   margin-top: 20px;
   /*margin-top: 10px;*/
   /*margin-bottom: 20px;*/
 }
 
+#filter .filter div.checkbox input + span:before {
+  width: 36px;
+}
+
 #filter .filter div.checkbox input + span:after {
   background: #181818;
+  border-radius: 0px;
+  width: 18px;
+  height: 18px;
+  top: 2px;
 }
 
 #filter .filter div.checkbox input:checked + span:after {
   /*background: $android-cyan;*/
   background: #43899E;
+  margin-left: 18px;
 }
 
 #filter .filter div.checkbox span {
   font-size: 18px;
-  padding-left: 50px;
+  padding-left: 38px;
   color: #555;
   line-height: 20px;
   display: block;
@@ -1219,8 +1749,14 @@ body {
   color: #5bc0de;
 }
 
+#filter .filter div.input-group input::-webkit-input-placeholder {
+  color: #444;
+  font-style: italic;
+}
+
 #filter .filter div.input-group span {
   background-color: #333;
   border-width: 0px;
   font-size: 20px;
+  border-radius: 0px;
 }

@@ -1,0 +1,18 @@
+<div class="companiesList">
+  <div class="companiesSearch">
+    <div class="ion-close" ng-click="searchText = ''"></div>
+    <input type="text" placeholder="Search by name" ng-model="searchText">
+  </div>
+  <div class="companiesLI">
+    <ul>
+      <li ui-sref="home.map.menu.companies.company({id: company.id})" ng-repeat="company in companies | filter:searchText | orderBy: 'name'">
+        <img ng-show="{{company.logo}}" ng-attr-src="{{company.logo}}" class="profilePicture"/>
+        <img ng-hide="{{company.logo}}" src="img/comp.jpg" class="profilePicture"/>
+
+        <span>{{company.name}}</span>
+        <div class="mainMenuArrow ion-ios-arrow-forward"></div>
+      </li>
+    </ul>
+  </div>
+  <div id="company" ui-view="company"></div>
+</div>

@@ -8,11 +8,13 @@
 /* Begin PBXBuildFile section */
 		04676DC0ADE24F778EE44DE4 /* CDVLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E976BC8A08C480D9288F8D1 /* CDVLocation.m */; };
 		087CBFA5A6DD41749A077249 /* CDVFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 69956049BA1846589CFF9E1C /* CDVFile.m */; };
+		088F8455D916432A8646D7EB /* APPBackgroundMode.m in Sources */ = {isa = PBXBuildFile; fileRef = DB13F69F81194C86AFD09C44 /* APPBackgroundMode.m */; };
 		0F683596239D4DCEB77D4741 /* CDVReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 5BAF8EB9CFD44662A99656A8 /* CDVReachability.m */; };
 		1D3623260D0F684500981E51 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* AppDelegate.m */; };
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		243F5D0EC47C4FBAB1864318 /* CDVAssetLibraryFilesystem.m in Sources */ = {isa = PBXBuildFile; fileRef = 289E1E74B6F74C31A42E9D6F /* CDVAssetLibraryFilesystem.m */; };
 		2609C351A20A4383BBC6F805 /* CDVCompass.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FA69008B6404E7FA0A4D42A /* CDVCompass.m */; };
+		26E9B86977934D85B9E383F4 /* appbeep.wav in Resources */ = {isa = PBXBuildFile; fileRef = C2B9D9A016ED4CE4ABB52C19 /* appbeep.wav */; };
 		2867C75D0A874F9A97238046 /* CDVSound.m in Sources */ = {isa = PBXBuildFile; fileRef = F20EDC92A87943539ABBDB40 /* CDVSound.m */; };
 		288765FD0DF74451002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765FC0DF74451002DB57D /* CoreGraphics.framework */; };
 		301BF552109A68D80062928A /* libCordova.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 301BF535109A57CC0062928A /* libCordova.a */; };
@@ -52,6 +54,10 @@
 		7E7966E51810823500FA85AD /* icon-76@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7E7966DB1810823500FA85AD /* icon-76@2x.png */; };
 		7E7966E61810823500FA85AD /* icon-small.png in Resources */ = {isa = PBXBuildFile; fileRef = 7E7966DC1810823500FA85AD /* icon-small.png */; };
 		7E7966E71810823500FA85AD /* icon-small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7E7966DD1810823500FA85AD /* icon-small@2x.png */; };
+		842B399D1B64562700B32A1B /* Ubuntu Mono derivative Powerline.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 842B39991B64562700B32A1B /* Ubuntu Mono derivative Powerline.ttf */; };
+		842B399E1B64562700B32A1B /* Ubuntu Mono derivative Powerline Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 842B399A1B64562700B32A1B /* Ubuntu Mono derivative Powerline Italic.ttf */; };
+		842B399F1B64562700B32A1B /* Ubuntu Mono derivative Powerline Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 842B399B1B64562700B32A1B /* Ubuntu Mono derivative Powerline Bold.ttf */; };
+		842B39A01B64562700B32A1B /* Ubuntu Mono derivative Powerline Bold Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 842B399C1B64562700B32A1B /* Ubuntu Mono derivative Powerline Bold Italic.ttf */; };
 		844CE5731B3DE67200F7CEA6 /* ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 844CE5711B3DE67200F7CEA6 /* ionicons.ttf */; };
 		844CE5741B3DE67200F7CEA6 /* Roboto-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 844CE5721B3DE67200F7CEA6 /* Roboto-Light.ttf */; };
 		87FBD804E06941EE8765D7ED /* CDVContacts.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BEBC8B15E194EE0B6942261 /* CDVContacts.m */; };
@@ -67,8 +73,6 @@
 		DEA106D6B8B441E0B111686E /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1EB62F9E982442248E615CB8 /* SystemConfiguration.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		EB4766C9C92F4369A3951498 /* CDVCapture.m in Sources */ = {isa = PBXBuildFile; fileRef = BCCBEB81EF544B90873A53FF /* CDVCapture.m */; };
 		F25E7C4692764F4C95646C25 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C89859FC61254DF1BC865F2D /* CoreLocation.framework */; };
-		088F8455D916432A8646D7EB /* APPBackgroundMode.m in Sources */ = {isa = PBXBuildFile; fileRef = DB13F69F81194C86AFD09C44 /* APPBackgroundMode.m */; };
-		26E9B86977934D85B9E383F4 /* appbeep.wav in Resources */ = {isa = PBXBuildFile; fileRef = C2B9D9A016ED4CE4ABB52C19 /* appbeep.wav */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -150,6 +154,10 @@
 		7E7966DC1810823500FA85AD /* icon-small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-small.png"; sourceTree = "<group>"; };
 		7E7966DD1810823500FA85AD /* icon-small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-small@2x.png"; sourceTree = "<group>"; };
 		831EE1E13C9A479FBAB24C29 /* CDVInAppBrowser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CDVInAppBrowser.m; path = org.apache.cordova.inappbrowser/CDVInAppBrowser.m; sourceTree = "<group>"; };
+		842B39991B64562700B32A1B /* Ubuntu Mono derivative Powerline.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Ubuntu Mono derivative Powerline.ttf"; path = "hrx/Resources/Ubuntu Mono derivative Powerline.ttf"; sourceTree = "<group>"; };
+		842B399A1B64562700B32A1B /* Ubuntu Mono derivative Powerline Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Ubuntu Mono derivative Powerline Italic.ttf"; path = "hrx/Resources/Ubuntu Mono derivative Powerline Italic.ttf"; sourceTree = "<group>"; };
+		842B399B1B64562700B32A1B /* Ubuntu Mono derivative Powerline Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Ubuntu Mono derivative Powerline Bold.ttf"; path = "hrx/Resources/Ubuntu Mono derivative Powerline Bold.ttf"; sourceTree = "<group>"; };
+		842B399C1B64562700B32A1B /* Ubuntu Mono derivative Powerline Bold Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Ubuntu Mono derivative Powerline Bold Italic.ttf"; path = "hrx/Resources/Ubuntu Mono derivative Powerline Bold Italic.ttf"; sourceTree = "<group>"; };
 		844CE5711B3DE67200F7CEA6 /* ionicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = ionicons.ttf; path = hrx/Resources/ionicons.ttf; sourceTree = "<group>"; };
 		844CE5721B3DE67200F7CEA6 /* Roboto-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Roboto-Light.ttf"; path = "hrx/Resources/Roboto-Light.ttf"; sourceTree = "<group>"; };
 		846FA3181B3FFAFF00EBE91B /* github-cat-eye.svg */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = "github-cat-eye.svg"; path = "hrx/Resources/github-cat-eye.svg"; sourceTree = "<group>"; };
@@ -170,10 +178,13 @@
 		ADBCFCAE376642C68B41BB89 /* CDVLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CDVLocation.h; path = org.apache.cordova.geolocation/CDVLocation.h; sourceTree = "<group>"; };
 		B21E6A24AFE84160943D8749 /* CDVFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CDVFile.h; path = org.apache.cordova.file/CDVFile.h; sourceTree = "<group>"; };
 		BCCBEB81EF544B90873A53FF /* CDVCapture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CDVCapture.m; path = "org.apache.cordova.media-capture/CDVCapture.m"; sourceTree = "<group>"; };
+		C2B9D9A016ED4CE4ABB52C19 /* appbeep.wav */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = unknown; path = appbeep.wav; sourceTree = "<group>"; };
 		C4F07902AECA4D3AAE21FD4E /* CDVSound.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CDVSound.h; path = org.apache.cordova.media/CDVSound.h; sourceTree = "<group>"; };
 		C89859FC61254DF1BC865F2D /* CoreLocation.framework */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		D4A0D8751607E02300AEF8BB /* Default-568h@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x~iphone.png"; sourceTree = "<group>"; };
+		D7427DBCC0104C6497701E47 /* APPBackgroundMode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = APPBackgroundMode.h; path = "de.appplant.cordova.plugin.background-mode/APPBackgroundMode.h"; sourceTree = "<group>"; };
 		D8A4535C7BCF4C23BBC36553 /* CDVSplashScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CDVSplashScreen.h; path = org.apache.cordova.splashscreen/CDVSplashScreen.h; sourceTree = "<group>"; };
+		DB13F69F81194C86AFD09C44 /* APPBackgroundMode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = APPBackgroundMode.m; path = "de.appplant.cordova.plugin.background-mode/APPBackgroundMode.m"; sourceTree = "<group>"; };
 		E42319BB2C6A417AA07E36C7 /* CDVLocalFilesystem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CDVLocalFilesystem.m; path = org.apache.cordova.file/CDVLocalFilesystem.m; sourceTree = "<group>"; };
 		E97FB5EB1C1A484B9CDC3698 /* UIWebViewExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UIWebViewExtension.h; path = com.ionic.keyboard/UIWebViewExtension.h; sourceTree = "<group>"; };
 		EA895C49C18945D797806EA8 /* CDVAccelerometer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CDVAccelerometer.m; path = "org.apache.cordova.device-motion/CDVAccelerometer.m"; sourceTree = "<group>"; };
@@ -183,9 +194,6 @@
 		EBE4E3C44F22472D866A9058 /* UIWebViewExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UIWebViewExtension.m; path = com.ionic.keyboard/UIWebViewExtension.m; sourceTree = "<group>"; };
 		F20EDC92A87943539ABBDB40 /* CDVSound.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CDVSound.m; path = org.apache.cordova.media/CDVSound.m; sourceTree = "<group>"; };
 		F840E1F0165FE0F500CFE078 /* config.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = config.xml; path = hrx/config.xml; sourceTree = "<group>"; };
-		DB13F69F81194C86AFD09C44 /* APPBackgroundMode.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "APPBackgroundMode.m"; path = "de.appplant.cordova.plugin.background-mode/APPBackgroundMode.m"; sourceTree = "<group>"; fileEncoding = 4; };
-		D7427DBCC0104C6497701E47 /* APPBackgroundMode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "APPBackgroundMode.h"; path = "de.appplant.cordova.plugin.background-mode/APPBackgroundMode.h"; sourceTree = "<group>"; fileEncoding = 4; };
-		C2B9D9A016ED4CE4ABB52C19 /* appbeep.wav */ = {isa = PBXFileReference; lastKnownFileType = unknown; name = "appbeep.wav"; path = "appbeep.wav"; sourceTree = "<group>"; fileEncoding = 4; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -232,6 +240,10 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
+				842B39991B64562700B32A1B /* Ubuntu Mono derivative Powerline.ttf */,
+				842B399A1B64562700B32A1B /* Ubuntu Mono derivative Powerline Italic.ttf */,
+				842B399B1B64562700B32A1B /* Ubuntu Mono derivative Powerline Bold.ttf */,
+				842B399C1B64562700B32A1B /* Ubuntu Mono derivative Powerline Bold Italic.ttf */,
 				846FA3181B3FFAFF00EBE91B /* github-cat-eye.svg */,
 				846FA3191B3FFAFF00EBE91B /* github-cat-no-eye.svg */,
 				846FA31A1B3FFAFF00EBE91B /* HRA-logo.svg */,
@@ -475,6 +487,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				842B399D1B64562700B32A1B /* Ubuntu Mono derivative Powerline.ttf in Resources */,
+				842B399E1B64562700B32A1B /* Ubuntu Mono derivative Powerline Italic.ttf in Resources */,
+				842B399F1B64562700B32A1B /* Ubuntu Mono derivative Powerline Bold.ttf in Resources */,
+				842B39A01B64562700B32A1B /* Ubuntu Mono derivative Powerline Bold Italic.ttf in Resources */,
 				844CE5731B3DE67200F7CEA6 /* ionicons.ttf in Resources */,
 				844CE5741B3DE67200F7CEA6 /* Roboto-Light.ttf in Resources */,
 				7E7966E41810823500FA85AD /* icon-76.png in Resources */,

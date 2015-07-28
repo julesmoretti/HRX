@@ -1,0 +1,65 @@
+<div class="company">
+
+  <ul>
+    <li ng-show="selectedCompany.name" class='company_profile'>
+      <img ng-show='selectedCompany.logo !== undefined' ng-attr-src="{{selectedCompany.GH_profile_picture}}">
+      <img ng-show='selectedCompany.logo === undefined' src="img/comp.jpg">
+      <div>
+        <span>{{selectedCompany.name}}</span></br>
+        <span>{{selectedCompany.size}}</span></br>
+
+        <div ng-show="selectedCompany.type">
+          <span>{{selectedCompany.type}}</span>
+        </div>
+      </div>
+      <div ng-show="selectedCompany.industry">{{selectedCompany.industry}}</div>
+    </li>
+
+    <li ng-show="selectedCompany.alumni.length" class="company_alumn" ng-init="showAlumn = false;">
+
+      <div ng-hide="showAlumn" class="company_alumn_overflow">
+        <div ng-repeat="alumn in selectedCompany.alumni">
+          <img ng-show="SharedData.findAlumn( alumn ).GH_profile_picture !== undefined"  ui-sref="home.map.menu.alumni.alumn({id: alumn})" ng-attr-src="{{SharedData.findAlumn( alumn ).GH_profile_picture}}"/>
+          <img ng-show="SharedData.findAlumn( alumn ).GH_profile_picture === undefined"  ui-sref="home.map.menu.alumni.alumn({id: alumn})" src="img/profile.jpg"/>
+        </div>
+      </div>
+      <div ng-hide="showAlumn" style="height: 5px; display: block;"></div>
+      <div ng-click="showAlumn = !showAlumn" class="company_alumn_count" ng-class="{company_alumn_count_blown: showAlumn}">{{selectedCompany.alumni.length}}</div>
+      <div ng-show="showAlumn" style="height: 59px; display: block;"></div>
+      <div ng-show="showAlumn" class="company_alumn_list" ng-repeat="alumn in selectedCompany.alumni" ui-sref="home.map.menu.alumni.alumn({id: alumn})">
+        <!-- <div ng-repeat="alumn in selectedCompany.alumni"> -->
+          <img ng-show="SharedData.findAlumn( alumn ).GH_profile_picture !== undefined" ng-attr-src="{{SharedData.findAlumn( alumn ).GH_profile_picture}}"/>
+          <img ng-show="SharedData.findAlumn( alumn ).GH_profile_picture === undefined" src="img/profile.jpg"/>
+          <span>{{SharedData.findAlumn( alumn ).full_name}}</span>
+          <div class="mainMenuArrow ion-ios-arrow-forward"></div>
+        <!-- </div> -->
+      </div>
+    </li>
+
+    <li ng-show="selectedCompany.www" class="company_site">
+      <a ng-click="openlink('{{selectedCompany.www}}')">
+        <span>{{selectedCompany.www}}</span>
+        <div ng-click="openlink('{{selectedCompany.www}}')" class="ion-link"></div>
+      </a>
+    </li>
+
+    <li ng-show="selectedCompany.address" class="company_address">
+      <a ng-click="openlink('http://maps.apple.com?q={{selectedCompany.address}}')">
+        <p>{{selectedCompany.address}}</p>
+        <div class="ion-planet"></div>
+      </a>
+    </li>
+
+    <li ng-show="selectedCompany.phone" class="company_phone">
+      <a>{{selectedCompany.phone}}</a>
+      <div ng-click="openlink('tel:{{selectedCompany.phone}}')" class="ion-ios-telephone"></div>
+    </li>
+
+<!--   <a ng-click="openlink('http://www.google.com')">GOOGLE.COM</a></br>
+  <a ng-click="openlink('mailto:julesmoretti@me.com')">openlink(mailto:julesmoretti@me.com</a></br>
+  <a ng-click="openlink('tel:12134007436')">openlink('tel:12134007436</a></br>
+  <a ng-click="openlink('sms:12134007436')">openlink('sms:12134007436</a></br>
+  <a ng-click="openlink('http://maps.apple.com?q=3405 Helen St, Apt 9, Oakland CA 94608')">openlink('http://maps.apple.com?q=3405 Helen St, Apt 9, Oakland CA 94608')</a></br> -->
+
+  </ul>
+</div>

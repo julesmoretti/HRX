@@ -8,82 +8,100 @@
 <!-- PERSONAL ADDRESS -->
 <!-- CONTACT PHONE NUMBER -->
 
+<!-- ubuntu mono derivative powerline -->
+
   <ul>
-    <li class='alumn_profile'>
+    <li ng-show="selectedAlumn.full_name" class='alumn_profile'>
       <img src="{{selectedAlumn.GH_profile_picture}}">
       <div>
         <span>{{selectedAlumn.full_name}}</span></br>
         <span>{{selectedAlumn.LI_positions}}</span></br>
 
-        <div>
+        <div ng-show="{{selectedAlumn.LI_location_name}}">
           <span>{{selectedAlumn.LI_location_name}}</span> <span>{{selectedAlumn.LI_location_country_code}}</span>
         </div>
       </div>
+      <div ng-show="selectedAlumn.cohort">HR{{selectedAlumn.cohort}}</div>
     </li>
 
-    <li class="alumn_description" ng-init="alumn_decription_show = false">
+    <li ng-show="selectedAlumn.LI_description || selectedAlumn.skills" class="alumn_description" ng-init="alumn_decription_show = false">
       <span class="alumn_description_text" ng-class="{alumn_description_text_all: alumn_decription_show}" ng-click="alumn_decription_show = !alumn_decription_show">{{selectedAlumn.LI_description}}</span>
       <ul>
-        <li ng-repeat="skills in selectedAlumn.skills"> {{skills}}</li>
+        <li ng-repeat="skills in selectedAlumn.skills">{{skills}}</li>
       </ul>
       <!-- <span>{{selectedAlumn.skills | toArray}}</span> -->
     </li>
 
-    <li class="alumn_company">
-      <div>
-        <!-- Work at: <span>{{selectedAlumn.company.name}}</span><br> -->
-        <span>WET Design</span><br>
-        <span>200-500 employees</span>
-        <!-- <span>{{selectedAlumn.company.size}}</span> -->
-      </div>
-      <!-- <div>{{selectedAlumn.company.alumn}}</div> -->
-      <div>6</div>
-      <!-- <div> -->
-        <!-- TODO LATER // ADD HERE PICURES OF ALUMN IN COMPANY -->
-      <!-- </div> -->
-      <img src="{{selectedAlumn.LI_company.profile_picture}}"/>
+    <li ng-show="selectedAlumn.LI_company" class="alumn_company">
+      <a ui-sref="home.map.menu.companies.company({id: selectedAlumn.LI_company.id})">
+        <div>
+          <!-- Work at: <span>{{selectedAlumn.company.name}}</span><br> -->
+          <span>{{selectedAlumn.LI_company.name}}</span><br>
+          <span ng-show="{{selectedAlumn.LI_company.size}}">{{selectedAlumn.LI_company.size}}</span>
+          <!-- <span>{{selectedAlumn.company.size}}</span> -->
+        </div>
+        <!-- <div>{{selectedAlumn.company.alumn}}</div> -->
+        <div ng-click="openlink('{{selectedAlumn.LI_company.www}}')" class="ion-link"></div>
+        <div>{{selectedAlumn.LI_company.alumn}}</div>
+        <!-- <div> -->
+          <!-- TODO LATER // ADD HERE PICURES OF ALUMN IN COMPANY -->
+        <!-- </div> -->
+        <img ng-show="{{selectedAlumn.LI_company.profile_picture}}" src="{{selectedAlumn.LI_company.profile_picture}}"/>
+        <img ng-hide="{{selectedAlumn.LI_company.profile_picture}}" src="img/comp.jpg"/>
+      </a>
     </li>
 
-    <li class="alumn_gh">
-      <span>Github profile</span>
-      <div>{{selectedAlumn.GH_public_repos}}</div>
+    <li ng-show="selectedAlumn.GH_url" class="alumn_gh">
+      <a ng-click="openlink('{{selectedAlumn.GH_url}}')">
+        <span>Github profile</span>
+        <div>{{selectedAlumn.GH_public_repos}}</div>
       <!-- <div>3</div> -->
-      <div>{{selectedAlumn.GH_private_repos}}</div>
+        <div>{{selectedAlumn.GH_private_repos}}</div>
       <!-- <div>39</div> -->
-      <a href="{{selectedAlumn.GH_url}}" target="_blank">
         <object data="img/github-cat.svg" type="image/svg+xml"></object>
       </a>
     </li>
 
-    <li class="alumn_li">
-      <span>LinkedIN profile</span>
-      <a ng-attr-href="{{selectedAlumn.LI_url}}" target="_blank">
+    <li ng-show="selectedAlumn.LI_url" class="alumn_li">
+      <a ng-click="openlink('{{selectedAlumn.LI_url}}')">
+        <span>LinkedIN profile</span>
         <object data="img/linkedin.svg" type="image/svg+xml"></object>
       </a>
     </li>
 
-    <li class="alumn_blog">
-      <a ng-attr-href="{{selectedAlumn.blog}}" target="_blank">
+    <li ng-show="selectedAlumn.blog" class="alumn_blog">
+      <a ng-click="openlink('{{selectedAlumn.blog}}')">
         <span>{{selectedAlumn.blog}}</span>
         <div class="ion-link"></div>
       </a>
     </li>
 
-
-
-    <li class="alumn_address">
-      <a ng-attr-href="{{selectedAlumn.blog}}" target="_blank">
+    <li ng-show="selectedAlumn.LI_address" class="alumn_address">
+      <a ng-click="openlink('http://maps.apple.com?q={{selectedAlumn.LI_address}}')">
         <p>{{selectedAlumn.LI_address}}</p>
         <div class="ion-planet"></div>
       </a>
     </li>
 
-    <li class="alumn_email">
-      <!-- <a ng-attr-href="{{selectedAlumn.blog}}" target="_blank"> -->
-        <p ng-click="window.open('http://google.com', '_system');">{{selectedAlumn.email}}</p>
+    <li ng-show="selectedAlumn.email" class="alumn_email">
+      <a ng-click="openlink('mailto:{{selectedAlumn.email}}')">
+        <p>{{selectedAlumn.email}}</p>
         <div class="ion-email"></div>
-      <!-- </a> -->
+      </a>
     </li>
+
+    <li ng-show="selectedAlumn.phone" class="alumn_phone">
+      <!-- <a ng-click="openlink('tel:{{selectedAlumn.phone}}')">{{selectedAlumn.phone}}</a> -->
+      <a>{{selectedAlumn.phone}}</a>
+      <div ng-click="openlink('sms:{{selectedAlumn.phone}}')" class="ion-ios-chatbubble"></div>
+      <div ng-click="openlink('tel:{{selectedAlumn.phone}}')" class="ion-ios-telephone"></div>
+    </li>
+
+<!--   <a ng-click="openlink('http://www.google.com')">GOOGLE.COM</a></br>
+  <a ng-click="openlink('mailto:julesmoretti@me.com')">openlink(mailto:julesmoretti@me.com</a></br>
+  <a ng-click="openlink('tel:12134007436')">openlink('tel:12134007436</a></br>
+  <a ng-click="openlink('sms:12134007436')">openlink('sms:12134007436</a></br>
+  <a ng-click="openlink('http://maps.apple.com?q=3405 Helen St, Apt 9, Oakland CA 94608')">openlink('http://maps.apple.com?q=3405 Helen St, Apt 9, Oakland CA 94608')</a></br> -->
 
   </ul>
 </div>

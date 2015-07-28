@@ -19,6 +19,18 @@ angular
       angular.element(document).ready(function (){
         console.log('Angular LoginController is ready');
 
+        $scope.openlink = function ( link ) {
+          window.open(link, "_system");
+        };
+
+        $scope.emailTo = function ( email, subject, body ) {
+          // window.location.href = "mailto:user@example.com?subject=Subject&body=message%20goes%20here";
+          window.location.href = "mailto:"+email;
+          // window.open("mailto:user@example.com?subject=Subject&body=message%20goes%20here", "_system");
+
+        };
+
+
         $scope.GHlogin = function() {
           // var ref = window.open('http://api.hrx.club/GHlogin', '_blank', 'location=no', 'toolbar=no');
           var ref = window.open('http://api.hrx.club/GHlogin', '_blank', 'location=no,toolbar=no');

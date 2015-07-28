@@ -1,11 +1,13 @@
 <div class="alumniList">
   <div class="alumniSearch">
+    <div class="ion-close" ng-click="searchText = ''"></div>
     <input type="text" placeholder="Search by name" ng-model="searchText">
   </div>
   <div class="alumniLI">
     <ul>
-      <li ui-sref="home.map.menu.alumni.alumn({id: subscriber.id})" ng-repeat="subscriber in subscribers | filter:searchText">
-        <img ng-attr-src="{{subscriber.GH_profile_picture}}" class="profilePicture"/>
+      <li ui-sref="home.map.menu.alumni.alumn({id: subscriber.id})" ng-repeat="subscriber in subscribers | filter:searchText | orderBy: 'full_name'">
+        <img ng-show="{{subscriber.GH_profile_picture !== undefined }}" ng-attr-src="{{subscriber.GH_profile_picture}}" class="profilePicture"/>
+        <img ng-hide="{{subscriber.GH_profile_picture !== undefined}}" src="img/profile.jpg" class="profilePicture"/>
         <span>{{subscriber.full_name}}</span>
         <div class="mainMenuArrow ion-ios-arrow-forward"></div>
       </li>
@@ -13,7 +15,3 @@
   </div>
   <div id="alumn" ui-view="alumn"></div>
 </div>
-
-
-
-

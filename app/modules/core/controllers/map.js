@@ -6,6 +6,8 @@
  * @description MapController
  * @requires ng.$scope
 */
+
+// TODO: convert to a www.mapbox.com version to fit font style too.
 angular
     .module('core')
     .controller('MapController', ['$scope', '$http', '$window', '$localStorage', 'SharedData', '$rootScope', '$state', '$location', 'uiGmapGoogleMapApi', function( $scope, $http, $window, $localStorage, SharedData, $rootScope, $state, $location, uiGmapGoogleMapApi ) {
@@ -338,7 +340,8 @@ angular
                 // $scope.$storage.iosTokenRegistered = true;
                 // alert( "Response code: " + data.responseCode + " - " + data.message );
               } else {
-                alert( "Response code: " + data.responseCode + " - " + data.message );
+                // TODO - ADD better error handler
+                // alert( "Response code: " + data.responseCode + " - " + data.message );
               }
             }).
             error( function( data, status, headers, config ) {

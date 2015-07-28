@@ -10,6 +10,5 @@ angular
     .module('core')
     .controller('AlumniController', ['$scope', 'SharedData', function($scope, SharedData) {
       $scope.SharedData = SharedData;
-      $scope.aboutVariable = 'Jules Moretti - About';
       $scope.subscribers = SharedData.listAlumni();
     }]);

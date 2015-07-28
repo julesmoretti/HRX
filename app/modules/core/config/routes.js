@@ -143,6 +143,36 @@ angular
                   }
               })
 
+              .state('home.map.menu.companies', {
+                  url: '/companies',
+                  views: {
+                    // 'menu@': {
+                    'companies@home.map.menu': {
+                      templateUrl: 'modules/core/views/companies.html',
+                      controller: 'CompaniesController'
+                    },
+                    'menuFooter@home.map.menu': {
+                      template: '<div class="menuFooter"><div class="back-button ion-chevron-left" ui-sref="home.map.menu"></div><div class="main-title"></div></div>',
+                      controller: 'CompaniesController'
+                    }
+                  }
+              })
+
+              .state('home.map.menu.companies.company', {
+                  url: '/:id',
+                  views: {
+                      // 'menu@': {
+                      'company@home.map.menu.companies': {
+                        templateUrl: 'modules/core/views/company.html',
+                        controller: 'CompanyController'
+                      },
+                      'menuFooter@home.map.menu': {
+                        template: '<div class="menuFooter"><div class="back-button ion-chevron-left" ui-sref="home.map.menu.companies"></div></div>',
+                        controller: 'CompanyController'
+                      }
+                  }
+              })
+
               .state('about', {
                 url: '/about',
                 templateUrl: 'modules/core/views/about.html',
