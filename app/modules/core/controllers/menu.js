@@ -15,12 +15,6 @@ angular
         $scope.$storage = $localStorage;
       }
 
-      $scope.menuList = [
-        {name: 'Alumni', link: 'alumni', icon: 'ion-android-people'},
-        {name: 'Companies', link: 'companies', icon: 'ion-android-home'},
-        {name: 'Calendar', link: 'calendar', icon: 'ion-android-calendar'},
-        {name: 'Messenger', link: 'messenger', icon: 'ion-android-chat'},
-        {name: 'Profile', link: 'profile', icon: 'ion-android-person'}
-      ];
-
+      console.log("writting 0");
+      $scope.$storage.user_id = 0;
     }]);

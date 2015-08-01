@@ -40,9 +40,6 @@ angular
                 email: 'jules@jules.com',
                 phone: 2134007436
               },
-
-
-
               {id: 1, full_name: 'James Jackson', email: 'james@james.com', LI_description: 'this is the description of 1' },
               {id: 2, full_name: 'Bruce William', email: 'bruce@bruce.com', LI_description: 'this is the description of 2' },
               {id: 3, full_name: 'Frank Morris', email: 'frank@frank.com', LI_description: 'this is the description of 3' },
@@ -128,6 +125,9 @@ angular
                  * @return {boolean} Returns a boolean value
                  */
                 findAlumn: function( id ) {
+
+                  if ( id === undefined ) return false;
+
                     for (var i = 0; i < alumni.length; i++) {
                       if ( alumni[i].id === id ) {
                         return alumni[i];

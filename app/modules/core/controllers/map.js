@@ -322,7 +322,7 @@ angular
               // 'X-HRX-User-Token' : encodeURIComponent( $scope.$storage.token ),
               'X-HRX-User-Token' : $scope.$storage.token
             },
-            params: { 'latitude': latitude, 'longitude': longitude }
+            params: { 'latitude': latitude, 'longitude': longitude, 'addition': $scope.$storage.user_status }
           };
 
           $http( req ).

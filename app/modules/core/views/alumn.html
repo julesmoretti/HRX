@@ -17,7 +17,7 @@
         <span>{{selectedAlumn.full_name}}</span></br>
         <span>{{selectedAlumn.LI_positions}}</span></br>
 
-        <div ng-show="{{selectedAlumn.LI_location_name}}">
+        <div ng-show="selectedAlumn.LI_location_name">
           <span>{{selectedAlumn.LI_location_name}}</span> <span>{{selectedAlumn.LI_location_country_code}}</span>
         </div>
       </div>
@@ -37,7 +37,7 @@
         <div>
           <!-- Work at: <span>{{selectedAlumn.company.name}}</span><br> -->
           <span>{{selectedAlumn.LI_company.name}}</span><br>
-          <span ng-show="{{selectedAlumn.LI_company.size}}">{{selectedAlumn.LI_company.size}}</span>
+          <span ng-show="selectedAlumn.LI_company.size">{{selectedAlumn.LI_company.size}}</span>
           <!-- <span>{{selectedAlumn.company.size}}</span> -->
         </div>
         <!-- <div>{{selectedAlumn.company.alumn}}</div> -->

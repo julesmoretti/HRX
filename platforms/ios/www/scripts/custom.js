@@ -202,10 +202,18 @@ angular
                   }
               })
 
-              .state('about', {
-                url: '/about',
-                templateUrl: 'modules/core/views/about.html',
-                controller: 'AboutController'
+              .state('home.map.menu.profile', {
+                  url: '/profile',
+                  views: {
+                    'profile@home.map.menu': {
+                      templateUrl: 'modules/core/views/profile.html',
+                      controller: 'ProfileController'
+                    },
+                    'menuFooter@home.map.menu': {
+                      template: '<div class="menuFooter"><div class="back-button ion-chevron-left" ui-sref="home.map.menu"></div><div class="main-title"></div></div>',
+                      controller: 'CompaniesController'
+                    }
+                  }
               });
         }
     ]);
@@ -247,9 +255,6 @@ angular
                 email: 'jules@jules.com',
                 phone: 2134007436
               },
-
-
-
               {id: 1, full_name: 'James Jackson', email: 'james@james.com', LI_description: 'this is the description of 1' },
               {id: 2, full_name: 'Bruce William', email: 'bruce@bruce.com', LI_description: 'this is the description of 2' },
               {id: 3, full_name: 'Frank Morris', email: 'frank@frank.com', LI_description: 'this is the description of 3' },
@@ -323,6 +328,9 @@ angular
                 },
 
                                 findAlumn: function( id ) {
+
+                  if ( id === undefined ) return false;
+
                     for (var i = 0; i < alumni.length; i++) {
                       if ( alumni[i].id === id ) {
                         return alumni[i];
@@ -341,15 +349,6 @@ angular
                 }
             };
     });
-
-'use strict';
-
-angular
-    .module('core')
-    .controller('AboutController', ['$scope', 'SharedData', function($scope, SharedData) {
-      $scope.SharedData = SharedData;
-      $scope.aboutVariable = 'Jules Moretti - About';
-    }]);
 
 'use strict';
 
@@ -524,6 +523,7 @@ angular
 
             if ( data.responseCode === 200 ) {
               $scope.$storage.LI_Token_Registered = true;
+              $scope.$storage.user_id = data.user_id;
             } else {
               alert( "Response code: " + data.responseCode + " - " + data.message );
             }
@@ -1043,13 +1043,35 @@ angular
         $scope.$storage = $localStorage;
       }
 
-      $scope.menuList = [
-        {name: 'Alumni', link: 'alumni', icon: 'ion-android-people'},
-        {name: 'Companies', link: 'companies', icon: 'ion-android-home'},
-        {name: 'Calendar', link: 'calendar', icon: 'ion-android-calendar'},
-        {name: 'Messenger', link: 'messenger', icon: 'ion-android-chat'},
-        {name: 'Profile', link: 'profile', icon: 'ion-android-person'}
-      ];
+      console.log("writting 0");
+      $scope.$storage.user_id = 0;
+    }]);
+
+'use strict';
+
+angular
+    .module('core')
+    .controller('ProfileController', ['$scope', '$stateParams', 'SharedData', function($scope, $stateParams, SharedData) {
+      $scope.SharedData = SharedData;
+      $scope.selectedProfile = SharedData.findAlumn( $scope.$storage.user_id );
+
+      $scope.selectedHR = "??";
+
+      $scope.number = 250;
+      $scope.getNumber = function( num ) {
+
+        var array = [];
+
+        for ( var i = 0; i < num; i++) {
+          array[i] = i+1;
+        }
+
+        return array;
+      }
+
+      $scope.openlink = function ( link ) {
+        window.open(link, "_system");
+      };
 
     }]);
 

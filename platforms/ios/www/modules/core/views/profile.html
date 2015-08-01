@@ -1,0 +1,54 @@
+<div class="profile">
+
+  <ul>
+    <li ng-show="selectedProfile.full_name" class='profile_profile'>
+      <img src="{{selectedProfile.GH_profile_picture}}">
+      <div>
+        <span>{{selectedProfile.full_name}}</span></br>
+        <span>{{selectedProfile.LI_positions}}</span></br>
+
+        <div ng-show="selectedProfile.LI_location_name">
+          <span>{{selectedProfile.LI_location_name}}</span> <span>{{selectedProfile.LI_location_country_code}}</span>
+        </div>
+      </div>
+      <div ng-show="selectedProfile.cohort">
+      HR<select ng-model="selectedHR">
+          <option value="??" selected="selected">??</option>
+          <option value="cohort" ng-repeat="cohort in getNumber(number)">{{cohort}}</option>
+        <select/>
+      </div>
+    </li>
+
+    <li class="profile_description" ng-init="profile_decription_show = false">
+      <span class="profile_description_text" ng-class="{profile_description_text_all: profile_decription_show}" ng-click="profile_decription_show = !profile_decription_show">{{selectedProfile.LI_description}}</span>
+      <ul>
+        <li ng-repeat="skills in selectedProfile.skills">{{skills}}</li>
+      </ul>
+    </li>
+
+    <li class="profile_blog">
+      <div class="ion-link"></div>
+      <input type="url" placeholder="http://..." ng-attr-value="{{selectedProfile.blog}}"/>
+    </li>
+
+    <li class="profile_address">
+      <div class="ion-planet"></div>
+      <input type="text"  placeholder="123 street ave, city ..." ng-attr-value="{{selectedProfile.LI_address}}"/>
+    </li>
+
+    <li class="profile_email">
+      <div class="ion-email"></div>
+      <input type="email" placeholder="your@email.com" ng-attr-value="{{selectedProfile.email}}"/>
+    </li>
+
+    <li class="profile_phone">
+      <div class="ion-ios-telephone"></div>
+      <input type="tel" placeholder="+1 213465879" ng-attr-value="{{selectedProfile.phone}}"/>
+    </li>
+
+    <li class="profile_update">
+      <div class="button" ng-click="updateProfile()">UPDATE</div>
+    </li>
+
+  </ul>
+</div>

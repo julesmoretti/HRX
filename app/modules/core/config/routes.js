@@ -173,10 +173,19 @@ angular
                   }
               })
 
-              .state('about', {
-                url: '/about',
-                templateUrl: 'modules/core/views/about.html',
-                controller: 'AboutController'
+              .state('home.map.menu.profile', {
+                  url: '/profile',
+                  views: {
+                    // 'menu@': {
+                    'profile@home.map.menu': {
+                      templateUrl: 'modules/core/views/profile.html',
+                      controller: 'ProfileController'
+                    },
+                    'menuFooter@home.map.menu': {
+                      template: '<div class="menuFooter"><div class="back-button ion-chevron-left" ui-sref="home.map.menu"></div><div class="main-title"></div></div>',
+                      controller: 'CompaniesController'
+                    }
+                  }
               });
         }
     ]);

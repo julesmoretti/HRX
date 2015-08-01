@@ -57,31 +57,6 @@ body {
   padding: 0;
 }
 
-/*google maps styles to hide the google logo and footers*/
-.gm-style > div:nth-of-type(1) {
-  background-color: #333;
-}
-
-.gm-style > div:nth-of-type(2) {
-  bottom: -50px !important;
-}
-
-.gm-style div.gmnoprint {
-  bottom: -50px !important;
-}
-
-.home {
-  background-color: #222;
-  /*width: 100%;*/
-  /*height: 100%;*/
-  position: absolute;
-  top: 0px;
-  bottom: 0px;
-  left: 0px;
-  right: 0px;
-  color: #555;
-}
-
 .login {
   background-color: #222;
   /*width: 100%;*/
@@ -239,7 +214,7 @@ body {
   }
 }
 
-#menu, #menuList, #alumni, #alumn, #companies, #company {
+#menu, #menuList, #alumni, #alumn, #companies, #company, #profile {
   background-color: #222;
   position: absolute;
   right: 0px;
@@ -249,12 +224,12 @@ body {
   box-shadow: -1px 0px 6px #000000;
 }
 
-#menu.ng-enter, #menuList.ng-enter, #alumni.ng-enter, #alumn.ng-enter, #companies.ng-enter, #company.ng-enter {
+#menu.ng-enter, #menuList.ng-enter, #alumni.ng-enter, #alumn.ng-enter, #companies.ng-enter, #company.ng-enter, #profile.ng-enter {
   -webkit-animation: menu-enter 0.125s ease-out;
   animation: menu-enter 0.125s ease-out;
 }
 
-#menu.ng-leave, #menuList.ng-leave, #alumni.ng-leave, #alumn.ng-leave, #companies.ng-leave, #company.ng-leave {
+#menu.ng-leave, #menuList.ng-leave, #alumni.ng-leave, #alumn.ng-leave, #companies.ng-leave, #company.ng-leave, #profile.ng-leave {
   -webkit-animation: menu-enter 0.125s ease-out reverse;
   animation: menu-enter 0.125s ease-out reverse;
   /*animation-delay: 1s;*/
@@ -285,6 +260,29 @@ body {
     top: 0px;
     bottom: 0px;
   }
+}
+
+/*google maps styles to hide the google logo and footers*/
+.gm-style > div:nth-of-type(1) {
+  background-color: #333;
+}
+
+.gm-style > div:nth-of-type(2) {
+  bottom: -50px !important;
+}
+
+.gm-style div.gmnoprint {
+  bottom: -50px !important;
+}
+
+.home {
+  background-color: #222;
+  position: absolute;
+  top: 0px;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  color: #555;
 }
 
 #mapLocation {
@@ -384,6 +382,140 @@ body {
   text-shadow: 0px 0px 4px #000000;
 }
 
+#filter {
+  background-color: #181818;
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  width: 100%;
+  color: white;
+  box-shadow: 0px 0px 2px #000000;
+}
+
+#filter.ng-enter {
+  -webkit-animation: filter-enter 0.125s ease-out;
+  animation: filter-enter 0.125s ease-out;
+}
+
+#filter.ng-leave {
+  -webkit-animation: filter-enter 0.125s ease-out reverse;
+  animation: filter-enter 0.125s ease-out reverse;
+}
+
+@-webkit-keyframes filter-enter {
+  0% {
+    bottom: -70px;
+  }
+  100% {
+    bottom: 0px;
+  }
+}
+
+@keyframes filter-enter {
+  0% {
+    bottom: -70px;
+  }
+  100% {
+    bottom: 0px;
+  }
+}
+
+#filter .filter {
+  padding-bottom: 14px;
+}
+
+#filter .filter div {
+  /*&:nth-of-type(1) {*/
+  /*margin-top: 20px;*/
+  /*}*/
+  /*&:nth-last-of-type(2) {*/
+  /*margin-bottom: 27px;*/
+  /*}*/
+}
+
+#filter .filter div.closeFilter {
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+  width: 44px;
+  height: 44px;
+  text-decoration: none;
+  color: #555;
+  text-align: center;
+  z-index: 2;
+  font-size: 1.8em;
+  line-height: 44px;
+  text-align: center;
+}
+
+#filter .filter div.checkbox {
+  margin-left: 15px;
+  margin-top: 20px;
+  /*margin-top: 10px;*/
+  /*margin-bottom: 20px;*/
+}
+
+#filter .filter div.checkbox input + span:before {
+  width: 36px;
+}
+
+#filter .filter div.checkbox input + span:after {
+  background: #181818;
+  border-radius: 0px;
+  width: 18px;
+  height: 18px;
+  top: 2px;
+}
+
+#filter .filter div.checkbox input:checked + span:after {
+  /*background: $android-cyan;*/
+  background: #43899E;
+  margin-left: 18px;
+}
+
+#filter .filter div.checkbox span {
+  font-size: 18px;
+  padding-left: 38px;
+  color: #555;
+  line-height: 20px;
+  display: block;
+  pointer-events: none;
+}
+
+#filter .filter div.checkbox span.filterSelected {
+  color: #43899E !important;
+}
+
+#filter .filter div.checkbox span:after {
+  /*background: #111;*/
+}
+
+#filter .filter div.input-group {
+  margin-top: 15px;
+  margin-left: 15px;
+  margin-right: 15px;
+}
+
+#filter .filter div.input-group input {
+  background-color: #222;
+  border-color: #555;
+  border-width: 0px;
+  color: #5bc0de;
+}
+
+#filter .filter div.input-group input::-webkit-input-placeholder {
+  color: #444;
+  font-style: italic;
+}
+
+#filter .filter div.input-group span {
+  background-color: #333;
+  border-width: 0px;
+  font-size: 20px;
+  border-radius: 0px;
+}
+
 #mapMenu {
   position: absolute;
   right: 12px;
@@ -419,104 +551,54 @@ body {
   background-color: black;
 }
 
-#settings {
+#geolocation {
   position: absolute;
-  bottom: 0px;
-  left: 0px;
-  right: 0px;
-  width: 100%;
+  top: 25%;
+  left: 25%;
+  z-index: 5;
   color: white;
-  /*box-shadow: 0px 0px 2px #000000;*/
+  display: none;
 }
 
-#settings .settings {
-  background-color: #181818;
-  height: 180px;
-  position: absolute;
-  bottom: 0px;
-  width: 100%;
-  padding-top: 5px;
+#bodyContent {
+  display: inline;
+  position: relative;
 }
 
-#settings .settings div.checkbox {
-  margin-left: 15px;
-  margin-top: 20px;
-  /*margin-top: 10px;*/
-  /*margin-bottom: 20px;*/
+#infoWindowProfile {
+  display: inline-block;
+  width: 64px;
+  height: 64px;
+  border-radius: 64px;
+  margin-top: 0px;
 }
 
-#settings .settings div.checkbox input + span:before {
-  width: 36px;
+#infoWindowProfile img {
+  width: 64px;
+  height: 64px;
+  border-radius: 64px;
 }
 
-#settings .settings div.checkbox input + span:after {
-  background: #181818;
-  border-radius: 0px;
-  width: 18px;
-  height: 18px;
-  top: 2px;
+.map-canvas {
+  height: 400px;
 }
 
-#settings .settings div.checkbox input:checked + span:after {
-  /*background: $android-cyan;*/
-  background: #43899E;
-  margin-left: 18px;
+#infoWindowText {
+  margin-top: 0px;
+  margin-left: 20px;
+  display: inline-block;
+  height: 55px;
+  padding-top: 0px;
+  vertical-align: bottom;
+  font-family: "Ubuntu Mono derivative Powerline";
 }
 
-#settings .settings div.checkbox span {
+#infoWindowText span:nth-of-type(1) {
   font-size: 18px;
-  padding-left: 38px;
-  color: #555;
-  line-height: 20px;
-  display: block;
-  pointer-events: none;
 }
 
-#settings .settings div.checkbox span.filterSelected {
-  color: #43899E !important;
-}
-
-#settings .settings div.checkbox span:after {
-  /*background: #111;*/
-}
-
-#settings .settings div.button {
-  margin: 31px 15px 0px 15px;
-  height: 44px;
-  width: calc( 100% - 32px);
-  background-color: #333;
-  border: 2px solid #43899e;
-  color: #5bc0de;
-  text-align: center;
-  line-height: 40px;
-}
-
-#settings.ng-enter {
-  -webkit-animation: settings-enter 0.125s ease-out;
-  animation: settings-enter 0.125s ease-out;
-}
-
-#settings.ng-leave {
-  -webkit-animation: settings-enter 0.125s ease-out reverse;
-  animation: settings-enter 0.125s ease-out reverse;
-}
-
-@-webkit-keyframes settings-enter {
-  0% {
-    bottom: -180px;
-  }
-  100% {
-    bottom: 0px;
-  }
-}
-
-@keyframes settings-enter {
-  0% {
-    bottom: -180px;
-  }
-  100% {
-    bottom: 0px;
-  }
+#infoWindowText span:nth-last-of-type(1) {
+  font-size: 12px;
 }
 
 .middle {
@@ -1502,54 +1584,326 @@ body {
   right: 0px;
 }
 
-#geolocation {
-  position: absolute;
-  top: 25%;
-  left: 25%;
-  z-index: 5;
-  color: white;
-  display: none;
+#profile .profile {
+  width: 320px;
+  height: calc( 100% - 68px);
+  overflow: auto;
 }
 
-#bodyContent {
-  display: inline;
+#profile .profile ul li.profile_profile {
+  height: 92px;
+  display: flex;
+  width: calc( 100% - 10px);
+}
+
+#profile .profile ul li.profile_profile img {
+  width: 68px;
+  height: 68px;
+  border-radius: 68px;
+  display: inline-block;
+  margin: 12px 0px;
+  float: left;
+}
+
+#profile .profile ul li.profile_profile div {
+  height: 92px;
+  width: calc(100% - 78px);
+  display: inline-block;
+  line-height: 18px;
+  padding-top: 19px;
   position: relative;
 }
 
-#infoWindowProfile {
-  display: inline-block;
-  width: 64px;
-  height: 64px;
-  border-radius: 64px;
-  margin-top: 0px;
+#profile .profile ul li.profile_profile div span:nth-of-type(1) {
+  padding-left: 10px;
+  line-height: 20px;
+  color: #aaa;
+  font-size: 20px;
 }
 
-#infoWindowProfile img {
-  width: 64px;
-  height: 64px;
-  border-radius: 64px;
+#profile .profile ul li.profile_profile div span:nth-of-type(2) {
+  line-height: 14px;
+  padding-left: 10px;
+  text-transform: lowercase;
+  font-size: 14px;
+  color: #777;
 }
 
-.map-canvas {
-  height: 400px;
-}
-
-#infoWindowText {
-  margin-top: 0px;
-  margin-left: 20px;
-  display: inline-block;
-  height: 55px;
+#profile .profile ul li.profile_profile div div {
   padding-top: 0px;
-  vertical-align: bottom;
-  font-family: "Ubuntu Mono derivative Powerline";
+  padding-left: 10px;
+  /*position: absolute;*/
+  /*bottom: 0px;*/
+  /*right: 10px;*/
+  height: initial;
+  width: initial;
 }
 
-#infoWindowText span:nth-of-type(1) {
-  font-size: 18px;
-}
-
-#infoWindowText span:nth-last-of-type(1) {
+#profile .profile ul li.profile_profile div div span:nth-of-type(1) {
+  line-height: 12px;
+  padding-left: 0px;
   font-size: 12px;
+  text-transform: initial;
+  color: #555;
+}
+
+#profile .profile ul li.profile_profile div div span:nth-of-type(2) {
+  line-height: 20px;
+  padding-left: 0px;
+  font-size: 12px;
+  color: #555;
+  text-transform: uppercase;
+}
+
+#profile .profile ul li.profile_profile div:nth-of-type(2) {
+  position: absolute;
+  font-size: 20px;
+  right: -10px;
+  top: 19px;
+  width: initial;
+  height: initial;
+  color: #43899E;
+  text-align: right;
+  background-color: #333;
+  padding: 0px 0px 1px 5px;
+  line-height: 20px;
+}
+
+#profile .profile ul li.profile_profile div:nth-of-type(2) select {
+  background-color: transparent;
+  border: 0px;
+}
+
+#profile .profile ul li.profile_description {
+  width: calc( 100% - 10px);
+  height: inherit;
+  line-height: 12px;
+  padding-top: 10px;
+  /*position: relative;*/
+}
+
+#profile .profile ul li.profile_description textarea {
+  width: 100%;
+  background-color: transparent;
+  line-height: 12px;
+  padding-left: 0px;
+  text-transform: initial;
+  color: #777;
+  font-style: italic;
+  font-size: 12px;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  -webkit-line-clamp: 50000;
+  resize: none;
+  border: 0px;
+}
+
+#profile .profile ul li.profile_description ul {
+  font-size: 11px;
+  color: #555;
+  line-height: 11px;
+  text-transform: initial;
+  margin: 10px 0px;
+  list-style-type: square;
+  height: 11px;
+  display: table;
+  width: 100%;
+  padding: 0px;
+  margin-bottom: 0px;
+}
+
+#profile .profile ul li.profile_description ul li {
+  padding-left: 0px;
+  line-height: 36px;
+  height: 36px;
+  text-indent: 10px;
+  border-bottom: 0px solid;
+  display: block;
+  margin-left: 0px;
+  border-top: 1px solid #282828;
+}
+
+#profile .profile ul li.profile_description ul li input {
+  background-color: transparent;
+  border: 0px;
+  height: inherit;
+  font-size: 12px;
+  color: #666;
+}
+
+#profile .profile ul li.profile_description ul li input::-webkit-input-placeholder {
+  color: #444;
+  font-style: italic;
+}
+
+#profile .profile ul li.profile_blog {
+  width: calc( 100% - 10px);
+  position: relative;
+  line-height: 64px;
+  height: 65px;
+}
+
+#profile .profile ul li.profile_blog div {
+  display: inline-block;
+  position: absolute;
+  top: 10px;
+  left: -10px;
+  width: 44px;
+  height: 44px;
+  border-radius: 44px;
+  text-align: center;
+  line-height: 47px;
+  pointer-events: none;
+  color: #666;
+  font-size: 28px;
+}
+
+#profile .profile ul li.profile_blog input {
+  padding: 0px;
+  text-transform: initial;
+  color: #777;
+  font-size: 14px;
+  border: 0px;
+  width: calc( 100% - 44px);
+  margin-left: 34px;
+  background-color: #222;
+  line-height: 58px;
+  height: 58px;
+}
+
+#profile .profile ul li.profile_blog input::-webkit-input-placeholder {
+  font-style: italic;
+  color: #444;
+}
+
+#profile .profile ul li.profile_address {
+  width: calc( 100% - 10px);
+  position: relative;
+  line-height: 64px;
+  height: 65px;
+}
+
+#profile .profile ul li.profile_address div {
+  display: inline-block;
+  position: absolute;
+  top: 10px;
+  left: -10px;
+  width: 44px;
+  height: 44px;
+  border-radius: 44px;
+  text-align: center;
+  line-height: 47px;
+  font-size: 28px;
+  color: #666;
+}
+
+#profile .profile ul li.profile_address input {
+  padding: 0px;
+  text-transform: initial;
+  color: #777;
+  font-size: 14px;
+  border: 0px;
+  width: calc( 100% - 44px);
+  margin-left: 34px;
+  background-color: #222;
+  line-height: 58px;
+  height: 58px;
+}
+
+#profile .profile ul li.profile_address input::-webkit-input-placeholder {
+  font-style: italic;
+  color: #444;
+}
+
+#profile .profile ul li.profile_email {
+  width: calc( 100% - 10px);
+  position: relative;
+  line-height: 64px;
+  height: 65px;
+}
+
+#profile .profile ul li.profile_email div {
+  display: inline-block;
+  position: absolute;
+  top: 10px;
+  left: -10px;
+  width: 44px;
+  height: 44px;
+  border-radius: 44px;
+  text-align: center;
+  line-height: 47px;
+  font-size: 28px;
+  color: #666;
+}
+
+#profile .profile ul li.profile_email input {
+  padding: 0px;
+  text-transform: initial;
+  color: #777;
+  font-size: 14px;
+  border: 0px;
+  width: calc( 100% - 44px);
+  margin-left: 34px;
+  background-color: #222;
+  line-height: 58px;
+  height: 58px;
+}
+
+#profile .profile ul li.profile_email input::-webkit-input-placeholder {
+  font-style: italic;
+  color: #444;
+}
+
+#profile .profile ul li.profile_phone {
+  width: calc( 100% - 10px);
+  position: relative;
+  line-height: 64px;
+  height: 65px;
+}
+
+#profile .profile ul li.profile_phone div {
+  left: -10px;
+  display: inline-block;
+  position: absolute;
+  top: 10px;
+  width: 44px;
+  height: 44px;
+  border-radius: 44px;
+  text-align: center;
+  line-height: 47px;
+  font-size: 28px;
+  color: #666;
+}
+
+#profile .profile ul li.profile_phone input {
+  padding: 0px;
+  text-transform: initial;
+  color: #777;
+  font-size: 14px;
+  border: 0px;
+  width: calc( 100% - 44px);
+  margin-left: 34px;
+  background-color: #222;
+  line-height: 58px;
+  height: 58px;
+}
+
+#profile .profile ul li.profile_phone input::-webkit-input-placeholder {
+  font-style: italic;
+  color: #444;
+}
+
+#profile .profile ul li.profile_update div.button {
+  margin: 21px 0px 0px 0px;
+  height: 44px;
+  width: calc( 100% - 12px);
+  background-color: #333;
+  border: 2px solid #43899e;
+  color: #5bc0de;
+  text-align: center;
+  line-height: 40px;
 }
 
 #menuFooter .menuFooter {
@@ -1627,85 +1981,37 @@ body {
   color: #777;
 }
 
-#filter {
-  background-color: #181818;
+#settings {
   position: absolute;
   bottom: 0px;
   left: 0px;
   right: 0px;
   width: 100%;
   color: white;
-  box-shadow: 0px 0px 2px #000000;
+  /*box-shadow: 0px 0px 2px #000000;*/
 }
 
-#filter.ng-enter {
-  -webkit-animation: filter-enter 0.125s ease-out;
-  animation: filter-enter 0.125s ease-out;
-}
-
-#filter.ng-leave {
-  -webkit-animation: filter-enter 0.125s ease-out reverse;
-  animation: filter-enter 0.125s ease-out reverse;
-}
-
-@-webkit-keyframes filter-enter {
-  0% {
-    bottom: -70px;
-  }
-  100% {
-    bottom: 0px;
-  }
-}
-
-@keyframes filter-enter {
-  0% {
-    bottom: -70px;
-  }
-  100% {
-    bottom: 0px;
-  }
-}
-
-#filter .filter {
-  padding-bottom: 14px;
-}
-
-#filter .filter div {
-  /*&:nth-of-type(1) {*/
-  /*margin-top: 20px;*/
-  /*}*/
-  /*&:nth-last-of-type(2) {*/
-  /*margin-bottom: 27px;*/
-  /*}*/
-}
-
-#filter .filter div.closeFilter {
+#settings .settings {
+  background-color: #181818;
+  height: 180px;
   position: absolute;
-  right: 12px;
-  bottom: 12px;
-  width: 44px;
-  height: 44px;
-  text-decoration: none;
-  color: #555;
-  text-align: center;
-  z-index: 2;
-  font-size: 1.8em;
-  line-height: 44px;
-  text-align: center;
+  bottom: 0px;
+  width: 100%;
+  padding-top: 5px;
 }
 
-#filter .filter div.checkbox {
+#settings .settings div.checkbox {
   margin-left: 15px;
   margin-top: 20px;
   /*margin-top: 10px;*/
   /*margin-bottom: 20px;*/
 }
 
-#filter .filter div.checkbox input + span:before {
+#settings .settings div.checkbox input + span:before {
   width: 36px;
 }
 
-#filter .filter div.checkbox input + span:after {
+#settings .settings div.checkbox input + span:after {
   background: #181818;
   border-radius: 0px;
   width: 18px;
@@ -1713,13 +2019,13 @@ body {
   top: 2px;
 }
 
-#filter .filter div.checkbox input:checked + span:after {
+#settings .settings div.checkbox input:checked + span:after {
   /*background: $android-cyan;*/
   background: #43899E;
   margin-left: 18px;
 }
 
-#filter .filter div.checkbox span {
+#settings .settings div.checkbox span {
   font-size: 18px;
   padding-left: 38px;
   color: #555;
@@ -1728,35 +2034,49 @@ body {
   pointer-events: none;
 }
 
-#filter .filter div.checkbox span.filterSelected {
+#settings .settings div.checkbox span.filterSelected {
   color: #43899E !important;
 }
 
-#filter .filter div.checkbox span:after {
+#settings .settings div.checkbox span:after {
   /*background: #111;*/
 }
 
-#filter .filter div.input-group {
-  margin-top: 15px;
-  margin-left: 15px;
-  margin-right: 15px;
-}
-
-#filter .filter div.input-group input {
-  background-color: #222;
-  border-color: #555;
-  border-width: 0px;
-  color: #5bc0de;
-}
-
-#filter .filter div.input-group input::-webkit-input-placeholder {
-  color: #444;
-  font-style: italic;
-}
-
-#filter .filter div.input-group span {
+#settings .settings div.button {
+  margin: 31px 15px 0px 15px;
+  height: 44px;
+  width: calc( 100% - 32px);
   background-color: #333;
-  border-width: 0px;
-  font-size: 20px;
-  border-radius: 0px;
+  border: 2px solid #43899e;
+  color: #5bc0de;
+  text-align: center;
+  line-height: 40px;
+}
+
+#settings.ng-enter {
+  -webkit-animation: settings-enter 0.125s ease-out;
+  animation: settings-enter 0.125s ease-out;
+}
+
+#settings.ng-leave {
+  -webkit-animation: settings-enter 0.125s ease-out reverse;
+  animation: settings-enter 0.125s ease-out reverse;
+}
+
+@-webkit-keyframes settings-enter {
+  0% {
+    bottom: -180px;
+  }
+  100% {
+    bottom: 0px;
+  }
+}
+
+@keyframes settings-enter {
+  0% {
+    bottom: -180px;
+  }
+  100% {
+    bottom: 0px;
+  }
 }

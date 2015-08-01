@@ -18,7 +18,8 @@
     "titatoggle": "~1.2.6",
     "ionicons": "~2.0.1",
     "fastclick": "~1.0.6",
-    "angular-google-maps": "~2.1.5"
+    "angular-google-maps": "~2.1.5",
+    "angular-elastic": "~2.5.0"
   },
   "resolutions": {
     "angular": "~1.4.1",

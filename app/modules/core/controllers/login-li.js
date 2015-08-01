@@ -42,7 +42,9 @@ angular
 
             if ( data.responseCode === 200 ) {
               $scope.$storage.LI_Token_Registered = true;
-              // alert( "Response code: " + data.responseCode + " - " + data.message );
+              $scope.$storage.user_id = data.user_id;
+              $scope.$storage.user_status = data.user_status;
+              // alert( "Response code: " + data.responseCode + " - " + data.message + " - User ID: " + typeof data.user_id + "" + data.user_id );
             } else {
               alert( "Response code: " + data.responseCode + " - " + data.message );
             }

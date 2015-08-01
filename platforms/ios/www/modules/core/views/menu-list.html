@@ -1,11 +1,41 @@
 <div class='menuList'>
   <ul>
-    <li ng-repeat="menuItem in menuList" ui-sref=".{{menuItem.link}}">
-      <div ng-attr-class="icon {{menuItem.icon}}"></div>
-      <span> {{menuItem.name}}</span>
+    <li ui-sref=".alumni">
+      <div class="icon ion-android-people"></div>
+      <span>Alumni</span>
+      <div class="mainMenuArrow ion-ios-arrow-forward"></div>
+    </li>
+
+    <li ui-sref=".companies">
+      <div class="icon ion-android-home"></div>
+      <span>Companies</span>
+      <div class="mainMenuArrow ion-ios-arrow-forward"></div>
+    </li>
+
+    <li ng-show="false" ui-sref=".calendar">
+      <div class="icon ion-android-calendar"></div>
+      <span>Calendar</span>
+      <div class="mainMenuArrow ion-ios-arrow-forward"></div>
+    </li>
+
+    <li ng-show="false" ui-sref=".messenger">
+      <div class="icon ion-android-chat"></div>
+      <span>Messenger</span>
+      <div class="mainMenuArrow ion-ios-arrow-forward"></div>
+    </li>
+
+    <li ng-if="SharedData.findAlumn( $storage.user_id )" ui-sref=".profile">
+      <div class="icon ion-android-person"></div>
+      <span>Profile</span>
       <div class="mainMenuArrow ion-ios-arrow-forward"></div>
     </li>
   </ul>
-  <div  ng-repeat="menuItem in menuList" ng-attr-id="{{menuItem.link}}" ui-view="{{menuItem.link}}"></div>
+
+  <div id="alumni" ui-view="alumni"></div>
+  <div id="companies" ui-view="companies"></div>
+  <div ng-show="false" id="calendar" ui-view="calendar"></div>
+  <div ng-show="false" id="messenger" ui-view="messenger"></div>
+  <div id="profile" ui-view="profile"></div>
+
   <div id="settings" ui-view="settings"></div>
 </div>

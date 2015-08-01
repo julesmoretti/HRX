@@ -30,6 +30,7 @@ module.exports = function(config) {
             'app/lib/fastclick/lib/fastclick.js',
             'app/lib/lodash/lodash.js',
             'app/lib/angular-google-maps/dist/angular-google-maps.js',
+            'app/lib/angular-elastic/elastic.js',
             <!-- endinjector -->
 
             'app/js/config.js',

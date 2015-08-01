@@ -10,8 +10,6 @@ angular
     .module('core')
     .controller('HomeController', ['$scope', '$http', '$window', '$localStorage', 'SharedData', '$rootScope', '$state', function( $scope, $http, $window, $localStorage, SharedData, $rootScope, $state ) {
       $scope.SharedData = SharedData;
-      $scope.homeVariable = 'Jules Moretti - home';
-      $scope.sent_over = 'type Something';
 
         angular.element(document).ready(function (){
           console.log('Angular HomeController is ready');
@@ -22,6 +20,9 @@ angular
             // DEFAULT SETTINGS
             $scope.$storage.notifications = true;
             $scope.$storage.geoPositioning = true;
+
+            // REFERENCE POINT TO DATA COLLECTION
+            $scope.$storage.addition = 0;
           }
 
           $scope.clearLocalStorage = function () {
