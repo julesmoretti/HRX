@@ -19,31 +19,31 @@
       </div>
     </li>
 
-    <li class="profile_description" ng-init="profile_decription_show = false">
-      <span class="profile_description_text" ng-class="{profile_description_text_all: profile_decription_show}" ng-click="profile_decription_show = !profile_decription_show">{{selectedProfile.LI_description}}</span>
+    <li class="profile_description">
+      <textarea class="msd-elastic: \n;" ng-model="selectedProfile.LI_description" ng-trim="true"></textarea>
       <ul>
-        <li ng-repeat="skills in selectedProfile.skills">{{skills}}</li>
+        <li ng-repeat="skills in selectedProfile.skills"><input ng-attr-placeholder="#{{$index + 1}} skill" value="{{skills}}"/></li>
       </ul>
     </li>
 
     <li class="profile_blog">
       <div class="ion-link"></div>
-      <input type="url" placeholder="http://..." ng-attr-value="{{selectedProfile.blog}}"/>
+      <input type="url" placeholder="http://..." ng-model="selectedProfile.blog"/>
     </li>
 
     <li class="profile_address">
       <div class="ion-planet"></div>
-      <input type="text"  placeholder="123 street ave, city ..." ng-attr-value="{{selectedProfile.LI_address}}"/>
+      <input type="text"  placeholder="123 street ave, city ..." ng-model="selectedProfile.LI_address"/>
     </li>
 
     <li class="profile_email">
       <div class="ion-email"></div>
-      <input type="email" placeholder="your@email.com" ng-attr-value="{{selectedProfile.email}}"/>
+      <input type="email" placeholder="your@email.com" ng-model="selectedProfile.email"/>
     </li>
 
     <li class="profile_phone">
       <div class="ion-ios-telephone"></div>
-      <input type="tel" placeholder="+1 213465879" ng-attr-value="{{selectedProfile.phone}}"/>
+      <input type="tel" placeholder="+1 213465879" ng-model="selectedProfile.phone"/>
     </li>
 
     <li class="profile_update">

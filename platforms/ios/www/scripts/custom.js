@@ -1,7 +1,7 @@
 'use strict';
 var ApplicationConfiguration = (function() {
     var applicationModuleName = 'angularjsapp';
-    var applicationModuleVendorDependencies = ['ngResource', 'ngCookies', 'ngAnimate', 'ngTouch', 'ngSanitize', 'ui.router', 'ui.bootstrap', 'ui.utils', 'ngStorage', 'uiGmapgoogle-maps'];
+    var applicationModuleVendorDependencies = ['ngResource', 'ngCookies', 'ngAnimate', 'ngTouch', 'ngSanitize', 'ui.router', 'ui.bootstrap', 'ui.utils', 'ngStorage', 'uiGmapgoogle-maps', 'monospaced.elastic'];
     var registerModule = function(moduleName) {
         angular
             .module(moduleName, []);
@@ -460,8 +460,6 @@ angular
     .module('core')
     .controller('HomeController', ['$scope', '$http', '$window', '$localStorage', 'SharedData', '$rootScope', '$state', function( $scope, $http, $window, $localStorage, SharedData, $rootScope, $state ) {
       $scope.SharedData = SharedData;
-      $scope.homeVariable = 'Jules Moretti - home';
-      $scope.sent_over = 'type Something';
 
         angular.element(document).ready(function (){
           console.log('Angular HomeController is ready');
@@ -470,6 +468,7 @@ angular
             $scope.$storage = $localStorage;
             $scope.$storage.notifications = true;
             $scope.$storage.geoPositioning = true;
+            $scope.$storage.addition = 0;
           }
 
           $scope.clearLocalStorage = function () {
@@ -524,6 +523,7 @@ angular
             if ( data.responseCode === 200 ) {
               $scope.$storage.LI_Token_Registered = true;
               $scope.$storage.user_id = data.user_id;
+              $scope.$storage.user_status = data.user_status;
             } else {
               alert( "Response code: " + data.responseCode + " - " + data.message );
             }
@@ -860,14 +860,14 @@ angular
         };
 
         $scope.updateLocation = function( latitude, longitude ) {
-
+          console.log('updateLocation');
           var req = {
             method: 'GET',
             url: 'http://api.hrx.club/geoposition',
             headers: {
               'X-HRX-User-Token' : $scope.$storage.token
             },
-            params: { 'latitude': latitude, 'longitude': longitude }
+            params: { 'latitude': latitude, 'longitude': longitude, 'addition': $scope.$storage.user_status }
           };
 
           $http( req ).
@@ -1053,9 +1053,15 @@ angular
     .module('core')
     .controller('ProfileController', ['$scope', '$stateParams', 'SharedData', function($scope, $stateParams, SharedData) {
       $scope.SharedData = SharedData;
-      $scope.selectedProfile = SharedData.findAlumn( $scope.$storage.user_id );
+      $scope.selectedOriginal = JSON.parse( JSON.stringify( SharedData.findAlumn( $scope.$storage.user_id ) ) );
+      $scope.selectedProfile = JSON.parse( JSON.stringify( SharedData.findAlumn( $scope.$storage.user_id ) ) );
 
-      $scope.selectedHR = "??";
+      if ( !$scope.selectedProfile.cohort || $scope.selectedProfile.cohort === undefined || $scope.selectedProfile.cohort === null ) {
+        $scope.selectedHR = "??";
+      } else {
+        $scope.selectedHR = $scope.selectedProfile.cohort;
+      }
+
 
       $scope.number = 250;
       $scope.getNumber = function( num ) {
@@ -1072,6 +1078,41 @@ angular
       $scope.openlink = function ( link ) {
         window.open(link, "_system");
       };
+
+      $scope.updateProfile = function () {
+        $scope.profileUpdates = {};
+
+        if ( $scope.selectedHR !== $scope.selectedOriginal.cohort ) {
+          $scope.profileUpdates.cohort = $scope.selectedHR;
+        }
+
+        if ( $scope.selectedProfile.LI_description !== $scope.selectedOriginal.LI_description ) {
+          $scope.profileUpdates.LI_description = $scope.selectedProfile.LI_description;
+        }
+
+        if ( $scope.selectedProfile.blog !== $scope.selectedOriginal.blog ) {
+          $scope.profileUpdates.blog = $scope.selectedProfile.blog;
+        }
+
+        if ( $scope.selectedProfile.LI_address !== $scope.selectedOriginal.LI_address ) {
+          $scope.profileUpdates.LI_address = $scope.selectedProfile.LI_address;
+        }
+
+        if ( $scope.selectedProfile.email !== $scope.selectedOriginal.email ) {
+          $scope.profileUpdates.email = $scope.selectedProfile.email;
+        }
+
+        if ( $scope.selectedProfile.phone !== $scope.selectedOriginal.phone ) {
+          $scope.profileUpdates.phone = $scope.selectedProfile.phone;
+        }
+
+        if ( Object.keys( $scope.profileUpdates ).length ) {
+          console.log( JSON.stringify( $scope.profileUpdates ) );
+        } else {
+          console.log('nothing updated');
+        }
+        console.log('called')
+      }
 
     }]);
 

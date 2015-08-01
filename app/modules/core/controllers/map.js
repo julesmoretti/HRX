@@ -313,7 +313,7 @@ angular
         };
 
         $scope.updateLocation = function( latitude, longitude ) {
-
+          console.log('updateLocation');
           var req = {
             method: 'GET',
             // url: 'http://api.hrx.club/apntoken',
