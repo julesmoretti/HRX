@@ -1439,10 +1439,17 @@ body {
 }
 
 #company .company ul li.company_alumn div.company_alumn_count.company_alumn_count_blown {
-  width: 44px;
+  width: initial;
   height: 44px;
   line-height: 44px;
-  font-size: 28px;
+  font-size: 18px;
+  padding: 0px 18px;
+}
+
+#company .company ul li.company_alumn div.company_alumn_count.company_alumn_count_blown span {
+  color: inherit;
+  padding-left: 20px;
+  line-height: 44px;
 }
 
 #company .company ul li.company_alumn div.company_alumn_list {
@@ -1688,8 +1695,7 @@ body {
   line-height: 12px;
   padding-left: 0px;
   text-transform: initial;
-  color: #777;
-  font-style: italic;
+  color: #43899E;
   font-size: 12px;
   display: -webkit-box;
   -webkit-line-clamp: 3;
@@ -1718,7 +1724,7 @@ body {
   padding-left: 0px;
   line-height: 36px;
   height: 36px;
-  text-indent: 10px;
+  text-indent: 5px;
   border-bottom: 0px solid;
   display: block;
   margin-left: 0px;
@@ -1730,7 +1736,9 @@ body {
   border: 0px;
   height: inherit;
   font-size: 12px;
-  color: #666;
+  color: #43899E;
+  width: calc( 100% - 40px);
+  font-style: italic;
 }
 
 #profile .profile ul li.profile_description ul li input::-webkit-input-placeholder {
@@ -1763,7 +1771,7 @@ body {
 #profile .profile ul li.profile_blog input {
   padding: 0px;
   text-transform: initial;
-  color: #777;
+  color: #43899E;
   font-size: 14px;
   border: 0px;
   width: calc( 100% - 44px);
@@ -1802,7 +1810,7 @@ body {
 #profile .profile ul li.profile_address input {
   padding: 0px;
   text-transform: initial;
-  color: #777;
+  color: #43899E;
   font-size: 14px;
   border: 0px;
   width: calc( 100% - 44px);
@@ -1841,7 +1849,7 @@ body {
 #profile .profile ul li.profile_email input {
   padding: 0px;
   text-transform: initial;
-  color: #777;
+  color: #43899E;
   font-size: 14px;
   border: 0px;
   width: calc( 100% - 44px);
@@ -1880,7 +1888,7 @@ body {
 #profile .profile ul li.profile_phone input {
   padding: 0px;
   text-transform: initial;
-  color: #777;
+  color: #43899E;
   font-size: 14px;
   border: 0px;
   width: calc( 100% - 44px);

@@ -12,9 +12,9 @@
         </div>
       </div>
       <div ng-show="selectedProfile.cohort">
-      HR<select ng-model="selectedHR">
-          <option value="??" selected="selected">??</option>
-          <option value="cohort" ng-repeat="cohort in getNumber(number)">{{cohort}}</option>
+      HR<select ng-model="selectedHR" convert-to-number>
+          <option value="??" ng-selected="{{selectedHR == '??' }}" >??</option>
+          <option value="{{cohort}}" ng-selected="{{selectedHR == cohort }}" ng-repeat="cohort in getNumber(number)">{{cohort}}</option>
         <select/>
       </div>
     </li>
@@ -22,7 +22,7 @@
     <li class="profile_description">
       <textarea class="msd-elastic: \n;" ng-model="selectedProfile.LI_description" ng-trim="true"></textarea>
       <ul>
-        <li ng-repeat="skills in selectedProfile.skills"><input ng-attr-placeholder="#{{$index + 1}} skill" value="{{skills}}"/></li>
+        <li ng-repeat="skills in selectedProfile.skills">#{{$index + 1}}: <input ng-attr-placeholder="#{{$index + 1}} skill" value="{{skills}}"/></li>
       </ul>
     </li>
 
@@ -35,6 +35,8 @@
       <div class="ion-planet"></div>
       <input type="text"  placeholder="123 street ave, city ..." ng-model="selectedProfile.LI_address"/>
     </li>
+    <li>{{selectedProfile.LI_address}}</li>
+    <li>{{selectedOriginal.LI_address}}</li>
 
     <li class="profile_email">
       <div class="ion-email"></div>

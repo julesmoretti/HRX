@@ -16,6 +16,7 @@ angular
       if ( !$scope.selectedProfile.cohort || $scope.selectedProfile.cohort === undefined || $scope.selectedProfile.cohort === null ) {
         $scope.selectedHR = "??";
       } else {
+        console.log('selected cohort is:', typeof $scope.selectedProfile.cohort,$scope.selectedProfile.cohort );
         $scope.selectedHR = $scope.selectedProfile.cohort;
       }
 
@@ -41,6 +42,8 @@ angular
         // console.log('updateProfile');
         $scope.profileUpdates = {};
 
+        $scope.profileUpdates.id = $scope.selectedOriginal.id;
+
         if ( $scope.selectedHR !== $scope.selectedOriginal.cohort ) {
           $scope.profileUpdates.cohort = $scope.selectedHR;
         }
@@ -54,6 +57,7 @@ angular
         }
 
         if ( $scope.selectedProfile.LI_address !== $scope.selectedOriginal.LI_address ) {
+          // console.log( typeof $scope.selectedProfile.LI_address, $scope.selectedProfile.LI_address );
           $scope.profileUpdates.LI_address = $scope.selectedProfile.LI_address;
         }
 
@@ -65,8 +69,11 @@ angular
           $scope.profileUpdates.phone = $scope.selectedProfile.phone;
         }
 
-        if ( Object.keys( $scope.profileUpdates ).length ) {
+        if ( Object.keys( $scope.profileUpdates ).length > 1 ) {
           console.log( JSON.stringify( $scope.profileUpdates ) );
+
+          $scope.SharedData.updateAlumni( $scope.profileUpdates );
+
         } else {
           console.log('nothing updated');
         }

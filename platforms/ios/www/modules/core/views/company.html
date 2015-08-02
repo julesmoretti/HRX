@@ -24,10 +24,9 @@
         </div>
       </div>
       <div ng-hide="showAlumn" style="height: 5px; display: block;"></div>
-      <div ng-click="showAlumn = !showAlumn" class="company_alumn_count" ng-class="{company_alumn_count_blown: showAlumn}">{{selectedCompany.alumni.length}}</div>
+      <div ng-click="showAlumn = !showAlumn" class="company_alumn_count" ng-class="{company_alumn_count_blown: showAlumn}">{{selectedCompany.alumni.length}} <span ng-show="showAlumn">alumn</span></div>
       <div ng-show="showAlumn" style="height: 59px; display: block;"></div>
       <div ng-show="showAlumn" class="company_alumn_list" ng-repeat="alumn in selectedCompany.alumni" ui-sref="home.map.menu.alumni.alumn({id: alumn})">
-        <!-- <div ng-repeat="alumn in selectedCompany.alumni"> -->
           <img ng-show="SharedData.findAlumn( alumn ).GH_profile_picture !== undefined" ng-attr-src="{{SharedData.findAlumn( alumn ).GH_profile_picture}}"/>
           <img ng-show="SharedData.findAlumn( alumn ).GH_profile_picture === undefined" src="img/profile.jpg"/>
           <span>{{SharedData.findAlumn( alumn ).full_name}}</span>

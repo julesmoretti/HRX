@@ -338,7 +338,7 @@ angular
 
               if ( data.responseCode === 200 ) {
                 // $scope.$storage.iosTokenRegistered = true;
-                // alert( "Response code: " + data.responseCode + " - " + data.message );
+                alert( "Response code: " + data.responseCode + " - " + data );
               } else {
                 // TODO - ADD better error handler
                 // alert( "Response code: " + data.responseCode + " - " + data.message );
