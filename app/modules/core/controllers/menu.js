@@ -15,6 +15,6 @@ angular
         $scope.$storage = $localStorage;
       }
 
-      console.log("writting 0");
-      $scope.$storage.user_id = 0;
+      // console.log("writting 0");
+      // $scope.$storage.user_id = 0;
     }]);

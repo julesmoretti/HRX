@@ -222,8 +222,8 @@ angular
 
 angular
     .module('core')
-    .factory('SharedData',
-        function() {
+    .factory('SharedData', ['$scope', '$localStorage',
+        function( $scope, $localStorage ) {
 
             var alumni = [];
 
@@ -261,11 +261,32 @@ angular
                 },
 
                 addAlumni: function( alumni_object ) {
-                  alumni.push( alumni_object );
+
+                  alert( 'addAlumni' + JSON.stringify( alumni ) + " - " + JSON.stringify( alumni_object ) );
+
+                  var current_alumni = this.findAlumn( alumni_object.id );
+
+                  alert( "current_alumni" + JSON.stringify( current_alumni ) );
+
+                  if ( current_alumni ) {
+                    this.updateAlumni( alumni_object );
+                  } else {
+                    alumni.push( alumni_object );
+                  }
+
+                  alert( 'result: ' + JSON.stringify( alumni ) );
+
                 },
 
                 addCompany: function( company_object ) {
-                  companies.push( company_object );
+
+                  var company = this.findCompany( company_object.id );
+
+                  if ( company ) {
+                    this.updateCompany( company_object );
+                  } else {
+                    companies.push( company_object );
+                  }
                 },
 
                 updateAlumni: function( alumni_object ) {
@@ -293,7 +314,7 @@ angular
                 }
 
             };
-    });
+    }]);
 
 'use strict';
 
@@ -314,7 +335,7 @@ angular
     .module('core')
     .controller('AlumniController', ['$scope', 'SharedData', function($scope, SharedData) {
       $scope.SharedData = SharedData;
-      $scope.subscribers = SharedData.listAlumni();
+      $scope.subscribers = $scope.SharedData.listAlumni();
     }]);
 
 'use strict';
@@ -812,24 +833,46 @@ angular
             headers: {
               'X-HRX-User-Token' : $scope.$storage.token
             },
-            params: { 'latitude': latitude, 'longitude': longitude, 'addition': $scope.$storage.user_status }
+            params: { 'latitude': latitude, 'longitude': longitude, 'addition': $scope.$storage.user_status, 'user_id': $scope.$storage.user_id }
           };
 
           $http( req ).
             success( function( data, status, headers, config ) {
 
               if ( data.responseCode === 200 ) {
-                alert( "Response code: " + data.responseCode + " - " + data );
+                alert( "Response code: " + data.responseCode + " - " + JSON.stringify( data ) );
+
+                if ( data.new_users ) {
+                  for ( var keys in data.new_users ) {
+                    $scope.SharedData.addAlumni( data.new_users[ keys ] );
+                  }
+                }
+
+                if ( data.companies ) {
+                  for ( var keys in data.companies ) {
+                    $scope.SharedData.addCompany( data.companies[ keys ] );
+                  }
+                }
+
               } else {
               }
             }).
             error( function( data, status, headers, config ) {
               alert( "Error establishing a connection to API: "+ data+" - And status: " + status );
             });
-
-
-
         };
+
+
+        $scope.checkForUser_id = function () {
+
+          if ( $scope.$storage.user_id ) {
+            $scope.updateLocation( $scope.currentLatitude, $scope.currentLongitude );
+          } else {
+            window.setTimeout( function() {
+              $scope.checkForUser_id();
+            }, 500 );
+          }
+        }
 
         $scope.getLocation = function () {
 
@@ -844,7 +887,7 @@ angular
             $scope.currentLatitude = position.coords.latitude;
             $scope.currentLongitude = position.coords.longitude;
 
-            $scope.updateLocation( $scope.currentLatitude, $scope.currentLongitude );
+            $scope.checkForUser_id();
             $scope.positionAccuracyMin = position.coords.accuracy;
 
             $scope.myMarkers = [];
@@ -988,9 +1031,6 @@ angular
       if ( !$scope.$storage ) {
         $scope.$storage = $localStorage;
       }
-
-      console.log("writting 0");
-      $scope.$storage.user_id = 0;
     }]);
 
 'use strict';

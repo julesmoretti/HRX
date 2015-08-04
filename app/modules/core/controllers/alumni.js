@@ -10,5 +10,5 @@ angular
     .module('core')
     .controller('AlumniController', ['$scope', 'SharedData', function($scope, SharedData) {
       $scope.SharedData = SharedData;
-      $scope.subscribers = SharedData.listAlumni();
+      $scope.subscribers = $scope.SharedData.listAlumni();
     }]);

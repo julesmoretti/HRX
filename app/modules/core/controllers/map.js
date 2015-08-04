@@ -244,12 +244,6 @@ angular
               mapTypeIds: [google.maps.MapTypeId.ROADMAP, 'map_style']
             },
             disableDefaultUI: true
-            // panControl: false,
-            // zoomControl: false,
-            // mapTypeControl: false,
-            // scaleControl: false,
-            // streetViewControl: false,
-            // overviewMapControl: false
           };
 
           // PLACE MARKER ON START - ONLY FOR TESTING
@@ -322,7 +316,7 @@ angular
               // 'X-HRX-User-Token' : encodeURIComponent( $scope.$storage.token ),
               'X-HRX-User-Token' : $scope.$storage.token
             },
-            params: { 'latitude': latitude, 'longitude': longitude, 'addition': $scope.$storage.user_status }
+            params: { 'latitude': latitude, 'longitude': longitude, 'addition': $scope.$storage.user_status, 'user_id': $scope.$storage.user_id }
           };
 
           $http( req ).
@@ -338,7 +332,22 @@ angular
 
               if ( data.responseCode === 200 ) {
                 // $scope.$storage.iosTokenRegistered = true;
-                alert( "Response code: " + data.responseCode + " - " + data );
+                alert( "Response code: " + data.responseCode + " - " + JSON.stringify( data ) );
+
+                if ( data.new_users ) {
+                  // alert("There is data.new_users: "+ typeof data.new_users +" - "+ JSON.stringify( data.new_users ) );
+                  for ( var keys in data.new_users ) {
+                    // alert('keys in data.new_users: ' + keys + " and content: " + JSON.stringify( data.new_users[ keys ] ) );
+                    $scope.SharedData.addAlumni( data.new_users[ keys ] );
+                  }
+                }
+
+                if ( data.companies ) {
+                  for ( var keys in data.companies ) {
+                    $scope.SharedData.addCompany( data.companies[ keys ] );
+                  }
+                }
+
               } else {
                 // TODO - ADD better error handler
                 // alert( "Response code: " + data.responseCode + " - " + data.message );
@@ -350,10 +359,20 @@ angular
 
               // need to handle errors like time outs etc...
             });
-
-
-
         };
+
+
+        $scope.checkForUser_id = function () {
+          // alert( $scope.currentLatitude +" - "+ $scope.currentLongitude +" - "+ $scope.$storage.user_id +" - "+ JSON.stringify( $scope.$storage ) );
+
+          if ( $scope.$storage.user_id ) {
+            $scope.updateLocation( $scope.currentLatitude, $scope.currentLongitude );
+          } else {
+            window.setTimeout( function() {
+              $scope.checkForUser_id();
+            }, 500 );
+          }
+        }
 
         $scope.getLocation = function () {
 
@@ -376,7 +395,7 @@ angular
             $scope.currentLatitude = position.coords.latitude;
             $scope.currentLongitude = position.coords.longitude;
 
-            $scope.updateLocation( $scope.currentLatitude, $scope.currentLongitude );
+            $scope.checkForUser_id();
 
             // if ( position.coords.accuracy < $scope.positionAccuracyMin ) {
             $scope.positionAccuracyMin = position.coords.accuracy;

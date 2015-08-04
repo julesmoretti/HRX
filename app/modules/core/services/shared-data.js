@@ -7,8 +7,8 @@
  */
 angular
     .module('core')
-    .factory('SharedData',
-        function() {
+    .factory('SharedData', [ '$scope', '$localStorage',
+        function( $scope, $localStorage ) {
 
             var alumni = [];
 
@@ -150,11 +150,32 @@ angular
                 },
 
                 addAlumni: function( alumni_object ) {
-                  alumni.push( alumni_object );
+
+                  alert( 'addAlumni' + JSON.stringify( alumni ) + " - " + JSON.stringify( alumni_object ) );
+
+                  var current_alumni = this.findAlumn( alumni_object.id );
+
+                  alert( "current_alumni" + JSON.stringify( current_alumni ) );
+
+                  if ( current_alumni ) {
+                    this.updateAlumni( alumni_object );
+                  } else {
+                    alumni.push( alumni_object );
+                  }
+
+                  alert( 'result: ' + JSON.stringify( alumni ) );
+
                 },
 
                 addCompany: function( company_object ) {
-                  companies.push( company_object );
+
+                  var company = this.findCompany( company_object.id );
+
+                  if ( company ) {
+                    this.updateCompany( company_object );
+                  } else {
+                    companies.push( company_object );
+                  }
                 },
 
                 updateAlumni: function( alumni_object ) {
@@ -182,4 +203,4 @@ angular
                 }
 
             };
-    });
+    }]);
