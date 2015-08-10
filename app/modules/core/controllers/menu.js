@@ -9,12 +9,18 @@
 angular
     .module('core')
     .controller('MenuController', ['$scope', '$state', '$localStorage', 'SharedData', function($scope, $state, $localStorage, SharedData) {
-      $scope.SharedData = SharedData;
+
+      console.log('MenuController Ready');
 
       if ( !$scope.$storage ) {
         $scope.$storage = $localStorage;
       }
 
-      // console.log("writting 0");
-      // $scope.$storage.user_id = 0;
+      if ( !$scope.SharedData ) {
+        $scope.SharedData = SharedData;
+      }
+
+      $scope.all_users = $scope.SharedData.listAlumni();
+      $scope.all_companies = $scope.SharedData.listCompanies();
+
     }]);

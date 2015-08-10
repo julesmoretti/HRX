@@ -2,8 +2,8 @@
 
   <ul>
     <li ng-show="selectedCompany.name" class='company_profile'>
-      <img ng-show='selectedCompany.logo !== undefined' ng-attr-src="{{selectedCompany.GH_profile_picture}}">
-      <img ng-show='selectedCompany.logo === undefined' src="img/comp.jpg">
+      <img ng-show='selectedCompany.logo' ng-attr-src="{{selectedCompany.logo}}">
+      <img ng-hide='selectedCompany.logo' src="img/comp.jpg">
       <div>
         <span>{{selectedCompany.name}}</span></br>
         <span>{{selectedCompany.size}}</span></br>
@@ -53,6 +53,7 @@
       <a>{{selectedCompany.phone}}</a>
       <div ng-click="openlink('tel:{{selectedCompany.phone}}')" class="ion-ios-telephone"></div>
     </li>
+    <!-- {{selectedCompany}} -->
 
 <!--   <a ng-click="openlink('http://www.google.com')">GOOGLE.COM</a></br>
   <a ng-click="openlink('mailto:julesmoretti@me.com')">openlink(mailto:julesmoretti@me.com</a></br>

@@ -75,146 +75,139 @@ angular
                 }
               })
 
-              .state('home.login', {
-                url: 'login',
-                views: {
-                  'home@': {
-                    templateUrl: 'modules/core/views/login.html',
-                    controller: 'LoginController'
-                  }
-                }
-              })
-
-              .state('home.loginli', {
-                url: 'loginli',
-                views: {
-                  'home@': {
-                    templateUrl: 'modules/core/views/loginli.html',
-                    controller: 'LoginLiController'
-                  }
-                }
-              })
-
-              .state('home.map', {
-                url: 'map',
-                views: {
-                  'home@': {
-                    templateUrl: 'modules/core/views/map.html',
-                    controller: 'MapController'
-                  }
-                }
-              })
-
-              .state('home.map.filter', {
-                url: '/filter',
-                views: {
-                  'filter@home.map': {
-                    templateUrl: 'modules/core/views/filter.html',
-                    controller: 'FilterController'
-                  }
-                }
-              })
-              .state('home.map.menu', {
-                url: '/menu',
-                views: {
-                  'menu@home.map': {
-                    templateUrl: 'modules/core/views/menu.html',
-                    controller: 'MenuController'
-                  },
-                  'menuList@home.map.menu': {
-                    templateUrl: 'modules/core/views/menu-list.html',
-                    controller: 'MenuController'
-                  },
-                  'menuFooter@home.map.menu': {
-                    template: '<div class="menuFooter"><div class="back-button ion-close" ui-sref="home.map"></div><div class="main-title"></div><div class="settings-button ion-gear-a" ui-sref="home.map.menu.settings"></div></div>',
-                    controller: 'MenuController'
-                  }
-                }
-              })
-
-              .state('home.map.menu.settings', {
-                  url: '/settings',
-                  views: {
-                    'settings@home.map.menu': {
-                      templateUrl: 'modules/core/views/settings.html',
-                      controller: 'SettingsController'
-                    },
-                    'menuFooter@home.map.menu': {
-                      template: '<div class="menuFooter openSettings"><div class="back-button ion-chevron-down" ui-sref="home.map.menu"></div>',
-                      controller: 'SettingsController'
-                    }
-                  }
-              })
-
-              .state('home.map.menu.alumni', {
-                  url: '/alumni',
-                  views: {
-                    'alumni@home.map.menu': {
-                      templateUrl: 'modules/core/views/alumni.html',
-                      controller: 'AlumniController'
-                    },
-                    'menuFooter@home.map.menu': {
-                      template: '<div class="menuFooter"><div class="back-button ion-chevron-left" ui-sref="home.map.menu"></div><div class="main-title"></div></div>',
-                      controller: 'AlumniController'
-                    }
-                  }
-              })
-
-              .state('home.map.menu.alumni.alumn', {
-                  url: '/:id',
-                  views: {
-                      'alumn@home.map.menu.alumni': {
-                        templateUrl: 'modules/core/views/alumn.html',
-                        controller: 'AlumnController'
-                      },
-                      'menuFooter@home.map.menu': {
-                        template: '<div class="menuFooter"><div class="back-button ion-chevron-left" ui-sref="home.map.menu.alumni"></div></div>',
-                        controller: 'AlumnController'
+                  .state('home.login', {
+                    url: 'login',
+                    views: {
+                      'home@': {
+                        templateUrl: 'modules/core/views/login.html',
+                        controller: 'LoginController'
                       }
-                  }
-              })
-
-              .state('home.map.menu.companies', {
-                  url: '/companies',
-                  views: {
-                    'companies@home.map.menu': {
-                      templateUrl: 'modules/core/views/companies.html',
-                      controller: 'CompaniesController'
-                    },
-                    'menuFooter@home.map.menu': {
-                      template: '<div class="menuFooter"><div class="back-button ion-chevron-left" ui-sref="home.map.menu"></div><div class="main-title"></div></div>',
-                      controller: 'CompaniesController'
                     }
-                  }
-              })
+                  })
 
-              .state('home.map.menu.companies.company', {
-                  url: '/:id',
-                  views: {
-                      'company@home.map.menu.companies': {
-                        templateUrl: 'modules/core/views/company.html',
-                        controller: 'CompanyController'
-                      },
-                      'menuFooter@home.map.menu': {
-                        template: '<div class="menuFooter"><div class="back-button ion-chevron-left" ui-sref="home.map.menu.companies"></div></div>',
-                        controller: 'CompanyController'
+                  .state('home.loginli', {
+                    url: 'loginli',
+                    views: {
+                      'home@': {
+                        templateUrl: 'modules/core/views/loginli.html',
+                        controller: 'LoginLiController'
                       }
-                  }
-              })
-
-              .state('home.map.menu.profile', {
-                  url: '/profile',
-                  views: {
-                    'profile@home.map.menu': {
-                      templateUrl: 'modules/core/views/profile.html',
-                      controller: 'ProfileController'
-                    },
-                    'menuFooter@home.map.menu': {
-                      template: '<div class="menuFooter"><div class="back-button ion-chevron-left" ui-sref="home.map.menu"></div><div class="main-title"></div></div>',
-                      controller: 'CompaniesController'
                     }
-                  }
-              });
+                  })
+
+                  .state('home.map', {
+                    url: 'map',
+                    views: {
+                      'home@': {
+                        templateUrl: 'modules/core/views/map.html',
+                        controller: 'MapController'
+                      }
+                    }
+                  })
+
+                      .state('home.map.filter', {
+                        url: '/filter',
+                        views: {
+                          'filter@home.map': {
+                            templateUrl: 'modules/core/views/filter.html',
+                            controller: 'FilterController'
+                          }
+                        }
+                      })
+
+                      .state('home.map.menu', {
+                        url: '/menu',
+                        views: {
+                          'menu@home.map': {
+                            templateUrl: 'modules/core/views/menu.html'
+                          },
+                          'menuList@home.map.menu': {
+                            templateUrl: 'modules/core/views/menu-list.html',
+                            controller: 'MenuController'
+                          },
+                          'menuFooter@home.map.menu': {
+                            template: '<div class="menuFooter"><div class="back-button ion-close" ui-sref="home.map"></div><div class="main-title"></div><div class="settings-button ion-gear-a" ui-sref="home.map.menu.settings"></div></div>'
+                          }
+                        }
+                      })
+
+                          .state('home.map.menu.settings', {
+                              url: '/settings',
+                              views: {
+                                'settings@home.map.menu': {
+                                  templateUrl: 'modules/core/views/settings.html',
+                                  controller: 'SettingsController'
+                                },
+                                'menuFooter@home.map.menu': {
+                                  template: '<div class="menuFooter openSettings"><div class="back-button ion-chevron-down" ui-sref="home.map.menu"></div>'
+                                }
+                              }
+                          })
+
+                          .state('home.map.menu.alumni', {
+                              url: '/alumni',
+                              views: {
+                                'alumni@home.map.menu': {
+                                  templateUrl: 'modules/core/views/alumni.html',
+                                  controller: 'AlumniController'
+                                },
+                                'menuFooter@home.map.menu': {
+                                  template: '<div class="menuFooter"><div class="back-button ion-chevron-left" ui-sref="home.map.menu"></div><div class="main-title"></div></div>'
+                                }
+                              }
+                          })
+
+                              .state('home.map.menu.alumni.alumn', {
+                                  url: '/:id',
+                                  views: {
+                                      'alumn@home.map.menu.alumni': {
+                                        templateUrl: 'modules/core/views/alumn.html',
+                                        controller: 'AlumnController'
+                                      },
+                                      'menuFooter@home.map.menu': {
+                                        template: '<div class="menuFooter"><div class="back-button ion-chevron-left" ui-sref="home.map.menu.alumni"></div></div>'
+                                      }
+                                  }
+                              })
+
+                          .state('home.map.menu.companies', {
+                              url: '/companies',
+                              views: {
+                                'companies@home.map.menu': {
+                                  templateUrl: 'modules/core/views/companies.html',
+                                  controller: 'CompaniesController'
+                                },
+                                'menuFooter@home.map.menu': {
+                                  template: '<div class="menuFooter"><div class="back-button ion-chevron-left" ui-sref="home.map.menu"></div><div class="main-title"></div></div>'
+                                }
+                              }
+                          })
+
+                              .state('home.map.menu.companies.company', {
+                                  url: '/:id',
+                                  views: {
+                                      'company@home.map.menu.companies': {
+                                        templateUrl: 'modules/core/views/company.html',
+                                        controller: 'CompanyController'
+                                      },
+                                      'menuFooter@home.map.menu': {
+                                        template: '<div class="menuFooter"><div class="back-button ion-chevron-left" ui-sref="home.map.menu.companies"></div></div>'
+                                      }
+                                  }
+                              })
+
+                          .state('home.map.menu.profile', {
+                              url: '/profile',
+                              views: {
+                                'profile@home.map.menu': {
+                                  templateUrl: 'modules/core/views/profile.html',
+                                  controller: 'ProfileController'
+                                },
+                                'menuFooter@home.map.menu': {
+                                  template: '<div class="menuFooter"><div class="back-button ion-chevron-left" ui-sref="home.map.menu"></div><div class="main-title"></div></div>'
+                                }
+                              }
+                          });
         }
     ]);
 
@@ -222,98 +215,166 @@ angular
 
 angular
     .module('core')
-    .factory('SharedData', ['$scope', '$localStorage',
-        function( $scope, $localStorage ) {
+    .factory('SharedData', [ '$rootScope', '$localStorage', function( $rootScope, $localStorage ) {
 
-            var alumni = [];
+      if ( !$rootScope.$storage ) {
+        $rootScope.$storage = $localStorage;
+      }
+      if( !$rootScope.$storage.alumni ) {
+        $rootScope.$storage.alumni = [];
+      }
+      if( !$rootScope.$storage.companies ) {
+        $rootScope.$storage.companies = [];
+      }
 
-            var companies = [];
+      return {
 
-            return {
+        listAlumni: function() {
 
-                                listAlumni: function() {
-                  return alumni;
-                },
+          if ( !$rootScope.$storage ) {
+            $rootScope.$storage = $localStorage;
+          }
 
-                listCompanies: function() {
-                  return companies;
-                },
+          if( !$rootScope.$storage.alumni ) {
+            $rootScope.$storage.alumni = [];
+          }
 
-                                findAlumn: function( id ) {
+          return $rootScope.$storage.alumni;
+        },
 
-                  if ( id === undefined ) return false;
+        listCompanies: function() {
 
-                    for (var i = 0; i < alumni.length; i++) {
-                      if ( alumni[i].id === id ) {
-                        return alumni[i];
-                      }
-                    };
-                    return false;
-                },
+          if ( !$rootScope.$storage ) {
+            $rootScope.$storage = $localStorage;
+          }
 
-                findCompany: function( id ) {
-                  for (var i = 0; i < companies.length; i++) {
-                    if ( companies[i].id === id ) {
-                      return companies[i];
-                    }
-                  };
-                  return false;
-                },
+          if( !$rootScope.$storage.companies ) {
+            $rootScope.$storage.companies = [];
+          }
 
-                addAlumni: function( alumni_object ) {
+          return $rootScope.$storage.companies;
+        },
 
-                  alert( 'addAlumni' + JSON.stringify( alumni ) + " - " + JSON.stringify( alumni_object ) );
+        findAlumn: function( id ) {
 
-                  var current_alumni = this.findAlumn( alumni_object.id );
+          if ( !$rootScope.$storage ) {
+            $rootScope.$storage = $localStorage;
+          }
 
-                  alert( "current_alumni" + JSON.stringify( current_alumni ) );
+          if( !$rootScope.$storage.alumni ) {
+            $rootScope.$storage.alumni = [];
+          }
 
-                  if ( current_alumni ) {
-                    this.updateAlumni( alumni_object );
-                  } else {
-                    alumni.push( alumni_object );
-                  }
+          if ( id === undefined ) return false;
 
-                  alert( 'result: ' + JSON.stringify( alumni ) );
-
-                },
-
-                addCompany: function( company_object ) {
-
-                  var company = this.findCompany( company_object.id );
-
-                  if ( company ) {
-                    this.updateCompany( company_object );
-                  } else {
-                    companies.push( company_object );
-                  }
-                },
-
-                updateAlumni: function( alumni_object ) {
-
-                  var alumni = this.findAlumn( alumni_object.id );
-
-                  for ( var keys in alumni_object ) {
-                    alumni[ keys ] = alumni_object[ keys ];
-                  }
-
-                  return alumni;
-
-                },
-
-                updateCompany: function( company_object ) {
-
-                  var company = this.findCompany( company_object.id );
-
-                  for ( var keys in company_object ) {
-                    company[ keys ] = company_object[ keys ];
-                  }
-
-                  return alumni;
-
-                }
-
+            for (var i = 0; i < $rootScope.$storage.alumni.length; i++) {
+              if ( $rootScope.$storage.alumni[i].id === id ) {
+                return $rootScope.$storage.alumni[i];
+              }
             };
+            return false;
+        },
+
+        findCompany: function( id ) {
+
+          if ( !$rootScope.$storage ) {
+            $rootScope.$storage = $localStorage;
+          }
+
+          if( !$rootScope.$storage.companies ) {
+            $rootScope.$storage.companies = [];
+          }
+
+          if ( id === undefined ) return false;
+
+          for (var i = 0; i < $rootScope.$storage.companies.length; i++) {
+            if ( $rootScope.$storage.companies[i].id === id ) {
+              return $rootScope.$storage.companies[i];
+            }
+          };
+          return false;
+        },
+
+        addAlumni: function( alumni_object ) {
+
+          if ( !$rootScope.$storage ) {
+            $rootScope.$storage = $localStorage;
+          }
+
+          if( !$rootScope.$storage.alumni ) {
+            $rootScope.$storage.alumni = [];
+          }
+
+          var current_alumni = this.findAlumn( alumni_object.id );
+
+          if ( current_alumni ) {
+            this.updateAlumni( alumni_object );
+          } else {
+            $rootScope.$storage.alumni.push( alumni_object );
+          }
+
+        },
+
+        addCompany: function( company_object ) {
+
+          if ( !$rootScope.$storage ) {
+            $rootScope.$storage = $localStorage;
+          }
+
+          if( !$rootScope.$storage.companies ) {
+            $rootScope.$storage.companies = [];
+          }
+
+          var company = this.findCompany( company_object.id );
+
+          if ( company ) {
+            this.updateCompany( company_object );
+          } else {
+            $rootScope.$storage.companies.push( company_object );
+          }
+        },
+
+        updateAlumni: function( alumni_object ) {
+
+          if ( !$rootScope.$storage ) {
+            $rootScope.$storage = $localStorage;
+          }
+
+          if( !$rootScope.$storage.alumni ) {
+            $rootScope.$storage.alumni = [];
+          }
+
+          var current_alumni = this.findAlumn( alumni_object.id );
+
+          for ( var keys in alumni_object ) {
+            current_alumni[ keys ] = alumni_object[ keys ];
+          }
+
+          return current_alumni;
+
+        },
+
+        updateCompany: function( company_object ) {
+
+          if ( !$rootScope.$storage ) {
+            $rootScope.$storage = $localStorage;
+          }
+
+          if( !$rootScope.$storage.companies ) {
+            $rootScope.$storage.companies = [];
+          }
+
+          var current_company = this.findCompany( company_object.id );
+
+          for ( var keys in company_object ) {
+            current_company[ keys ] = company_object[ keys ];
+          }
+
+          return current_company;
+
+        }
+
+      };
     }]);
 
 'use strict';
@@ -323,6 +384,14 @@ angular
     .controller('AlumnController', ['$scope', '$stateParams', 'SharedData', function($scope, $stateParams, SharedData) {
       $scope.SharedData = SharedData;
       $scope.selectedAlumn = SharedData.findAlumn( JSON.parse( $stateParams.id ) );
+
+      if ( $scope.selectedAlumn.LI_company ) {
+        $scope.selectedCompany = SharedData.findCompany( JSON.parse( $scope.selectedAlumn.LI_company ) );
+
+        if ( typeof $scope.selectedCompany.alumni === 'string' ) {
+          $scope.selectedCompany.alumni = JSON.parse( $scope.selectedCompany.alumni );
+        }
+      }
 
       $scope.openlink = function ( link ) {
         window.open(link, "_system");
@@ -354,6 +423,10 @@ angular
     .controller('CompanyController', ['$scope', '$stateParams', 'SharedData', function($scope, $stateParams, SharedData) {
       $scope.SharedData = SharedData;
       $scope.selectedCompany = SharedData.findCompany( JSON.parse( $stateParams.id ) );
+
+      if ( typeof $scope.selectedCompany.alumni === 'string' ) {
+        $scope.selectedCompany.alumni = JSON.parse( $scope.selectedCompany.alumni );
+      }
 
       $scope.openlink = function ( link ) {
         window.open(link, "_system");
@@ -425,7 +498,6 @@ angular
 angular
     .module('core')
     .controller('HomeController', ['$scope', '$http', '$window', '$localStorage', 'SharedData', '$rootScope', '$state', function( $scope, $http, $window, $localStorage, SharedData, $rootScope, $state ) {
-      $scope.SharedData = SharedData;
 
         angular.element(document).ready(function (){
           console.log('Angular HomeController is ready');
@@ -435,7 +507,11 @@ angular
             $scope.$storage.notifications = true;
             $scope.$storage.geoPositioning = true;
             $scope.$storage.addition = 0;
+
           }
+
+          $scope.SharedData = SharedData;
+
 
           $scope.clearLocalStorage = function () {
             $localStorage.$reset();
@@ -568,9 +644,6 @@ angular
 angular
     .module('core')
     .controller('MapController', ['$scope', '$http', '$window', '$localStorage', 'SharedData', '$rootScope', '$state', '$location', 'uiGmapGoogleMapApi', function( $scope, $http, $window, $localStorage, SharedData, $rootScope, $state, $location, uiGmapGoogleMapApi ) {
-      $scope.SharedData = SharedData;
-
-      $scope.SharedData.moveLocationDown = false;
 
       $rootScope.$state = $state;
 
@@ -589,7 +662,14 @@ angular
           if ( !$scope.$storage.geoPositioning ) {
             $scope.$storage.geoPositioning = true;
           }
+
         }
+
+        if ( !$scope.SharedData ) {
+          $scope.SharedData = SharedData;
+        }
+
+        $scope.SharedData.moveLocationDown = false;
 
         uiGmapGoogleMapApi.then(function(maps) {
           console.log('google maps ready');
@@ -833,25 +913,38 @@ angular
             headers: {
               'X-HRX-User-Token' : $scope.$storage.token
             },
-            params: { 'latitude': latitude, 'longitude': longitude, 'addition': $scope.$storage.user_status, 'user_id': $scope.$storage.user_id }
+            params: { 'latitude': latitude, 'longitude': longitude, 'addition': $scope.$storage.addition, 'user_id': $scope.$storage.user_id }
           };
 
           $http( req ).
             success( function( data, status, headers, config ) {
 
               if ( data.responseCode === 200 ) {
-                alert( "Response code: " + data.responseCode + " - " + JSON.stringify( data ) );
 
                 if ( data.new_users ) {
-                  for ( var keys in data.new_users ) {
-                    $scope.SharedData.addAlumni( data.new_users[ keys ] );
+                  for ( var new_users_id_keys in data.new_users ) {
+                    for ( var new_users_keys in data.new_users[ new_users_id_keys ] ) {
+                      if ( data.new_users[ new_users_id_keys ][ new_users_keys ] === null || data.new_users[ new_users_id_keys ][ new_users_keys ] === undefined ) {
+                        delete data.new_users[ new_users_id_keys ][ new_users_keys ];
+                      }
+                    }
+                    $scope.SharedData.addAlumni( data.new_users[ new_users_id_keys ] );
                   }
                 }
 
                 if ( data.companies ) {
-                  for ( var keys in data.companies ) {
-                    $scope.SharedData.addCompany( data.companies[ keys ] );
+                  for ( var companies_id_keys in data.companies ) {
+                    for ( var companies_keys in data.companies[ companies_id_keys ] ) {
+                      if ( data.companies[companies_id_keys][ companies_keys ] === null || data.companies[ companies_id_keys ][ companies_keys ] === undefined ) {
+                        delete data.companies[companies_id_keys][ companies_keys ];
+                      }
+                    }
+                    $scope.SharedData.addCompany( data.companies[ companies_id_keys ] );
                   }
+                }
+
+                if ( data.last_id ) {
+                  $scope.$storage.addition = data.last_id;
                 }
 
               } else {
@@ -930,7 +1023,6 @@ angular
           }
         }
         window.onNotificationAPN = function ( event ) {
-          alert(JSON.stringify( event ) );
 
           if ( event.state ) {
             $state.go( event.state ); // if state param is passed. App will go to this state
@@ -1026,31 +1118,57 @@ angular
 angular
     .module('core')
     .controller('MenuController', ['$scope', '$state', '$localStorage', 'SharedData', function($scope, $state, $localStorage, SharedData) {
-      $scope.SharedData = SharedData;
+
+      console.log('MenuController Ready');
 
       if ( !$scope.$storage ) {
         $scope.$storage = $localStorage;
       }
+
+      if ( !$scope.SharedData ) {
+        $scope.SharedData = SharedData;
+      }
+
+      $scope.all_users = $scope.SharedData.listAlumni();
+      $scope.all_companies = $scope.SharedData.listCompanies();
+
     }]);
 
 'use strict';
 
 angular
     .module('core')
-    .controller('ProfileController', ['$scope', '$stateParams', 'SharedData', function($scope, $stateParams, SharedData) {
-      $scope.SharedData = SharedData;
+    .controller('ProfileController', ['$rootScope', '$scope', '$stateParams', 'SharedData', '$state', '$http', function($rootScope, $scope, $stateParams, SharedData, $state, $http) {
+
+      console.log('ProfileController Ready');
+
+
+      if ( !$scope.SharedData ) {
+        $scope.SharedData = SharedData;
+      }
+
+      if ( !$rootScope.$state ) {
+        $rootScope.$state = $state;
+      }
+
       $scope.selectedOriginal = JSON.parse( JSON.stringify( SharedData.findAlumn( $scope.$storage.user_id ) ) );
       $scope.selectedProfile = JSON.parse( JSON.stringify( SharedData.findAlumn( $scope.$storage.user_id ) ) );
 
-      if ( !$scope.selectedProfile.cohort || $scope.selectedProfile.cohort === undefined || $scope.selectedProfile.cohort === null ) {
-        $scope.selectedHR = "??";
-      } else {
-        console.log('selected cohort is:', typeof $scope.selectedProfile.cohort,$scope.selectedProfile.cohort );
-        $scope.selectedHR = $scope.selectedProfile.cohort;
-      }
+      $scope.selectedHR = $scope.selectedOriginal.cohort;
+
+      $scope.checkForChanges = function() {
+        if ( JSON.stringify( $scope.selectedOriginal ) === JSON.stringify( $scope.selectedProfile ) ) {
+          $scope.profile_status = 'Nothing to Change';
+          $scope.profile_changes = false;
+        } else {
+          $scope.profile_status = 'New Changes';
+          $scope.profile_changes = true;
+        }
+      };
+      $scope.checkForChanges();
 
 
-      $scope.number = 250;
+      $scope.cohort_max_number = 250;
       $scope.getNumber = function( num ) {
 
         var array = [];
@@ -1067,38 +1185,80 @@ angular
       };
 
       $scope.updateProfile = function () {
+        console.log('updateProfile');
         $scope.profileUpdates = {};
+
+        var mysql_string = '';
 
         $scope.profileUpdates.id = $scope.selectedOriginal.id;
 
-        if ( $scope.selectedHR !== $scope.selectedOriginal.cohort ) {
-          $scope.profileUpdates.cohort = $scope.selectedHR;
+        if ( $scope.selectedProfile.cohort !== $scope.selectedOriginal.cohort ) {
+          if ( mysql_string.length ) mysql_string = mysql_string + ', ';
+          mysql_string = mysql_string + 'cohort = ' + $scope.selectedProfile.cohort;
+          $scope.profileUpdates.cohort = $scope.selectedProfile.cohort;
         }
 
         if ( $scope.selectedProfile.LI_description !== $scope.selectedOriginal.LI_description ) {
+          if ( mysql_string.length ) mysql_string = mysql_string + ', ';
+          mysql_string = mysql_string + 'LI_description = "' + $scope.selectedProfile.LI_description + '"';
           $scope.profileUpdates.LI_description = $scope.selectedProfile.LI_description;
         }
 
         if ( $scope.selectedProfile.blog !== $scope.selectedOriginal.blog ) {
+          if ( mysql_string.length ) mysql_string = mysql_string + ', ';
+          mysql_string = mysql_string + 'blog = "' + $scope.selectedProfile.blog + '"';
           $scope.profileUpdates.blog = $scope.selectedProfile.blog;
         }
 
-        if ( $scope.selectedProfile.LI_address !== $scope.selectedOriginal.LI_address ) {
-          $scope.profileUpdates.LI_address = $scope.selectedProfile.LI_address;
+        if ( $scope.selectedProfile.address !== $scope.selectedOriginal.address ) {
+          if ( mysql_string.length ) mysql_string = mysql_string + ', ';
+          mysql_string = mysql_string + 'address = "' + $scope.selectedProfile.address + '"';
+          $scope.profileUpdates.address = $scope.selectedProfile.address;
         }
 
         if ( $scope.selectedProfile.email !== $scope.selectedOriginal.email ) {
+          if ( mysql_string.length ) mysql_string = mysql_string + ', ';
+          mysql_string = mysql_string + 'email = "' + $scope.selectedProfile.email + '"';
           $scope.profileUpdates.email = $scope.selectedProfile.email;
         }
 
-        if ( $scope.selectedProfile.phone !== $scope.selectedOriginal.phone ) {
-          $scope.profileUpdates.phone = $scope.selectedProfile.phone;
+        if ( $scope.selectedProfile.phone_number !== $scope.selectedOriginal.phone_number ) {
+          if ( mysql_string.length ) mysql_string = mysql_string + ', ';
+          mysql_string = mysql_string + 'phone_number = "' + $scope.selectedProfile.phone_number + '"';
+          $scope.profileUpdates.phone_number = $scope.selectedProfile.phone_number;
         }
 
         if ( Object.keys( $scope.profileUpdates ).length > 1 ) {
-          console.log( JSON.stringify( $scope.profileUpdates ) );
+          var req = {
+            method: 'GET',
+            url: 'http://api.hrx.club/updateprofile',
+            headers: {
+              'X-HRX-User-Token' : $scope.$storage.token
+            },
+            params: { 'user_id': $scope.selectedOriginal.id, 'user_mysql_updates': mysql_string, 'user_updates': JSON.stringify( $scope.profileUpdates ) }
+          };
 
-          $scope.SharedData.updateAlumni( $scope.profileUpdates );
+          $http( req ).
+            success( function( data, status, headers, config ) {
+
+              if ( data.responseCode === 200 ) {
+
+                if ( data.user_updates ) {
+                    for ( var user_updates_keys in data.user_updates ) {
+                      if ( data.user_updates[ user_updates_keys ] === null || data.user_updates[ user_updates_keys ] === undefined ) {
+                        delete data.user_updates[ user_updates_keys ];
+                      }
+                    }
+                    $scope.SharedData.addAlumni( data.user_updates );
+                    $rootScope.$state.go( 'home.map.menu' );
+                }
+              } else {
+                alert( "Response code: " + data.responseCode + " - " + data.message );
+              }
+            }).
+            error( function( data, status, headers, config ) {
+              alert( "Error establishing a connection to API: "+ data+" - And status: " + status );
+            });
 
         } else {
           console.log('nothing updated');

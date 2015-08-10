@@ -33,21 +33,21 @@
     </li>
 
     <li ng-show="selectedAlumn.LI_company" class="alumn_company">
-      <a ui-sref="home.map.menu.companies.company({id: selectedAlumn.LI_company.id})">
+      <a ui-sref="home.map.menu.companies.company({id: selectedAlumn.LI_company})">
         <div>
           <!-- Work at: <span>{{selectedAlumn.company.name}}</span><br> -->
-          <span>{{selectedAlumn.LI_company.name}}</span><br>
-          <span ng-show="selectedAlumn.LI_company.size">{{selectedAlumn.LI_company.size}}</span>
+          <span>{{selectedCompany.name}}</span><br>
+          <span ng-show="selectedCompany.size">{{selectedCompany.size}}</span>
           <!-- <span>{{selectedAlumn.company.size}}</span> -->
         </div>
         <!-- <div>{{selectedAlumn.company.alumn}}</div> -->
-        <div ng-click="openlink('{{selectedAlumn.LI_company.www}}')" class="ion-link"></div>
-        <div>{{selectedAlumn.LI_company.alumn}}</div>
+        <div ng-click="openlink('{{selectedCompany.www}}')" class="ion-link"></div>
+        <div>{{selectedCompany.alumni.length}}</div>
         <!-- <div> -->
           <!-- TODO LATER // ADD HERE PICURES OF ALUMN IN COMPANY -->
         <!-- </div> -->
-        <img ng-show="{{selectedAlumn.LI_company.profile_picture}}" src="{{selectedAlumn.LI_company.profile_picture}}"/>
-        <img ng-hide="{{selectedAlumn.LI_company.profile_picture}}" src="img/comp.jpg"/>
+        <img ng-show="{{selectedCompany.logo}}" src="{{selectedCompany.logo}}"/>
+        <img ng-hide="{{selectedCompany.logo}}" src="img/comp.jpg"/>
       </a>
     </li>
 
@@ -76,9 +76,9 @@
       </a>
     </li>
 
-    <li ng-show="selectedAlumn.LI_address" class="alumn_address">
-      <a ng-click="openlink('http://maps.apple.com?q={{selectedAlumn.LI_address}}')">
-        <p>{{selectedAlumn.LI_address}}</p>
+    <li ng-show="selectedAlumn.address" class="alumn_address">
+      <a ng-click="openlink('http://maps.apple.com?q={{selectedAlumn.address}}')">
+        <p>{{selectedAlumn.address}}</p>
         <div class="ion-planet"></div>
       </a>
     </li>
@@ -90,12 +90,13 @@
       </a>
     </li>
 
-    <li ng-show="selectedAlumn.phone" class="alumn_phone">
-      <!-- <a ng-click="openlink('tel:{{selectedAlumn.phone}}')">{{selectedAlumn.phone}}</a> -->
-      <a>{{selectedAlumn.phone}}</a>
-      <div ng-click="openlink('sms:{{selectedAlumn.phone}}')" class="ion-ios-chatbubble"></div>
-      <div ng-click="openlink('tel:{{selectedAlumn.phone}}')" class="ion-ios-telephone"></div>
+    <li ng-show="selectedAlumn.phone_number" class="alumn_phone">
+      <!-- <a ng-click="openlink('tel:{{selectedAlumn.phone_number}}')">{{selectedAlumn.phone_number}}</a> -->
+      <a>{{selectedAlumn.phone_number}}</a>
+      <div ng-click="openlink('sms:{{selectedAlumn.phone_number}}')" class="ion-ios-chatbubble"></div>
+      <div ng-click="openlink('tel:{{selectedAlumn.phone_number}}')" class="ion-ios-telephone"></div>
     </li>
+    <li>{{selectedCompany.alumn}}</li>
 
 <!--   <a ng-click="openlink('http://www.google.com')">GOOGLE.COM</a></br>
   <a ng-click="openlink('mailto:julesmoretti@me.com')">openlink(mailto:julesmoretti@me.com</a></br>

@@ -11,46 +11,54 @@
           <span>{{selectedProfile.LI_location_name}}</span> <span>{{selectedProfile.LI_location_country_code}}</span>
         </div>
       </div>
-      <div ng-show="selectedProfile.cohort">
-      HR<select ng-model="selectedHR" convert-to-number>
-          <option value="??" ng-selected="{{selectedHR == '??' }}" >??</option>
-          <option value="{{cohort}}" ng-selected="{{selectedHR == cohort }}" ng-repeat="cohort in getNumber(number)">{{cohort}}</option>
+      <div>
+      HR<select ng-model="selectedProfile.cohort" ng-change="checkForChanges()" convert-to-number>
+          <!-- <option value="" ng-selected="{{selectedHR == '' }}" >??</option> -->
+          <option value="{{cohort}}" ng-selected="{{selectedProfile.cohort == cohort }}" ng-repeat="cohort in getNumber(cohort_max_number)">{{cohort}}</option>
         <select/>
       </div>
     </li>
 
     <li class="profile_description">
-      <textarea class="msd-elastic: \n;" ng-model="selectedProfile.LI_description" ng-trim="true"></textarea>
+      <textarea class="msd-elastic: \n;" ng-model="selectedProfile.LI_description" ng-trim="true" ng-change="checkForChanges()"></textarea>
       <ul>
-        <li ng-repeat="skills in selectedProfile.skills">#{{$index + 1}}: <input ng-attr-placeholder="#{{$index + 1}} skill" value="{{skills}}"/></li>
+        <!-- <li ng-repeat="skills in selectedProfile.skills">#{{$index + 1}}: <input ng-attr-placeholder="#{{$index + 1}} skill" value="{{skills}}"/></li> -->
+
+        <li>#1: <input placeholder="skill" value="{{selectedProfile.skills[0]}}"/></li>
+        <li>#2: <input placeholder="skill" value="{{selectedProfile.skills[1]}}"/></li>
+        <li>#3: <input placeholder="skill" value="{{selectedProfile.skills[2]}}"/></li>
       </ul>
     </li>
 
     <li class="profile_blog">
       <div class="ion-link"></div>
-      <input type="url" placeholder="http://..." ng-model="selectedProfile.blog"/>
+      <input type="url" placeholder="http://..." ng-model="selectedProfile.blog" ng-change="checkForChanges()"/>
     </li>
 
     <li class="profile_address">
       <div class="ion-planet"></div>
-      <input type="text"  placeholder="123 street ave, city ..." ng-model="selectedProfile.LI_address"/>
+      <input type="text"  placeholder="123 street ave, city ..." ng-model="selectedProfile.address" ng-change="checkForChanges()"/>
     </li>
-    <li>{{selectedProfile.LI_address}}</li>
-    <li>{{selectedOriginal.LI_address}}</li>
 
     <li class="profile_email">
       <div class="ion-email"></div>
-      <input type="email" placeholder="your@email.com" ng-model="selectedProfile.email"/>
+      <input type="email" placeholder="your@email.com" ng-model="selectedProfile.email" ng-change="checkForChanges()"/>
     </li>
 
     <li class="profile_phone">
       <div class="ion-ios-telephone"></div>
-      <input type="tel" placeholder="+1 213465879" ng-model="selectedProfile.phone"/>
+      <input type="tel" placeholder="+1 213465879" ng-model="selectedProfile.phone_number" ng-change="checkForChanges()"/>
     </li>
 
     <li class="profile_update">
-      <div class="button" ng-click="updateProfile()">UPDATE</div>
+      <div ng-hide="profile_changes" class="button profile_update_dissabled">NO CHANGES</div>
+      <div ng-show="profile_changes" class="button" ng-click="updateProfile()">UPDATE</div>
+      <!-- <div ng-show="profile_changes" class="button" ng-click="updateProfile()" ng-class="{profile_update_dissabled: !profile_changes}">UPDATE</div> -->
     </li>
+
+    <!-- <li>STATUS: {{profile_status}}</li> -->
+    <!-- <li>{{profile_changes}}</li> -->
+    <!-- <li>{{selectedProfile}}</li> -->
 
   </ul>
 </div>

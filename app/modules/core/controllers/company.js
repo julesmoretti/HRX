@@ -12,6 +12,10 @@ angular
       $scope.SharedData = SharedData;
       $scope.selectedCompany = SharedData.findCompany( JSON.parse( $stateParams.id ) );
 
+      if ( typeof $scope.selectedCompany.alumni === 'string' ) {
+        $scope.selectedCompany.alumni = JSON.parse( $scope.selectedCompany.alumni );
+      }
+
       $scope.openlink = function ( link ) {
         window.open(link, "_system");
       };

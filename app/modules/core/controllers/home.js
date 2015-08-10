@@ -9,7 +9,6 @@
 angular
     .module('core')
     .controller('HomeController', ['$scope', '$http', '$window', '$localStorage', 'SharedData', '$rootScope', '$state', function( $scope, $http, $window, $localStorage, SharedData, $rootScope, $state ) {
-      $scope.SharedData = SharedData;
 
         angular.element(document).ready(function (){
           console.log('Angular HomeController is ready');
@@ -23,7 +22,11 @@ angular
 
             // REFERENCE POINT TO DATA COLLECTION
             $scope.$storage.addition = 0;
+
           }
+
+          $scope.SharedData = SharedData;
+
 
           $scope.clearLocalStorage = function () {
             $localStorage.$reset();

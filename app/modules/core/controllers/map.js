@@ -11,13 +11,14 @@
 angular
     .module('core')
     .controller('MapController', ['$scope', '$http', '$window', '$localStorage', 'SharedData', '$rootScope', '$state', '$location', 'uiGmapGoogleMapApi', function( $scope, $http, $window, $localStorage, SharedData, $rootScope, $state, $location, uiGmapGoogleMapApi ) {
-      $scope.SharedData = SharedData;
-
-      $scope.SharedData.moveLocationDown = false;
 
       $rootScope.$state = $state;
 
       $scope.infowindowShow = false;
+
+      // TEMP
+      // $scope.$storage.user_id = 1;
+      // $scope.$storage.token = 'IetD5s3CJLAFjWWroRVqJg==';
 
       angular.element(document).ready(function (){
         console.log('Angular MapController is ready');
@@ -36,8 +37,14 @@ angular
             $scope.$storage.geoPositioning = true;
           }
           // console.log("storage", $scope.$storage);
+
         }
 
+        if ( !$scope.SharedData ) {
+          $scope.SharedData = SharedData;
+        }
+
+        $scope.SharedData.moveLocationDown = false;
 
         // alert( 'absUrl' + $location.absUrl()+' --- url' + $location.url() + ' --- search' + JSON.stringify( $location.search() ) );
         // absUrlhttp://localhost:3000/#!/map?access_token=R0OkDz8zAtuhcuxpFsCLOQ --- url/map?access_token=R0OkDz8zAtuhcuxpFsCLOQ --- search[object Object]
@@ -316,7 +323,7 @@ angular
               // 'X-HRX-User-Token' : encodeURIComponent( $scope.$storage.token ),
               'X-HRX-User-Token' : $scope.$storage.token
             },
-            params: { 'latitude': latitude, 'longitude': longitude, 'addition': $scope.$storage.user_status, 'user_id': $scope.$storage.user_id }
+            params: { 'latitude': latitude, 'longitude': longitude, 'addition': $scope.$storage.addition, 'user_id': $scope.$storage.user_id }
           };
 
           $http( req ).
@@ -332,20 +339,33 @@ angular
 
               if ( data.responseCode === 200 ) {
                 // $scope.$storage.iosTokenRegistered = true;
-                alert( "Response code: " + data.responseCode + " - " + JSON.stringify( data ) );
+                // alert( "Response code: " + data.responseCode + " - " + JSON.stringify( data ) );
 
                 if ( data.new_users ) {
                   // alert("There is data.new_users: "+ typeof data.new_users +" - "+ JSON.stringify( data.new_users ) );
-                  for ( var keys in data.new_users ) {
-                    // alert('keys in data.new_users: ' + keys + " and content: " + JSON.stringify( data.new_users[ keys ] ) );
-                    $scope.SharedData.addAlumni( data.new_users[ keys ] );
+                  for ( var new_users_id_keys in data.new_users ) {
+                    for ( var new_users_keys in data.new_users[ new_users_id_keys ] ) {
+                      if ( data.new_users[ new_users_id_keys ][ new_users_keys ] === null || data.new_users[ new_users_id_keys ][ new_users_keys ] === undefined ) {
+                        delete data.new_users[ new_users_id_keys ][ new_users_keys ];
+                      }
+                    }
+                    $scope.SharedData.addAlumni( data.new_users[ new_users_id_keys ] );
                   }
                 }
 
                 if ( data.companies ) {
-                  for ( var keys in data.companies ) {
-                    $scope.SharedData.addCompany( data.companies[ keys ] );
+                  for ( var companies_id_keys in data.companies ) {
+                    for ( var companies_keys in data.companies[ companies_id_keys ] ) {
+                      if ( data.companies[companies_id_keys][ companies_keys ] === null || data.companies[ companies_id_keys ][ companies_keys ] === undefined ) {
+                        delete data.companies[companies_id_keys][ companies_keys ];
+                      }
+                    }
+                    $scope.SharedData.addCompany( data.companies[ companies_id_keys ] );
                   }
+                }
+
+                if ( data.last_id ) {
+                  $scope.$storage.addition = data.last_id;
                 }
 
               } else {
@@ -450,7 +470,7 @@ angular
         // iOS APN CALLBACK HANDLER FROM API NOTIFICATIONS
         window.onNotificationAPN = function ( event ) {
           // alert('event');
-          alert(JSON.stringify( event ) );
+          // alert(JSON.stringify( event ) );
 
           if ( event.state ) {
             $state.go( event.state ); // if state param is passed. App will go to this state
