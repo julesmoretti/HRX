@@ -18,7 +18,7 @@ angular
 
       // TEMP
       // $scope.$storage.user_id = 1;
-      // $scope.$storage.token = 'IetD5s3CJLAFjWWroRVqJg==';
+      // $scope.$storage.token = 'LveAPCxOcX8b0iSKBTEl7Q==';
 
       angular.element(document).ready(function (){
         console.log('Angular MapController is ready');
@@ -345,7 +345,7 @@ angular
                   // alert("There is data.new_users: "+ typeof data.new_users +" - "+ JSON.stringify( data.new_users ) );
                   for ( var new_users_id_keys in data.new_users ) {
                     for ( var new_users_keys in data.new_users[ new_users_id_keys ] ) {
-                      if ( data.new_users[ new_users_id_keys ][ new_users_keys ] === null || data.new_users[ new_users_id_keys ][ new_users_keys ] === undefined ) {
+                      if ( data.new_users[ new_users_id_keys ][ new_users_keys ] === "null" || data.new_users[ new_users_id_keys ][ new_users_keys ] === undefined ) {
                         delete data.new_users[ new_users_id_keys ][ new_users_keys ];
                       }
                     }
@@ -356,7 +356,7 @@ angular
                 if ( data.companies ) {
                   for ( var companies_id_keys in data.companies ) {
                     for ( var companies_keys in data.companies[ companies_id_keys ] ) {
-                      if ( data.companies[companies_id_keys][ companies_keys ] === null || data.companies[ companies_id_keys ][ companies_keys ] === undefined ) {
+                      if ( data.companies[companies_id_keys][ companies_keys ] === "null" || data.companies[ companies_id_keys ][ companies_keys ] === undefined ) {
                         delete data.companies[companies_id_keys][ companies_keys ];
                       }
                     }

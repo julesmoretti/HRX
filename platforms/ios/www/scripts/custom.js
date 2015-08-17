@@ -105,6 +105,16 @@ angular
                     }
                   })
 
+                      .state('home.map.skills', {
+                        url: '/skills',
+                        views: {
+                          'skills@home.map': {
+                            templateUrl: 'modules/core/views/skills.html',
+                            controller: 'SkillsController'
+                          }
+                        }
+                      })
+
                       .state('home.map.filter', {
                         url: '/filter',
                         views: {
@@ -165,7 +175,8 @@ angular
                                         controller: 'AlumnController'
                                       },
                                       'menuFooter@home.map.menu': {
-                                        template: '<div class="menuFooter"><div class="back-button ion-chevron-left" ui-sref="home.map.menu.alumni"></div></div>'
+                                        template: '<div class="menuFooter"><div class="back-button ion-chevron-left" ui-sref="home.map.menu.alumni"></div><div class="main-title"></div><div ng-if="currentID === $storage.user_id" class="settings-button ion-edit" ui-sref="home.map.menu.profile"></div></div>',
+                                        controller: 'AlumnController'
                                       }
                                   }
                               })
@@ -381,16 +392,17 @@ angular
 
 angular
     .module('core')
-    .controller('AlumnController', ['$scope', '$stateParams', 'SharedData', function($scope, $stateParams, SharedData) {
+    .controller('AlumnController', ['$localStorage', '$scope', '$stateParams', 'SharedData', function($localStorage, $scope, $stateParams, SharedData) {
       $scope.SharedData = SharedData;
+      $scope.currentID = JSON.parse( $stateParams.id );
       $scope.selectedAlumn = SharedData.findAlumn( JSON.parse( $stateParams.id ) );
+
+      if ( !$scope.$storage ) {
+        $scope.$storage = $localStorage;
+      }
 
       if ( $scope.selectedAlumn.LI_company ) {
         $scope.selectedCompany = SharedData.findCompany( JSON.parse( $scope.selectedAlumn.LI_company ) );
-
-        if ( typeof $scope.selectedCompany.alumni === 'string' ) {
-          $scope.selectedCompany.alumni = JSON.parse( $scope.selectedCompany.alumni );
-        }
       }
 
       $scope.openlink = function ( link ) {
@@ -438,8 +450,9 @@ angular
 angular
     .module('core')
     .controller('FilterController', ['$scope', 'SharedData', function($scope, SharedData) {
-      $scope.SharedData = SharedData;
-      $scope.aboutVariable = 'Jules Moretti - About';
+      if ( !$scope.SharedData ) {
+        $scope.SharedData = SharedData;
+      }
 
       $scope.filterInput = '';
 
@@ -563,9 +576,14 @@ angular
           success( function( data, status, headers, config ) {
 
             if ( data.responseCode === 200 ) {
+
               $scope.$storage.LI_Token_Registered = true;
               $scope.$storage.user_id = data.user_id;
               $scope.$storage.user_status = data.user_status;
+
+              if ( data.first_time ) {
+                $state.go( 'home.map.skills' );
+              }
             } else {
               alert( "Response code: " + data.responseCode + " - " + data.message );
             }
@@ -924,7 +942,7 @@ angular
                 if ( data.new_users ) {
                   for ( var new_users_id_keys in data.new_users ) {
                     for ( var new_users_keys in data.new_users[ new_users_id_keys ] ) {
-                      if ( data.new_users[ new_users_id_keys ][ new_users_keys ] === null || data.new_users[ new_users_id_keys ][ new_users_keys ] === undefined ) {
+                      if ( data.new_users[ new_users_id_keys ][ new_users_keys ] === "null" || data.new_users[ new_users_id_keys ][ new_users_keys ] === undefined ) {
                         delete data.new_users[ new_users_id_keys ][ new_users_keys ];
                       }
                     }
@@ -935,7 +953,7 @@ angular
                 if ( data.companies ) {
                   for ( var companies_id_keys in data.companies ) {
                     for ( var companies_keys in data.companies[ companies_id_keys ] ) {
-                      if ( data.companies[companies_id_keys][ companies_keys ] === null || data.companies[ companies_id_keys ][ companies_keys ] === undefined ) {
+                      if ( data.companies[companies_id_keys][ companies_keys ] === "null" || data.companies[ companies_id_keys ][ companies_keys ] === undefined ) {
                         delete data.companies[companies_id_keys][ companies_keys ];
                       }
                     }
@@ -1154,10 +1172,12 @@ angular
       $scope.selectedOriginal = JSON.parse( JSON.stringify( SharedData.findAlumn( $scope.$storage.user_id ) ) );
       $scope.selectedProfile = JSON.parse( JSON.stringify( SharedData.findAlumn( $scope.$storage.user_id ) ) );
 
+      console.log( $scope.selectedOriginal );
+
       $scope.selectedHR = $scope.selectedOriginal.cohort;
 
       $scope.checkForChanges = function() {
-        if ( JSON.stringify( $scope.selectedOriginal ) === JSON.stringify( $scope.selectedProfile ) ) {
+        if ( JSON.stringify( $scope.selectedOriginal ) === JSON.stringify( $scope.selectedProfile ) || $scope.selectedProfile.skill_1.length === 0 || $scope.selectedProfile.skill_2.length === 0 || $scope.selectedProfile.skill_3.length === 0 ) {
           $scope.profile_status = 'Nothing to Change';
           $scope.profile_changes = false;
         } else {
@@ -1202,6 +1222,24 @@ angular
           if ( mysql_string.length ) mysql_string = mysql_string + ', ';
           mysql_string = mysql_string + 'LI_description = "' + $scope.selectedProfile.LI_description + '"';
           $scope.profileUpdates.LI_description = $scope.selectedProfile.LI_description;
+        }
+
+        if ( $scope.selectedProfile.skill_1 !== $scope.selectedOriginal.skill_1 ) {
+          if ( mysql_string.length ) mysql_string = mysql_string + ', ';
+          mysql_string = mysql_string + 'skill_1 = "' + $scope.selectedProfile.skill_1 + '"';
+          $scope.profileUpdates.skill_1 = $scope.selectedProfile.skill_1;
+        }
+
+        if ( $scope.selectedProfile.skill_2 !== $scope.selectedOriginal.skill_2 ) {
+          if ( mysql_string.length ) mysql_string = mysql_string + ', ';
+          mysql_string = mysql_string + 'skill_2 = "' + $scope.selectedProfile.skill_2 + '"';
+          $scope.profileUpdates.skill_2 = $scope.selectedProfile.skill_2;
+        }
+
+        if ( $scope.selectedProfile.skill_3 !== $scope.selectedOriginal.skill_3 ) {
+          if ( mysql_string.length ) mysql_string = mysql_string + ', ';
+          mysql_string = mysql_string + 'skill_3 = "' + $scope.selectedProfile.skill_3 + '"';
+          $scope.profileUpdates.skill_3 = $scope.selectedProfile.skill_3;
         }
 
         if ( $scope.selectedProfile.blog !== $scope.selectedOriginal.blog ) {
@@ -1250,7 +1288,7 @@ angular
                       }
                     }
                     $scope.SharedData.addAlumni( data.user_updates );
-                    $rootScope.$state.go( 'home.map.menu' );
+                    $rootScope.$state.go( 'home.map.menu.alumni.alumn', {id: $scope.$storage.user_id } );
                 }
               } else {
                 alert( "Response code: " + data.responseCode + " - " + data.message );
@@ -1347,6 +1385,109 @@ angular
         $localStorage.$reset();
         $state.go( 'home.login' );
       };
+
+    }]);
+
+'use strict';
+
+angular
+    .module('core')
+    .controller('SkillsController', ['$rootScope', '$scope', '$stateParams', 'SharedData', '$state', '$http', function($rootScope, $scope, $stateParams, SharedData, $state, $http) {
+      if ( !$scope.SharedData ) {
+        $scope.SharedData = SharedData;
+      }
+
+      if ( !$rootScope.$state ) {
+        $rootScope.$state = $state;
+      }
+
+      $scope.selectedOriginal = JSON.parse( JSON.stringify( SharedData.findAlumn( $scope.$storage.user_id ) ) );
+      $scope.selectedProfile = JSON.parse( JSON.stringify( SharedData.findAlumn( $scope.$storage.user_id ) ) );
+
+      $scope.skillsArray = ["","",""];
+
+      $scope.selectedHR = $scope.selectedOriginal.cohort;
+
+      $scope.checkForChangesSkills = function() {
+        if ( JSON.stringify( $scope.selectedOriginal ) !== JSON.stringify( $scope.selectedProfile ) && $scope.skillsArray[0] !== "" && $scope.skillsArray[1] !== "" && $scope.skillsArray[2] !== "" ) {
+          $scope.skills_status = 'New Changes';
+          $scope.skills_changes = true;
+        } else {
+          $scope.skills_status = 'Nothing to Change';
+          $scope.skills_changes = false;
+        }
+      };
+      $scope.checkForChangesSkills();
+
+      $scope.cohort_max_number = 250;
+      $scope.getNumber = function( num ) {
+
+        var array = [];
+
+        for ( var i = 0; i < num; i++) {
+          array[i] = i+1;
+        }
+
+        return array;
+      }
+
+      $scope.updateSkills = function () {
+        console.log('updateSkills');
+        $scope.profileUpdates = {};
+
+        var mysql_string = "";
+
+        $scope.profileUpdates.id = $scope.$storage.user_id;
+
+        if ( $scope.selectedProfile.cohort !== $scope.selectedOriginal.cohort ) {
+          if ( mysql_string.length ) mysql_string = mysql_string + ', ';
+          mysql_string = mysql_string + 'cohort = ' + $scope.selectedProfile.cohort;
+          $scope.profileUpdates.cohort = $scope.selectedProfile.cohort;
+        }
+
+        $scope.profileUpdates.skill_1 = $scope.skillsArray[0];
+        $scope.profileUpdates.skill_2 = $scope.skillsArray[1];
+        $scope.profileUpdates.skill_3 = $scope.skillsArray[2];
+        if ( mysql_string.length ) mysql_string = mysql_string + ', ';
+        mysql_string = mysql_string + 'skill_1 = "' + $scope.skillsArray[0] + '", skill_2 = "' + $scope.skillsArray[1] + '", skill_3 = "' + $scope.skillsArray[2] + '"' ;
+
+        if ( Object.keys( $scope.profileUpdates ).length > 1 ) {
+          var req = {
+            method: 'GET',
+            url: 'http://api.hrx.club/updateprofile',
+            headers: {
+              'X-HRX-User-Token' : $scope.$storage.token
+            },
+            params: { 'user_id': $scope.$storage.user_id, 'user_mysql_updates': mysql_string, 'user_updates': JSON.stringify( $scope.profileUpdates ) }
+          };
+
+          $http( req ).
+            success( function( data, status, headers, config ) {
+
+              if ( data.responseCode === 200 ) {
+
+                if ( data.user_updates ) {
+                    for ( var user_updates_keys in data.user_updates ) {
+                      if ( data.user_updates[ user_updates_keys ] === null || data.user_updates[ user_updates_keys ] === undefined ) {
+                        delete data.user_updates[ user_updates_keys ];
+                      }
+                    }
+                    $scope.SharedData.addAlumni( data.user_updates );
+                    $rootScope.$state.go( 'home.map' );
+                }
+              } else {
+                alert( "Response code: " + data.responseCode + " - " + data.message );
+              }
+            }).
+            error( function( data, status, headers, config ) {
+              alert( "Error establishing a connection to API: "+ data+" - And status: " + status );
+            });
+
+        } else {
+          console.log('nothing updated');
+        }
+        console.log('called')
+      }
 
     }]);
 

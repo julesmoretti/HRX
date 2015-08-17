@@ -68,6 +68,16 @@ angular
                     }
                   })
 
+                      .state('home.map.skills', {
+                        url: '/skills',
+                        views: {
+                          'skills@home.map': {
+                            templateUrl: 'modules/core/views/skills.html',
+                            controller: 'SkillsController'
+                          }
+                        }
+                      })
+
                       .state('home.map.filter', {
                         url: '/filter',
                         views: {
@@ -137,8 +147,8 @@ angular
                                         controller: 'AlumnController'
                                       },
                                       'menuFooter@home.map.menu': {
-                                        template: '<div class="menuFooter"><div class="back-button ion-chevron-left" ui-sref="home.map.menu.alumni"></div></div>'
-                                        // controller: 'AlumnController'
+                                        template: '<div class="menuFooter"><div class="back-button ion-chevron-left" ui-sref="home.map.menu.alumni"></div><div class="main-title"></div><div ng-if="currentID === $storage.user_id" class="settings-button ion-edit" ui-sref="home.map.menu.profile"></div></div>',
+                                        controller: 'AlumnController'
                                       }
                                   }
                               })

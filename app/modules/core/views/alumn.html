@@ -12,7 +12,8 @@
 
   <ul>
     <li ng-show="selectedAlumn.full_name" class='alumn_profile'>
-      <img src="{{selectedAlumn.GH_profile_picture}}">
+      <img ng-show="{{ selectedAlumn.GH_profile_picture !== undefined }}" ng-attr-src="{{selectedAlumn.GH_profile_picture}}"/>
+      <img ng-hide="{{selectedAlumn.GH_profile_picture !== undefined}}" src="img/profile.jpg">
       <div>
         <span>{{selectedAlumn.full_name}}</span></br>
         <span>{{selectedAlumn.LI_positions}}</span></br>
@@ -27,7 +28,9 @@
     <li ng-show="selectedAlumn.LI_description || selectedAlumn.skills" class="alumn_description" ng-init="alumn_decription_show = false">
       <span class="alumn_description_text" ng-class="{alumn_description_text_all: alumn_decription_show}" ng-click="alumn_decription_show = !alumn_decription_show">{{selectedAlumn.LI_description}}</span>
       <ul>
-        <li ng-repeat="skills in selectedAlumn.skills">{{skills}}</li>
+        <li>{{selectedAlumn.skill_1}}</li>
+        <li>{{selectedAlumn.skill_2}}</li>
+        <li>{{selectedAlumn.skill_3}}</li>
       </ul>
       <!-- <span>{{selectedAlumn.skills | toArray}}</span> -->
     </li>

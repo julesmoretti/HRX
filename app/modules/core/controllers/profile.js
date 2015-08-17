@@ -22,7 +22,11 @@ angular
       }
 
       $scope.selectedOriginal = JSON.parse( JSON.stringify( SharedData.findAlumn( $scope.$storage.user_id ) ) );
+      // $scope.selectedOriginal.skills = $scope.selectedOriginal.skills.split(',');
       $scope.selectedProfile = JSON.parse( JSON.stringify( SharedData.findAlumn( $scope.$storage.user_id ) ) );
+      // $scope.selectedProfile.skills = $scope.selectedProfile.skills.split(',');
+
+      console.log( $scope.selectedOriginal );
 
       $scope.selectedHR = $scope.selectedOriginal.cohort;
 
@@ -35,7 +39,9 @@ angular
       // }
 
       $scope.checkForChanges = function() {
-        if ( JSON.stringify( $scope.selectedOriginal ) === JSON.stringify( $scope.selectedProfile ) ) {
+
+        // if ( JSON.stringify( $scope.selectedOriginal ) === JSON.stringify( $scope.selectedProfile ) || skillsArray[0] === "" || skillsArray[1] === "" skillsArray[2] === "" ) {
+        if ( JSON.stringify( $scope.selectedOriginal ) === JSON.stringify( $scope.selectedProfile ) || $scope.selectedProfile.skill_1.length === 0 || $scope.selectedProfile.skill_2.length === 0 || $scope.selectedProfile.skill_3.length === 0 ) {
           $scope.profile_status = 'Nothing to Change';
           $scope.profile_changes = false;
         } else {
@@ -86,7 +92,26 @@ angular
           $scope.profileUpdates.LI_description = $scope.selectedProfile.LI_description;
         }
 
-        // `skills` VARCHAR(255),  -- TODO
+        if ( $scope.selectedProfile.skill_1 !== $scope.selectedOriginal.skill_1 ) {
+          // `skill_1` VARCHAR(2048),
+          if ( mysql_string.length ) mysql_string = mysql_string + ', ';
+          mysql_string = mysql_string + 'skill_1 = "' + $scope.selectedProfile.skill_1 + '"';
+          $scope.profileUpdates.skill_1 = $scope.selectedProfile.skill_1;
+        }
+
+        if ( $scope.selectedProfile.skill_2 !== $scope.selectedOriginal.skill_2 ) {
+          // `skill_2` VARCHAR(2048),
+          if ( mysql_string.length ) mysql_string = mysql_string + ', ';
+          mysql_string = mysql_string + 'skill_2 = "' + $scope.selectedProfile.skill_2 + '"';
+          $scope.profileUpdates.skill_2 = $scope.selectedProfile.skill_2;
+        }
+
+        if ( $scope.selectedProfile.skill_3 !== $scope.selectedOriginal.skill_3 ) {
+          // `skill_3` VARCHAR(2048),
+          if ( mysql_string.length ) mysql_string = mysql_string + ', ';
+          mysql_string = mysql_string + 'skill_3 = "' + $scope.selectedProfile.skill_3 + '"';
+          $scope.profileUpdates.skill_3 = $scope.selectedProfile.skill_3;
+        }
 
         if ( $scope.selectedProfile.blog !== $scope.selectedOriginal.blog ) {
           // `blog` VARCHAR(255),
@@ -155,7 +180,8 @@ angular
                       }
                     }
                     $scope.SharedData.addAlumni( data.user_updates );
-                    $rootScope.$state.go( 'home.map.menu' );
+                    // $rootScope.$state.go( 'home.map.menu.alumni.alumn({id: "' + $scope.$storage.user_id + '"})' );
+                    $rootScope.$state.go( 'home.map.menu.alumni.alumn', {id: $scope.$storage.user_id } );
                 }
 
                 // alert( "Response code: " + data.responseCode + " - " + data.message + " - User ID: " + typeof data.user_id + "" + data.user_id );

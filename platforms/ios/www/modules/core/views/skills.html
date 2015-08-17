@@ -1,0 +1,31 @@
+<div class="filter_mask"></div>
+
+<div class="filter">
+  <h3>Welcome to HRX!</h3>
+
+  <p>Through this app, you will be able to see how far the network spread.</p>
+  <p>In order to identify and really showcase your skill-sets, please select your cohort and show off 3 skill:</p>
+
+  <ul>
+    <li>
+      HR<select ng-model="selectedProfile.cohort" ng-change="checkForChangesSkills()" convert-to-number>
+        <!-- <option value="" ng-selected="{{selectedHR == '' }}" >??</option> -->
+        <option value="{{cohort}}" ng-selected="{{selectedProfile.cohort == cohort }}" ng-repeat="cohort in getNumber(cohort_max_number)">{{cohort}}</option>
+      <select/>
+    </li>
+    <li>#1: <input placeholder="skill" ng-model="skillsArray[0]" ng-change="checkForChangesSkills()"/></li>
+    <li>#2: <input placeholder="skill" ng-model="skillsArray[1]" ng-change="checkForChangesSkills()"/></li>
+    <li>#3: <input placeholder="skill" ng-model="skillsArray[2]" ng-change="checkForChangesSkills()"/></li>
+    <!-- <li>{{$storage.user_id}}</li> -->
+    <!-- <li>{{skills_status}}</li> -->
+    <!-- <li>{{skills_changes}}</li> -->
+    <!-- <li>{{skillsArray}}</li> -->
+    <!-- <li>{{mysql_string}}</li> -->
+
+  </ul>
+
+  <div ng-hide="skills_changes" class="button skills_update_dissabled">PLEASE FILL INFO ABOVE</div>
+  <div ng-show="skills_changes" class="button" ng-click="updateSkills()">CONTINUE</div>
+
+</div>
+

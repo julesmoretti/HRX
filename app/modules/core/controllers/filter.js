@@ -9,8 +9,9 @@
 angular
     .module('core')
     .controller('FilterController', ['$scope', 'SharedData', function($scope, SharedData) {
-      $scope.SharedData = SharedData;
-      $scope.aboutVariable = 'Jules Moretti - About';
+      if ( !$scope.SharedData ) {
+        $scope.SharedData = SharedData;
+      }
 
       $scope.filterInput = '';
 
