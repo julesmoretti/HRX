@@ -18,7 +18,7 @@ angular
 
       // TEMP
       // $scope.$storage.user_id = 1;
-      // $scope.$storage.token = 'KklM9P84RSLE21sVRQsFtg==';
+      // $scope.$storage.token = 'OEojg1c3ejF95GOcI8QyDw==';
 
       angular.element(document).ready(function (){
         console.log('Angular MapController is ready');
@@ -380,7 +380,7 @@ angular
               // { responseCode: 401, message: 'APN token - No valid token found... please report this error' }
 
               if ( data.responseCode === 200 ) {
-                console.log(data);
+                // console.log(data);
                 // $scope.$storage.iosTokenRegistered = true;
                 // alert( "Response code: " + data.responseCode + " - " + JSON.stringify( data ) );
 
@@ -517,8 +517,10 @@ angular
 
             // TODO | Need to update BackEnd with Location
 
-            window.setTimeout( function() {
-              $scope.getLocation()
+            $scope.getlocation_timeout = window.setTimeout( function() {
+              $scope.getLocation();
+              window.clearTimeout( $scope.getlocation_timeout );
+              delete $scope.getlocation_timeout;
             }, 60000 ); // calls getLocation every 5 minutes
           }
 

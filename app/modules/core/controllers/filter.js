@@ -15,10 +15,13 @@ angular
 
       $scope.filterInput = '';
 
-      $scope.moveFrameDown = function ( event, value ) {
+      $scope.moveFrameDown = function ( event ) {
         // console.log(value, event);
         event.preventDefault(); event.stopPropagation();
-        window.scrollTo(0,40); // shifts the frame down to align the input window by the keyboard.
+
+        // (0,40) for 5 sliders
+        // (0,84) for 3 sliders
+        window.scrollTo(0,84); // shifts the frame down to align the input window by the keyboard.
         // $scope.moveLocationDown = !$scope.moveLocationDown;
         $scope.SharedData.moveLocationDown = true;
       };

@@ -105,7 +105,14 @@ angular
       };
 
       $scope.signOut = function () {
+
         console.log('signOUT');
+
+        if ( $scope.getlocation_timeout ) {
+          window.clearTimeout( $scope.getlocation_timeout );
+          delete $scope.getlocation_timeout;
+        }
+
         $localStorage.$reset();
         $state.go( 'home.login' );
       };

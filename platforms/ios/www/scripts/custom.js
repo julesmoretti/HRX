@@ -538,9 +538,9 @@ angular
 
       $scope.filterInput = '';
 
-      $scope.moveFrameDown = function ( event, value ) {
+      $scope.moveFrameDown = function ( event ) {
         event.preventDefault(); event.stopPropagation();
-        window.scrollTo(0,40); // shifts the frame down to align the input window by the keyboard.
+        window.scrollTo(0,84); // shifts the frame down to align the input window by the keyboard.
         $scope.SharedData.moveLocationDown = true;
       };
 
@@ -1059,7 +1059,6 @@ angular
             success( function( data, status, headers, config ) {
 
               if ( data.responseCode === 200 ) {
-                console.log(data);
 
                 if ( data.new_users ) {
                   for ( var new_users_id_keys in data.new_users ) {
@@ -1155,8 +1154,10 @@ angular
 
             $scope.$apply();
 
-            window.setTimeout( function() {
-              $scope.getLocation()
+            $scope.getlocation_timeout = window.setTimeout( function() {
+              $scope.getLocation();
+              window.clearTimeout( $scope.getlocation_timeout );
+              delete $scope.getlocation_timeout;
             }, 60000 ); // calls getLocation every 5 minutes
           }
           function onError(error) {
@@ -1505,7 +1506,14 @@ angular
       };
 
       $scope.signOut = function () {
+
         console.log('signOUT');
+
+        if ( $scope.getlocation_timeout ) {
+          window.clearTimeout( $scope.getlocation_timeout );
+          delete $scope.getlocation_timeout;
+        }
+
         $localStorage.$reset();
         $state.go( 'home.login' );
       };
