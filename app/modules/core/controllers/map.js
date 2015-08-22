@@ -18,13 +18,14 @@ angular
 
       // TEMP
       // $scope.$storage.user_id = 1;
-      // $scope.$storage.token = 'LveAPCxOcX8b0iSKBTEl7Q==';
+      // $scope.$storage.token = 'KklM9P84RSLE21sVRQsFtg==';
 
       angular.element(document).ready(function (){
         console.log('Angular MapController is ready');
 
         if ( !$scope.$storage ) {
           $scope.$storage = $localStorage;
+
           // console.log('building MapController localStorage');
           // DEFAULT SETTINGS
           // $scope.$storage.set({'notifications':true});
@@ -36,7 +37,6 @@ angular
           if ( !$scope.$storage.geoPositioning ) {
             $scope.$storage.geoPositioning = true;
           }
-          // console.log("storage", $scope.$storage);
 
         }
 
@@ -45,10 +45,6 @@ angular
         }
 
         $scope.SharedData.moveLocationDown = false;
-
-        // alert( 'absUrl' + $location.absUrl()+' --- url' + $location.url() + ' --- search' + JSON.stringify( $location.search() ) );
-        // absUrlhttp://localhost:3000/#!/map?access_token=R0OkDz8zAtuhcuxpFsCLOQ --- url/map?access_token=R0OkDz8zAtuhcuxpFsCLOQ --- search[object Object]
-        // bsUrlhttp://localhost:3000/#!/map?access_token=R0OkDz8zAtuhcuxpFsCLOQ --- url/map?access_token=R0OkDz8zAtuhcuxpFsCLOQ --- search{"access_token":"R0OkDz8zAtuhcuxpFsCLOQ"}
 
         uiGmapGoogleMapApi.then(function(maps) {
           console.log('google maps ready');
@@ -277,22 +273,65 @@ angular
 
         $scope.openMarkerInfo = function( markerType, id ) {
           // used to be marker
-          console.log('openMarkerInfo', markerType, id );
+          // console.log('openMarkerInfo', markerType, typeof id, id );
           $scope.infoWindow.show = false;
             $scope.$apply();
 
           if ( markerType && id ) {
-            for ( var i = 0; i < $scope[ markerType ].length; i++ ) {
-              if ( $scope[ markerType ][ i ].id === id ) {
+            for ( var i = 0; i < $rootScope.$storage[ markerType ].length; i++ ) {
+              if ( $rootScope.$storage[ markerType ][ i ].id === id ) {
                 // console.log('openMarkerInfo through', JSON.stringify( $scope[ markerType ][ i ] ) );
                 // console.log('openMarkerInfo through', $scope[ markerType ][ i ].latLng.latitude, $scope[ markerType ][ i ].latLng.longitude );
 
-                var foundLat = $scope[ markerType ][ i ].latLng.latitude;
-                var foundLng = $scope[ markerType ][ i ].latLng.longitude;
+                var foundLat = $rootScope.$storage[ markerType ][ i ].latitude;
+                var foundLng = $rootScope.$storage[ markerType ][ i ].longitude;
 
                 $scope.infoWindow.coordinates = { latitude: foundLat, longitude: foundLng };
                 // $scope.infoWindow.id = id;
                 // $scope.infoWindow.group = markerType;
+
+                if ( markerType === 'alumni' ) {
+                  // console.log('alumni');
+
+                  if ( $rootScope.$storage[ markerType ][ i ].logo !== null ) {
+                    $scope.window_image = $rootScope.$storage[ markerType ][ i ].GH_profile_picture;
+                  } else {
+                    $scope.window_image = 'img/profile.jpg';
+                  }
+
+                  $scope.window_title = $rootScope.$storage[ markerType ][ i ].full_name;
+                  $scope.window_sub_title = $rootScope.$storage[ markerType ][ i ].LI_positions;
+                  $scope.window_hyperlink = 'home.map.menu.alumni.alumn({id: '+  id +'})';
+
+                  // console.log( $scope.window_image, $scope.window_title, $scope.window_sub_title, $scope.window_hyperlink );
+
+                } else if ( markerType === 'companies' ) {
+                  // console.log('companies');
+
+                  if ( $rootScope.$storage[ markerType ][ i ].logo !== null ) {
+                    $scope.window_image = $rootScope.$storage[ markerType ][ i ].logo;
+                  } else {
+                    $scope.window_image = 'img/comp.jpg';
+                  }
+
+                  $scope.window_title = $rootScope.$storage[ markerType ][ i ].name;
+                  $scope.window_sub_title = $rootScope.$storage[ markerType ][ i ].size;
+                  $scope.window_hyperlink = 'home.map.menu.companies.company({id: '+  id +'})';
+
+                  // console.log( $scope.window_image, $scope.window_title, $scope.window_sub_title, $scope.window_hyperlink );
+
+                } else if ( markerType === 'HR_chapters' ) {
+                  // console.log('HR_chapters');
+
+                  $scope.window_image = 'img/HRA-logo.svg';
+
+                  $scope.window_title = $rootScope.$storage[ markerType ][ i ].name;
+                  $scope.window_sub_title = $rootScope.$storage[ markerType ][ i ].location;
+                  $scope.window_hyperlink = 'home.map';
+
+                  console.log( $scope.window_image, $scope.window_title, $scope.window_sub_title, $scope.window_hyperlink );
+                }
+
                 $scope.infoWindow.show = true;
 
                 $scope.map = $scope.map;
@@ -313,6 +352,10 @@ angular
           $scope.map = { center: { latitude: $scope.currentLatitude, longitude: $scope.currentLongitude } };
         };
 
+        $scope.centerLocation = function ( latitude, longitude ) {
+          $scope.map = { center: { latitude: latitude, longitude: longitude } };
+        };
+
         $scope.updateLocation = function( latitude, longitude ) {
           console.log('updateLocation');
           var req = {
@@ -328,7 +371,6 @@ angular
 
           $http( req ).
             success( function( data, status, headers, config ) {
-
               // data responses
               // alert( "data: "+ data );
               // { responseCode: 200, message: 'Added device to Database' }
@@ -338,6 +380,7 @@ angular
               // { responseCode: 401, message: 'APN token - No valid token found... please report this error' }
 
               if ( data.responseCode === 200 ) {
+                console.log(data);
                 // $scope.$storage.iosTokenRegistered = true;
                 // alert( "Response code: " + data.responseCode + " - " + JSON.stringify( data ) );
 
@@ -356,11 +399,31 @@ angular
                 if ( data.companies ) {
                   for ( var companies_id_keys in data.companies ) {
                     for ( var companies_keys in data.companies[ companies_id_keys ] ) {
-                      if ( data.companies[companies_id_keys][ companies_keys ] === "null" || data.companies[ companies_id_keys ][ companies_keys ] === undefined ) {
-                        delete data.companies[companies_id_keys][ companies_keys ];
+                      if ( data.companies[ companies_id_keys ][ companies_keys ] === "null" || data.companies[ companies_id_keys ][ companies_keys ] === undefined ) {
+                        delete data.companies[ companies_id_keys ][ companies_keys ];
                       }
                     }
                     $scope.SharedData.addCompany( data.companies[ companies_id_keys ] );
+                  }
+                }
+
+                if ( data.geolocations ) {
+                  for ( var geolocations_id in data.geolocations ) {
+                    $scope.SharedData.addAlumni( data.geolocations[ geolocations_id ] );
+                  }
+                }
+
+                if ( data.hr_chapters ) {
+                  // console.log("found hr_chapters: ", data.hr_chapters );
+                  for ( var hr_chapters_id in data.hr_chapters ) {
+                    for ( var hr_chapters_keys in data.hr_chapters[ hr_chapters_id ] ) {
+                      if ( data.hr_chapters[ hr_chapters_id ][ hr_chapters_keys ] === "null" || data.hr_chapters[ hr_chapters_id ][ hr_chapters_keys ] === undefined ) {
+                        delete data.hr_chapters[ hr_chapters_id ][ hr_chapters_keys ];
+                      }
+                    }
+                    // console.log("hr_chapters clean: ", data.hr_chapters );
+                    $scope.SharedData.addHR_chapter( data.hr_chapters[ hr_chapters_id ] );
+                    // console.log("hr_chapters added: ", data.hr_chapters );
                   }
                 }
 
@@ -415,30 +478,34 @@ angular
             $scope.currentLatitude = position.coords.latitude;
             $scope.currentLongitude = position.coords.longitude;
 
+            // TODO - edit to have callback and send to API current positions
             $scope.checkForUser_id();
 
             // if ( position.coords.accuracy < $scope.positionAccuracyMin ) {
             $scope.positionAccuracyMin = position.coords.accuracy;
 
-            $scope.myMarkers = [];
+            // TODO myMarkers should be locally stored
+            // $scope.myMarkers = [];  // already declared bellow
             $scope.$apply();
 
-            var position = {};
-                position.id = 'self';
-                position.latLng = { latitude: $scope.currentLatitude, longitude: $scope.currentLongitude };
-                position.img = {url: 'img/Pins_People.svg', scaledSize: new google.maps.Size(25, 50)};
+            // var position = {};
+                // position.id = 'self';
+                // position.latLng = { latitude: $scope.currentLatitude, longitude: $scope.currentLongitude };
+                // position.img = {url: 'img/Pins_People.svg', scaledSize: new google.maps.Size(25, 50)};
 
-            $scope.myMarkers[0] = position;
+            // $scope.myMarkers[0] = position;
 
               if ( $scope.mapFirstLoad ) {
                 $scope.mapLocation = false;
                 $scope.mapFirstLoad = false;
                 $scope.showMyLocation();
 
-                $scope.infoWindow.coordinates = $scope.myMarkers[0].latLng;
-                $scope.infoWindow.show = true;
-                $scope.infoWindow.id = position.id;
-                $scope.infoWindow.group = 'myMarkers';
+                $scope.openMarkerInfo( 'alumni', $scope.$storage.user_id );
+
+                // $scope.infoWindow.coordinates = $scope.myMarkers[0].latLng;
+                // $scope.infoWindow.show = true;
+                // $scope.infoWindow.id = position.id;
+                // $scope.infoWindow.group = 'myMarkers';
               }
 
               window.setTimeout( function() {
@@ -576,7 +643,6 @@ angular
           function errorHandler (error) {
               alert('error = ' + error);
           }
-
         };
 
         $scope.checkState = function ( stateName, stateString ) {
@@ -600,11 +666,11 @@ angular
 
         // var markers = [];
         $scope.myMarkers = [];
-        $scope.hrMarkers = [];
-        $scope.conferencesMarkers = [];
         $scope.alumniMarkers = [];
         $scope.companiesMarkers = [];
-        $scope.eventsMarkers = [];
+        $scope.hrMarkers = [];
+        // $scope.conferencesMarkers = [];
+        // $scope.eventsMarkers = [];
 
         // navigator.vibrate(3000);
       });

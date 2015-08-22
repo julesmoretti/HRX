@@ -8,7 +8,7 @@
 */
 angular
     .module('core')
-    .controller('MenuController', ['$scope', '$state', '$localStorage', 'SharedData', function($scope, $state, $localStorage, SharedData) {
+    .controller('MenuController', ['$rootScope', '$scope', '$state', '$localStorage', 'SharedData', function( $rootScope, $scope, $state, $localStorage, SharedData ) {
 
       console.log('MenuController Ready');
 
@@ -22,5 +22,6 @@ angular
 
       $scope.all_users = $scope.SharedData.listAlumni();
       $scope.all_companies = $scope.SharedData.listCompanies();
+      $scope.all_chapters = $scope.SharedData.listHR_chapters();
 
     }]);

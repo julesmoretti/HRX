@@ -19,15 +19,7 @@
   <div class="checkbox checkbox-slider--c checkbox-slider-info">
     <label>
       <input ng-model="filters.hrLounge" type="checkbox" ng-click="closeInfoWindow()">
-      <span ng-class="{filterSelected: filters.hrLounge }">HR Lounge</span>
-    </label>
-  </div>
-
-  <!-- CONFERENCES CHECKBOX -->
-  <div class="checkbox checkbox-slider--c checkbox-slider-info">
-    <label>
-      <input ng-model="filters.conferences" type="checkbox" ng-click="closeInfoWindow()">
-      <span ng-class="{filterSelected: filters.conferences }">Conferences</span>
+      <span ng-class="{filterSelected: filters.hrLounge }">Hack Reactor Chapter's</span>
     </label>
   </div>
 
@@ -48,12 +40,20 @@
   </div>
 
   <!-- EVENTS CHECKBOX -->
-  <div class="checkbox checkbox-slider--c checkbox-slider-info">
+<!--   <div class="checkbox checkbox-slider--c checkbox-slider-info">
     <label>
       <input ng-model="filters.events" type="checkbox" ng-click="closeInfoWindow()">
       <span ng-class="{filterSelected: filters.events }">Events</span>
     </label>
-  </div>
+  </div> -->
+
+  <!-- CONFERENCES CHECKBOX -->
+<!--   <div class="checkbox checkbox-slider--c checkbox-slider-info">
+    <label>
+      <input ng-model="filters.conferences" type="checkbox" ng-click="closeInfoWindow()">
+      <span ng-class="{filterSelected: filters.conferences }">Conferences</span>
+    </label>
+  </div> -->
 
   <!-- CLOSE FILTER BUTTON -->
   <div class="closeFilter ion-android-close" ui-sref="home.map"></div>

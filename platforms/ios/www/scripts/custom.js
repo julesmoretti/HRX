@@ -238,6 +238,10 @@ angular
         $rootScope.$storage.companies = [];
       }
 
+      if( !$rootScope.$storage.HR_chapters ) {
+        $rootScope.$storage.HR_chapters = [];
+      }
+
       return {
 
         listAlumni: function() {
@@ -266,6 +270,21 @@ angular
           return $rootScope.$storage.companies;
         },
 
+        listHR_chapters: function() {
+
+          if ( !$rootScope.$storage ) {
+            $rootScope.$storage = $localStorage;
+          }
+
+          if( !$rootScope.$storage.HR_chapters ) {
+            $rootScope.$storage.HR_chapters = [];
+          }
+
+          return $rootScope.$storage.HR_chapters;
+        },
+
+
+
         findAlumn: function( id ) {
 
           if ( !$rootScope.$storage ) {
@@ -278,7 +297,7 @@ angular
 
           if ( id === undefined ) return false;
 
-            for (var i = 0; i < $rootScope.$storage.alumni.length; i++) {
+            for ( var i = 0; i < $rootScope.$storage.alumni.length; i++ ) {
               if ( $rootScope.$storage.alumni[i].id === id ) {
                 return $rootScope.$storage.alumni[i];
               }
@@ -298,13 +317,35 @@ angular
 
           if ( id === undefined ) return false;
 
-          for (var i = 0; i < $rootScope.$storage.companies.length; i++) {
+          for ( var i = 0; i < $rootScope.$storage.companies.length; i++ ) {
             if ( $rootScope.$storage.companies[i].id === id ) {
               return $rootScope.$storage.companies[i];
             }
           };
           return false;
         },
+
+        findHR_chapter: function( id ) {
+
+          if ( !$rootScope.$storage ) {
+            $rootScope.$storage = $localStorage;
+          }
+
+          if( !$rootScope.$storage.HR_chapters ) {
+            $rootScope.$storage.HR_chapters = [];
+          }
+
+          if ( id === undefined ) return false;
+
+          for ( var i = 0; i < $rootScope.$storage.HR_chapters.length; i++ ) {
+            if ( $rootScope.$storage.HR_chapters[i].id === id ) {
+              return $rootScope.$storage.HR_chapters[i];
+            }
+          };
+          return false;
+        },
+
+
 
         addAlumni: function( alumni_object ) {
 
@@ -318,12 +359,13 @@ angular
 
           var current_alumni = this.findAlumn( alumni_object.id );
 
+          alumni_object.marker_img = { url: 'img/Pins_People.svg', scaledSize: new google.maps.Size(25, 50) };
+
           if ( current_alumni ) {
             this.updateAlumni( alumni_object );
           } else {
             $rootScope.$storage.alumni.push( alumni_object );
           }
-
         },
 
         addCompany: function( company_object ) {
@@ -338,10 +380,33 @@ angular
 
           var company = this.findCompany( company_object.id );
 
+          company_object.marker_img = { url: 'img/Pins_Company.svg', scaledSize: new google.maps.Size(25, 50) };
+
           if ( company ) {
             this.updateCompany( company_object );
           } else {
             $rootScope.$storage.companies.push( company_object );
+          }
+        },
+
+        addHR_chapter: function( chapter_object ) {
+
+          if ( !$rootScope.$storage ) {
+            $rootScope.$storage = $localStorage;
+          }
+
+          if( !$rootScope.$storage.HR_chapters ) {
+            $rootScope.$storage.HR_chapters = [];
+          }
+
+          var chapter = this.findHR_chapter( chapter_object.id );
+
+          chapter_object.marker_img = { url: 'img/Pins_HRLounge.svg', scaledSize: new google.maps.Size(25, 50) };
+
+          if ( chapter ) {
+            this.updateHR_chapter( chapter_object );
+          } else {
+            $rootScope.$storage.HR_chapters.push( chapter_object );
           }
         },
 
@@ -362,7 +427,6 @@ angular
           }
 
           return current_alumni;
-
         },
 
         updateCompany: function( company_object ) {
@@ -382,7 +446,25 @@ angular
           }
 
           return current_company;
+        },
 
+        updateHR_chapter: function( chapter_object ) {
+
+          if ( !$rootScope.$storage ) {
+            $rootScope.$storage = $localStorage;
+          }
+
+          if( !$rootScope.$storage.HR_chapters ) {
+            $rootScope.$storage.HR_chapters = [];
+          }
+
+          var current_chapter = this.findHR_chapter( chapter_object.id );
+
+          for ( var keys in chapter_object ) {
+            current_chapter[ keys ] = chapter_object[ keys ];
+          }
+
+          return current_chapter;
         }
 
       };
@@ -898,18 +980,53 @@ angular
         }
 
         $scope.openMarkerInfo = function( markerType, id ) {
-          console.log('openMarkerInfo', markerType, id );
           $scope.infoWindow.show = false;
             $scope.$apply();
 
           if ( markerType && id ) {
-            for ( var i = 0; i < $scope[ markerType ].length; i++ ) {
-              if ( $scope[ markerType ][ i ].id === id ) {
+            for ( var i = 0; i < $rootScope.$storage[ markerType ].length; i++ ) {
+              if ( $rootScope.$storage[ markerType ][ i ].id === id ) {
 
-                var foundLat = $scope[ markerType ][ i ].latLng.latitude;
-                var foundLng = $scope[ markerType ][ i ].latLng.longitude;
+                var foundLat = $rootScope.$storage[ markerType ][ i ].latitude;
+                var foundLng = $rootScope.$storage[ markerType ][ i ].longitude;
 
                 $scope.infoWindow.coordinates = { latitude: foundLat, longitude: foundLng };
+
+                if ( markerType === 'alumni' ) {
+
+                  if ( $rootScope.$storage[ markerType ][ i ].logo !== null ) {
+                    $scope.window_image = $rootScope.$storage[ markerType ][ i ].GH_profile_picture;
+                  } else {
+                    $scope.window_image = 'img/profile.jpg';
+                  }
+
+                  $scope.window_title = $rootScope.$storage[ markerType ][ i ].full_name;
+                  $scope.window_sub_title = $rootScope.$storage[ markerType ][ i ].LI_positions;
+                  $scope.window_hyperlink = 'home.map.menu.alumni.alumn({id: '+  id +'})';
+
+                } else if ( markerType === 'companies' ) {
+
+                  if ( $rootScope.$storage[ markerType ][ i ].logo !== null ) {
+                    $scope.window_image = $rootScope.$storage[ markerType ][ i ].logo;
+                  } else {
+                    $scope.window_image = 'img/comp.jpg';
+                  }
+
+                  $scope.window_title = $rootScope.$storage[ markerType ][ i ].name;
+                  $scope.window_sub_title = $rootScope.$storage[ markerType ][ i ].size;
+                  $scope.window_hyperlink = 'home.map.menu.companies.company({id: '+  id +'})';
+
+                } else if ( markerType === 'HR_chapters' ) {
+
+                  $scope.window_image = 'img/HRA-logo.svg';
+
+                  $scope.window_title = $rootScope.$storage[ markerType ][ i ].name;
+                  $scope.window_sub_title = $rootScope.$storage[ markerType ][ i ].location;
+                  $scope.window_hyperlink = 'home.map';
+
+                  console.log( $scope.window_image, $scope.window_title, $scope.window_sub_title, $scope.window_hyperlink );
+                }
+
                 $scope.infoWindow.show = true;
 
                 $scope.map = $scope.map;
@@ -921,6 +1038,10 @@ angular
 
         $scope.showMyLocation = function () {
           $scope.map = { center: { latitude: $scope.currentLatitude, longitude: $scope.currentLongitude } };
+        };
+
+        $scope.centerLocation = function ( latitude, longitude ) {
+          $scope.map = { center: { latitude: latitude, longitude: longitude } };
         };
 
         $scope.updateLocation = function( latitude, longitude ) {
@@ -938,6 +1059,7 @@ angular
             success( function( data, status, headers, config ) {
 
               if ( data.responseCode === 200 ) {
+                console.log(data);
 
                 if ( data.new_users ) {
                   for ( var new_users_id_keys in data.new_users ) {
@@ -953,11 +1075,28 @@ angular
                 if ( data.companies ) {
                   for ( var companies_id_keys in data.companies ) {
                     for ( var companies_keys in data.companies[ companies_id_keys ] ) {
-                      if ( data.companies[companies_id_keys][ companies_keys ] === "null" || data.companies[ companies_id_keys ][ companies_keys ] === undefined ) {
-                        delete data.companies[companies_id_keys][ companies_keys ];
+                      if ( data.companies[ companies_id_keys ][ companies_keys ] === "null" || data.companies[ companies_id_keys ][ companies_keys ] === undefined ) {
+                        delete data.companies[ companies_id_keys ][ companies_keys ];
                       }
                     }
                     $scope.SharedData.addCompany( data.companies[ companies_id_keys ] );
+                  }
+                }
+
+                if ( data.geolocations ) {
+                  for ( var geolocations_id in data.geolocations ) {
+                    $scope.SharedData.addAlumni( data.geolocations[ geolocations_id ] );
+                  }
+                }
+
+                if ( data.hr_chapters ) {
+                  for ( var hr_chapters_id in data.hr_chapters ) {
+                    for ( var hr_chapters_keys in data.hr_chapters[ hr_chapters_id ] ) {
+                      if ( data.hr_chapters[ hr_chapters_id ][ hr_chapters_keys ] === "null" || data.hr_chapters[ hr_chapters_id ][ hr_chapters_keys ] === undefined ) {
+                        delete data.hr_chapters[ hr_chapters_id ][ hr_chapters_keys ];
+                      }
+                    }
+                    $scope.SharedData.addHR_chapter( data.hr_chapters[ hr_chapters_id ] );
                   }
                 }
 
@@ -997,29 +1136,16 @@ angular
           function onSuccess( position ) {
             $scope.currentLatitude = position.coords.latitude;
             $scope.currentLongitude = position.coords.longitude;
-
             $scope.checkForUser_id();
             $scope.positionAccuracyMin = position.coords.accuracy;
-
-            $scope.myMarkers = [];
             $scope.$apply();
-
-            var position = {};
-                position.id = 'self';
-                position.latLng = { latitude: $scope.currentLatitude, longitude: $scope.currentLongitude };
-                position.img = {url: 'img/Pins_People.svg', scaledSize: new google.maps.Size(25, 50)};
-
-            $scope.myMarkers[0] = position;
 
               if ( $scope.mapFirstLoad ) {
                 $scope.mapLocation = false;
                 $scope.mapFirstLoad = false;
                 $scope.showMyLocation();
 
-                $scope.infoWindow.coordinates = $scope.myMarkers[0].latLng;
-                $scope.infoWindow.show = true;
-                $scope.infoWindow.id = position.id;
-                $scope.infoWindow.group = 'myMarkers';
+                $scope.openMarkerInfo( 'alumni', $scope.$storage.user_id );
               }
 
               window.setTimeout( function() {
@@ -1100,7 +1226,6 @@ angular
           function errorHandler (error) {
               alert('error = ' + error);
           }
-
         };
 
         $scope.checkState = function ( stateName, stateString ) {
@@ -1122,11 +1247,9 @@ angular
           events : true
         };
         $scope.myMarkers = [];
-        $scope.hrMarkers = [];
-        $scope.conferencesMarkers = [];
         $scope.alumniMarkers = [];
         $scope.companiesMarkers = [];
-        $scope.eventsMarkers = [];
+        $scope.hrMarkers = [];
       });
 
     }]);
@@ -1135,7 +1258,7 @@ angular
 
 angular
     .module('core')
-    .controller('MenuController', ['$scope', '$state', '$localStorage', 'SharedData', function($scope, $state, $localStorage, SharedData) {
+    .controller('MenuController', ['$rootScope', '$scope', '$state', '$localStorage', 'SharedData', function( $rootScope, $scope, $state, $localStorage, SharedData ) {
 
       console.log('MenuController Ready');
 
@@ -1149,6 +1272,7 @@ angular
 
       $scope.all_users = $scope.SharedData.listAlumni();
       $scope.all_companies = $scope.SharedData.listCompanies();
+      $scope.all_chapters = $scope.SharedData.listHR_chapters();
 
     }]);
 
