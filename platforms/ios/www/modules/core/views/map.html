@@ -1,12 +1,4 @@
 
-<!-- <div id="geolocation">Geolocation Data</div><br> -->
-<!-- localstorage - {{$storage}} -->
-
-<!-- <div ng-click="clearLocalStorage()">clear cache</div> -->
-
-<!-- <a ui-sref="home" >home</a> -->
-<!-- <div id="geolocation">GEOLOCATION</div> -->
-
 <!-- MENU TOGGLE MASK OVER MAP -->
 <div ng-show="checkState( $state.current.name, 'home.map.menu' )" ui-sref="home.map" class="mapForegroundMask"></div>
 
@@ -14,7 +6,7 @@
 <div class="mapBackgroundMask"></div>
 
 <div ng-class="{{$state.current.name}}"></div>
-<!-- <div class="middle" ng-class="{blur: checkState( $state.current.name, 'home.map.menu' )}"> -->
+
 <div class="middle">
   <ui-gmap-google-map options='mapOptions' center='map.center' zoom='map.zoom' bounds='map.bounds'>
 

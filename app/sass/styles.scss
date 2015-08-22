@@ -306,7 +306,8 @@ body {
   &.moveCurrentLocationDown {
     /*-webkit-transition: all linear 0s !important;*/
     /*transition: all linear 0s !important;*/
-    top: 52px;
+    /* top: 52px; for 5 items */
+    top: 94px; /* for 3 items */
   }
 
   &.mapLocation {
