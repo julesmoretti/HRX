@@ -436,9 +436,16 @@ body {
 }
 
 #skills .filter ul li select {
+  /*-webkit-appearance: none;*/
+  /*-moz-appearance: none;*/
+  /*appearance: none;*/
   width: calc( 100% - 25px);
   background-color: transparent;
   border: 0px;
+}
+
+#skills .filter ul li select option[label="...pick your cohort here..."] {
+  color: red !important;
 }
 
 #skills .filter ul li input {
@@ -885,6 +892,14 @@ body {
 }
 
 #alumn .alumn ul li.alumn_profile div span:nth-of-type(2) {
+  padding-left: 20px;
+  line-height: 20px;
+  color: #aaa;
+  font-size: 22px;
+  float: right;
+}
+
+#alumn .alumn ul li.alumn_profile div span:nth-of-type(3) {
   line-height: 14px;
   padding-left: 10px;
   text-transform: lowercase;
@@ -940,7 +955,7 @@ body {
   /*position: relative;*/
 }
 
-#alumn .alumn ul li.alumn_description span.alumn_description_text {
+#alumn .alumn ul li.alumn_description p.alumn_description_text {
   line-height: 12px;
   padding-left: 0px;
   text-transform: initial;
@@ -953,21 +968,32 @@ body {
   overflow: hidden;
 }
 
-#alumn .alumn ul li.alumn_description span.alumn_description_text.alumn_description_text_all {
+#alumn .alumn ul li.alumn_description p.alumn_description_text.alumn_description_text_all {
   -webkit-line-clamp: 50000;
 }
 
-#alumn .alumn ul li.alumn_description ul {
+#alumn .alumn ul li.alumn_description div {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow-x: auto;
+  overflow-y: hidden;
+  height: inherit;
+}
+
+#alumn .alumn ul li.alumn_description div ul {
   font-size: 11px;
   color: #555;
   line-height: 11px;
   text-transform: initial;
-  margin: 10px 0px;
+  margin: 0px 0px 10px 0px;
   list-style-type: square;
   height: 11px;
+  display: -webkit-inline-box;
+  white-space: nowrap;
+  padding-left: 0px;
 }
 
-#alumn .alumn ul li.alumn_description ul li {
+#alumn .alumn ul li.alumn_description div ul li {
   padding-left: 0px;
   line-height: inherit;
   height: inherit;
@@ -976,7 +1002,7 @@ body {
   margin-left: 24px;
 }
 
-#alumn .alumn ul li.alumn_description ul li:nth-of-type(1) {
+#alumn .alumn ul li.alumn_description div ul li:nth-of-type(1) {
   list-style-type: none;
   margin-left: 0px;
 }
@@ -1436,6 +1462,14 @@ body {
 }
 
 #company .company ul li.company_profile div span:nth-of-type(2) {
+  padding-left: 20px;
+  line-height: 20px;
+  color: #aaa;
+  font-size: 22px;
+  float: right;
+}
+
+#company .company ul li.company_profile div span:nth-of-type(3) {
   line-height: 14px;
   padding-left: 10px;
   text-transform: lowercase;
@@ -1471,16 +1505,16 @@ body {
 
 #company .company ul li.company_profile div:nth-of-type(2) {
   position: absolute;
-  font-size: 20px;
+  font-size: 12px;
   right: -10px;
-  top: 19px;
+  bottom: -1px;
   width: initial;
   height: initial;
   color: #43899E;
   text-align: right;
   background-color: #333;
-  padding: 0px 10px 1px 5px;
-  line-height: 20px;
+  padding: 0px 5px 1px 5px;
+  line-height: 14px;
 }
 
 #company .company ul li.company_alumn {

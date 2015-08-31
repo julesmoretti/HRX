@@ -16,10 +16,6 @@ angular
 
       $scope.infowindowShow = false;
 
-      // TEMP
-      // $scope.$storage.user_id = 1;
-      // $scope.$storage.token = 'OEojg1c3ejF95GOcI8QyDw==';
-
       angular.element(document).ready(function (){
         console.log('Angular MapController is ready');
 
@@ -39,6 +35,10 @@ angular
           }
 
         }
+
+        // TEMP
+        $scope.$storage.user_id = 1;
+        $scope.$storage.token = 'IIamsYXsyZrBqiM6alYfKA==';
 
         if ( !$scope.SharedData ) {
           $scope.SharedData = SharedData;
@@ -323,7 +323,7 @@ angular
                 } else if ( markerType === 'HR_chapters' ) {
                   // console.log('HR_chapters');
 
-                  $scope.window_image = 'img/HRA-logo.svg';
+                  $scope.window_image = 'img/HRA-logo-white.svg';
 
                   $scope.window_title = $rootScope.$storage[ markerType ][ i ].name;
                   $scope.window_sub_title = $rootScope.$storage[ markerType ][ i ].location;
@@ -336,7 +336,6 @@ angular
 
                 $scope.map = $scope.map;
 
-                // console.log( $scope.infoWindow );
                 $scope.$apply();
               }
             }

@@ -5,7 +5,7 @@
       <img ng-show='selectedCompany.logo' ng-attr-src="{{selectedCompany.logo}}">
       <img ng-hide='selectedCompany.logo' src="img/comp.jpg">
       <div>
-        <span>{{selectedCompany.name}}</span></br>
+        <span>{{selectedCompany.name}}</span><span ng-show="selectedCompany.latitude" ng-click="goToMapCompany()" class="ion-android-locate"></span></br>
         <span>{{selectedCompany.size}}</span></br>
 
         <div ng-show="selectedCompany.type">

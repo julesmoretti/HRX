@@ -9,6 +9,7 @@
   <ul>
     <li>
       HR<select ng-model="selectedProfile.cohort" ng-change="checkForChangesSkills()" convert-to-number>
+        <option class="dummy_option" label="...pick your cohort here..." value="" disabled selected><span></span></option>
         <!-- <option value="" ng-selected="{{selectedHR == '' }}" >??</option> -->
         <option value="{{cohort}}" ng-selected="{{selectedProfile.cohort == cohort }}" ng-repeat="cohort in getNumber(cohort_max_number)">{{cohort}}</option>
       <select/>

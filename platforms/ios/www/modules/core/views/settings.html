@@ -1,18 +1,23 @@
 <div class='settings'>
-
+<!-- user_id - {{$storage.user_id}}<br> -->
+<!-- share_geoposition - {{$storage.alumni[0]}}</br> -->
+<!-- users_share_geoposition - {{users_share_geoposition}} -->
+<!-- share_geoposition - {{$storage.alumni[ $storage.user_id ].share_geoposition}}</br> -->
   <!-- GEO POSITIONING -->
   <div class="checkbox checkbox-slider--c checkbox-slider-info">
     <label>
-      <input ng-model="$storage.geoPositioning" type="checkbox" ng-click="geoPositioningSetting()">
-      <span ng-class="{filterSelected: $storage.geoPositioning }">Geo Positioning</span>
+      <input ng-if="users_share_geoposition" checked type="checkbox" ng-click="geoPositioningSetting()">
+      <input ng-if="!users_share_geoposition" type="checkbox" ng-click="geoPositioningSetting()">
+      <!-- <input ng-model="$storage.alumni[ $storage.user_id ].share_geoposition" type="checkbox" ng-click="geoPositioningSetting()"> -->
+      <span ng-class="{filterSelected: users_share_geoposition }">Geo Positioning</span>
     </label>
   </div>
   <!-- NOTIFICATIONS -->
-  <div class="checkbox checkbox-slider--c checkbox-slider-info">
+<!--   <div class="checkbox checkbox-slider--c checkbox-slider-info">
     <label>
       <input ng-checked="$storage.notifications" type="checkbox" ng-click="notificationsSetting()">
       <span ng-class="{filterSelected: $storage.notifications }">Notifications</span>
     </label>
-  </div>
+  </div> -->
   <div class="button" ng-click="signOut()">LOG OUT</div>
 </div>

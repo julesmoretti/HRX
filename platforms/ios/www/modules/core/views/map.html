@@ -1,4 +1,3 @@
-
 <!-- MENU TOGGLE MASK OVER MAP -->
 <div ng-show="checkState( $state.current.name, 'home.map.menu' )" ui-sref="home.map" class="mapForegroundMask"></div>
 
@@ -12,11 +11,8 @@
 
     <ui-gmap-window options='infoWindow.options' coords="infoWindow.coordinates" show="infoWindow.show" closeClick="infoWindow.show = false">
       <div id="bodyContent">
-        <!-- <div id="infoWindowProfile"><img src="img/profile.jpg"/></div> -->
         <div id="infoWindowProfile"><img ng-src="{{window_image}}"/></div>
-        <!-- <div id="infoWindowText" ui-sref="home.map.menu.alumni.alumn({id: 1})"><span>Jules Moretti</span></br> -->
         <div id="infoWindowText" ui-sref="{{window_hyperlink}}"><span>{{window_title}}</span></br>
-        <!-- <span>alumnus</span> -->
         <span>{{window_sub_title}}</span>
         </div>
       </div>
@@ -24,11 +20,8 @@
 
     <!-- MARKERS -->
 
-    <!-- PERSONAL POSITION MARKERS -->
-    <ui-gmap-marker ng-repeat="myMarker in myMarkers" idKey='myMarker.id' coords='myMarker.latLng' icon='myMarker.img' click='openMarkerInfo( "myMarkers", myMarker.id )'></ui-gmap-marker>
-
     <!-- ALUMNI MARKERS -->
-    <ui-gmap-marker ng-if="filters.alumni" ng-repeat="alumnusMarker in $storage.alumni" idKey='alumnusMarker.id' coords='alumnusMarker' icon='alumnusMarker.marker_img' click='openMarkerInfo( "alumni", alumnusMarker.id )'></ui-gmap-marker>
+    <ui-gmap-marker ng-if="alumnusMarker.share_geoposition && filters.alumni" ng-repeat="alumnusMarker in $storage.alumni" idKey='alumnusMarker.id' coords='alumnusMarker' icon='alumnusMarker.marker_img' click='openMarkerInfo( "alumni", alumnusMarker.id )'></ui-gmap-marker>
 
     <!-- COMPANIES MARKERS -->
     <ui-gmap-marker ng-if="filters.companies" ng-repeat="companyMarker in $storage.companies" idKey='companyMarker.id' coords='companyMarker' icon='companyMarker.marker_img' click='openMarkerInfo( "companies", companyMarker.id )'></ui-gmap-marker>

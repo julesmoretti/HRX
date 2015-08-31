@@ -8,7 +8,7 @@
 */
 angular
     .module('core')
-    .controller('SettingsController', ['$scope', '$state', '$localStorage', 'SharedData', '$http', function( $scope, $state, $localStorage, SharedData, $http ) {
+    .controller('SettingsController', ['$scope', '$rootScope', '$state', '$localStorage', 'SharedData', '$http', function( $scope, $rootScope, $state, $localStorage, SharedData, $http ) {
       $scope.SharedData = SharedData;
 
       if ( !$scope.$storage ) {
@@ -16,7 +16,10 @@ angular
         console.log('Building SettingsController localStorage');
       }
 
+      $scope.users_share_geoposition = $scope.SharedData.findAlumn( $scope.$storage.user_id ).share_geoposition;
+
       $scope.geoPositioningSetting = function () {
+
         var req = {
           method: 'GET',
           url: 'http://api.hrx.club/geopositioningsetting',
@@ -24,7 +27,7 @@ angular
             'X-HRX-User-Token' : $scope.$storage.token
           },
           params: {
-            'value': $scope.$storage.geoPositioning
+            'value': !$scope.users_share_geoposition
           }
         };
 
@@ -40,10 +43,13 @@ angular
             // { responseCode: 401, message: 'APN token - No valid token found... please report this error' }
 
             if ( data.responseCode === 200 ) {
+              // console.log("data.value", data.value, $scope.$storage.user_id);
               if ( data.value ) {
-                $scope.$storage.geoPositioning = true;
+                $scope.users_share_geoposition = 1;
+                $scope.SharedData.addAlumni({ id: $scope.$storage.user_id, share_geoposition: 1 });
               } else {
-                $scope.$storage.geoPositioning = false;
+                $scope.users_share_geoposition = 0;
+                $scope.SharedData.addAlumni({ id: $scope.$storage.user_id, share_geoposition: 0 });
               }
               // $scope.$storage.iosTokenRegistered = true;
               // alert( "Response code: " + data.responseCode + " - " + data.message );

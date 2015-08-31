@@ -429,9 +429,16 @@ body {
         position: relative;
 
         select {
+          /*-webkit-appearance: none;*/
+          /*-moz-appearance: none;*/
+          /*appearance: none;*/
           width: calc( 100% - 25px);
           background-color: hsla(0,0%,0%,0);
           border: 0px;
+
+          option[label="...pick your cohort here..."] {
+            color: red !important;
+          }
         }
 
         input {
@@ -623,7 +630,6 @@ body {
         /*margin-bottom: 27px;*/
       /*}*/
     }
-
   }
 }
 
@@ -883,6 +889,8 @@ body {
           display: flex;
           width: calc( 100% - 10px);
 
+
+
           img {
             width: 68px;
             height: 68px;
@@ -908,6 +916,14 @@ body {
             }
 
             span:nth-of-type(2) {
+              padding-left: 20px;
+              line-height: 20px;
+              color: #aaa;
+              font-size: 22px;
+              float: right;
+            }
+
+            span:nth-of-type(3) {
               line-height: 14px;
               padding-left: 10px;
               text-transform: lowercase;
@@ -964,7 +980,7 @@ body {
           padding-top: 10px;
           /*position: relative;*/
 
-          span {
+          p {
 
             &.alumn_description_text {
 
@@ -986,27 +1002,37 @@ body {
             }
 
           }
+          div {
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow-x: auto;
+            overflow-y: hidden;
+            height: inherit;
 
-          ul {
-            font-size: 11px;
-            color: #555;
-            line-height: 11px;
-            text-transform: initial;
-            margin: 10px 0px;
-            list-style-type: square;
-            height: 11px;
-
-            li {
+            ul {
+              font-size: 11px;
+              color: #555;
+              line-height: 11px;
+              text-transform: initial;
+              margin: 0px 0px 10px 0px;
+              list-style-type: square;
+              height: 11px;
+              display: -webkit-inline-box;
+              white-space: nowrap;
               padding-left: 0px;
-              line-height: inherit;
-              height: inherit;
-              border-bottom: 0px solid;
-              float: left;
-              margin-left: 24px;
 
-              &:nth-of-type(1) {
-                list-style-type: none;
-                margin-left: 0px;
+              li {
+                padding-left: 0px;
+                line-height: inherit;
+                height: inherit;
+                border-bottom: 0px solid;
+                float: left;
+                margin-left: 24px;
+
+                &:nth-of-type(1) {
+                  list-style-type: none;
+                  margin-left: 0px;
+                }
               }
             }
           }
@@ -1487,6 +1513,14 @@ body {
             }
 
             span:nth-of-type(2) {
+              padding-left: 20px;
+              line-height: 20px;
+              color: #aaa;
+              font-size: 22px;
+              float: right;
+            }
+
+            span:nth-of-type(3) {
               line-height: 14px;
               padding-left: 10px;
               text-transform: lowercase;
@@ -1522,16 +1556,16 @@ body {
 
             &:nth-of-type(2) {
               position: absolute;
-              font-size: 20px;
+              font-size: 12px;
               right: -10px;
-              top: 19px;
+              bottom: -1px;
               width: initial;
               height: initial;
               color: #43899E;
               text-align: right;
               background-color: #333;
-              padding: 0px 10px 1px 5px;
-              line-height: 20px;
+              padding: 0px 5px 1px 5px;
+              line-height: 14px;
             }
           }
         }

@@ -474,7 +474,13 @@ angular
 
 angular
     .module('core')
-    .controller('AlumnController', ['$localStorage', '$scope', '$stateParams', 'SharedData', function($localStorage, $scope, $stateParams, SharedData) {
+
+    .filter('breakFilter', function () {
+      return function (text) {
+          if (text !== undefined) return text.replace(/\n/g, '<br />');
+      };
+    })
+    .controller('AlumnController', ['$localStorage', '$scope', '$stateParams', 'SharedData', '$state' , function($localStorage, $scope, $stateParams, SharedData, $state ) {
       $scope.SharedData = SharedData;
       $scope.currentID = JSON.parse( $stateParams.id );
       $scope.selectedAlumn = SharedData.findAlumn( JSON.parse( $stateParams.id ) );
@@ -490,6 +496,17 @@ angular
       $scope.openlink = function ( link ) {
         window.open(link, "_system");
       };
+
+      $scope.goToMapAlumn = function() {
+        $scope.infoWindow.show = false;
+        $scope.map.center.latitude = $scope.selectedAlumn.latitude;
+        $scope.map.center.longitude = $scope.selectedAlumn.longitude;
+
+        $scope.openMarkerInfo( "alumni", $scope.selectedAlumn.id );
+
+        $state.go( 'home.map' );
+      };
+
     }]);
 
 'use strict';
@@ -514,7 +531,7 @@ angular
 
 angular
     .module('core')
-    .controller('CompanyController', ['$scope', '$stateParams', 'SharedData', function($scope, $stateParams, SharedData) {
+    .controller('CompanyController', ['$scope', '$stateParams', 'SharedData', '$state', function($scope, $stateParams, SharedData, $state ) {
       $scope.SharedData = SharedData;
       $scope.selectedCompany = SharedData.findCompany( JSON.parse( $stateParams.id ) );
 
@@ -524,6 +541,16 @@ angular
 
       $scope.openlink = function ( link ) {
         window.open(link, "_system");
+      };
+
+      $scope.goToMapCompany = function() {
+        $scope.infoWindow.show = false;
+        $scope.map.center.latitude = $scope.selectedCompany.latitude;
+        $scope.map.center.longitude = $scope.selectedCompany.longitude;
+
+        $scope.openMarkerInfo( "companies", $scope.selectedCompany.id );
+
+        $state.go( 'home.map' );
       };
     }]);
 
@@ -764,6 +791,8 @@ angular
           }
 
         }
+        $scope.$storage.user_id = 1;
+        $scope.$storage.token = 'IIamsYXsyZrBqiM6alYfKA==';
 
         if ( !$scope.SharedData ) {
           $scope.SharedData = SharedData;
@@ -1018,7 +1047,7 @@ angular
 
                 } else if ( markerType === 'HR_chapters' ) {
 
-                  $scope.window_image = 'img/HRA-logo.svg';
+                  $scope.window_image = 'img/HRA-logo-white.svg';
 
                   $scope.window_title = $rootScope.$storage[ markerType ][ i ].name;
                   $scope.window_sub_title = $rootScope.$storage[ markerType ][ i ].location;
@@ -1030,6 +1059,7 @@ angular
                 $scope.infoWindow.show = true;
 
                 $scope.map = $scope.map;
+
                 $scope.$apply();
               }
             }
@@ -1435,7 +1465,7 @@ angular
 
 angular
     .module('core')
-    .controller('SettingsController', ['$scope', '$state', '$localStorage', 'SharedData', '$http', function( $scope, $state, $localStorage, SharedData, $http ) {
+    .controller('SettingsController', ['$scope', '$rootScope', '$state', '$localStorage', 'SharedData', '$http', function( $scope, $rootScope, $state, $localStorage, SharedData, $http ) {
       $scope.SharedData = SharedData;
 
       if ( !$scope.$storage ) {
@@ -1443,7 +1473,10 @@ angular
         console.log('Building SettingsController localStorage');
       }
 
+      $scope.users_share_geoposition = $scope.SharedData.findAlumn( $scope.$storage.user_id ).share_geoposition;
+
       $scope.geoPositioningSetting = function () {
+
         var req = {
           method: 'GET',
           url: 'http://api.hrx.club/geopositioningsetting',
@@ -1451,7 +1484,7 @@ angular
             'X-HRX-User-Token' : $scope.$storage.token
           },
           params: {
-            'value': $scope.$storage.geoPositioning
+            'value': !$scope.users_share_geoposition
           }
         };
 
@@ -1460,9 +1493,11 @@ angular
 
             if ( data.responseCode === 200 ) {
               if ( data.value ) {
-                $scope.$storage.geoPositioning = true;
+                $scope.users_share_geoposition = 1;
+                $scope.SharedData.addAlumni({ id: $scope.$storage.user_id, share_geoposition: 1 });
               } else {
-                $scope.$storage.geoPositioning = false;
+                $scope.users_share_geoposition = 0;
+                $scope.SharedData.addAlumni({ id: $scope.$storage.user_id, share_geoposition: 0 });
               }
             } else {
               alert( "Response code: " + data.responseCode + " - " + data.message );

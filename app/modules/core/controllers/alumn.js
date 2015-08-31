@@ -22,7 +22,13 @@ angular
 
     //   };
     //   })
-    .controller('AlumnController', ['$localStorage', '$scope', '$stateParams', 'SharedData', function($localStorage, $scope, $stateParams, SharedData) {
+
+    .filter('breakFilter', function () {
+      return function (text) {
+          if (text !== undefined) return text.replace(/\n/g, '<br />');
+      };
+    })
+    .controller('AlumnController', ['$localStorage', '$scope', '$stateParams', 'SharedData', '$state' , function($localStorage, $scope, $stateParams, SharedData, $state ) {
       $scope.SharedData = SharedData;
       $scope.currentID = JSON.parse( $stateParams.id );
       $scope.selectedAlumn = SharedData.findAlumn( JSON.parse( $stateParams.id ) );
@@ -38,4 +44,16 @@ angular
       $scope.openlink = function ( link ) {
         window.open(link, "_system");
       };
+
+      $scope.goToMapAlumn = function() {
+        // console.log('goToMap', $scope.selectedAlumn.latitude, $scope.selectedAlumn.longitude, $scope.selectedAlumn );
+        $scope.infoWindow.show = false;
+        $scope.map.center.latitude = $scope.selectedAlumn.latitude;
+        $scope.map.center.longitude = $scope.selectedAlumn.longitude;
+
+        $scope.openMarkerInfo( "alumni", $scope.selectedAlumn.id );
+
+        $state.go( 'home.map' );
+      };
+
     }]);
