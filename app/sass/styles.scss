@@ -889,8 +889,6 @@ body {
           display: flex;
           width: calc( 100% - 10px);
 
-
-
           img {
             width: 68px;
             height: 68px;
@@ -959,16 +957,16 @@ body {
 
             &:nth-of-type(2) {
               position: absolute;
-              font-size: 20px;
+              font-size: 12px;
               right: -10px;
-              top: 19px;
+              bottom: -1px;
               width: initial;
               height: initial;
               color: #43899E;
               text-align: right;
               background-color: #333;
-              padding: 0px 10px 1px 5px;
-              line-height: 20px;
+              padding: 0px 5px 1px 5px;
+              line-height: 14px;
             }
           }
         }

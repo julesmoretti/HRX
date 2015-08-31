@@ -37,8 +37,8 @@ angular
         }
 
         // TEMP
-        $scope.$storage.user_id = 1;
-        $scope.$storage.token = 'IIamsYXsyZrBqiM6alYfKA==';
+        // $scope.$storage.user_id = 1;
+        // $scope.$storage.token = 'IIamsYXsyZrBqiM6alYfKA==';
 
         if ( !$scope.SharedData ) {
           $scope.SharedData = SharedData;
@@ -278,6 +278,8 @@ angular
             $scope.$apply();
 
           if ( markerType && id ) {
+            // console.log('openMarkerInfo', markerType );
+            // console.log('openMarkerInfo', $rootScope.$storage[ markerType ] );
             for ( var i = 0; i < $rootScope.$storage[ markerType ].length; i++ ) {
               if ( $rootScope.$storage[ markerType ][ i ].id === id ) {
                 // console.log('openMarkerInfo through', JSON.stringify( $scope[ markerType ][ i ] ) );

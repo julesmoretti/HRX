@@ -791,8 +791,6 @@ angular
           }
 
         }
-        $scope.$storage.user_id = 1;
-        $scope.$storage.token = 'IIamsYXsyZrBqiM6alYfKA==';
 
         if ( !$scope.SharedData ) {
           $scope.SharedData = SharedData;
