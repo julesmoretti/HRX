@@ -13,8 +13,7 @@ angular
     .controller('MapController', ['$scope', '$http', '$window', '$localStorage', 'SharedData', '$rootScope', '$state', '$location', 'uiGmapGoogleMapApi', function( $scope, $http, $window, $localStorage, SharedData, $rootScope, $state, $location, uiGmapGoogleMapApi ) {
 
       $rootScope.$state = $state;
-
-      $scope.infowindowShow = false;
+      $scope.window_hyperlink = "home.map";
 
       angular.element(document).ready(function (){
         console.log('Angular MapController is ready');
@@ -49,6 +48,8 @@ angular
         uiGmapGoogleMapApi.then(function(maps) {
           console.log('google maps ready');
           $scope.infoWindow = { options: { pixelOffset: new google.maps.Size(0, -50, 'px', 'px') }};
+
+          $scope.infoWindow.show = false;
 
           // map style ref: https://snazzymaps.com
           var styles = [

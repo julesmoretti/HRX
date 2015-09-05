@@ -6,8 +6,8 @@
   <div class="companiesLI">
     <ul>
       <li ui-sref="home.map.menu.companies.company({id: company.id})" ng-repeat="company in companies | filter:searchText | orderBy: 'name'">
-        <img ng-show="{{company.logo}}" ng-attr-src="{{company.logo}}" class="profilePicture"/>
-        <img ng-hide="{{company.logo}}" src="img/comp.jpg" class="profilePicture"/>
+        <img ng-show="company.logo" ng-attr-src="{{company.logo}}" class="profilePicture"/>
+        <img ng-hide="company.logo" src="img/comp.jpg" class="profilePicture"/>
 
         <span>{{company.name}}</span>
         <div class="mainMenuArrow ion-ios-arrow-forward"></div>
